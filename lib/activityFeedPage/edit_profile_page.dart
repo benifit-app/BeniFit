@@ -5,6 +5,7 @@ import 'package:fitapp/main.dart'; //for currentuser
 import 'package:fitapp/pages/profile_page.dart'; //for the user class
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:fitapp/main/create_account.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn _googleSignIn = new GoogleSignIn();
@@ -12,10 +13,18 @@ final GoogleSignIn _googleSignIn = new GoogleSignIn();
 
 Future<Null> signOutWithGoogle() async {
   // Sign out with firebase
-  await _auth.signOut();
+  await auth.signOut();
   // Sign out with google
-  await _googleSignIn.signOut();
-  await _googleSignIn.disconnect();
+  await googleSignIn.signOut();
+  await googleSignIn.disconnect();
+}
+
+goToHome(BuildContext context){
+  Future.delayed(Duration(seconds: 2), (){
+    print(_googleSignIn.currentUser);
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
+  });
 }
 
 class EditProfilePage extends StatelessWidget {
@@ -122,14 +131,17 @@ class EditProfilePage extends StatelessWidget {
               new FlatButton(
                   onPressed: () {
                     signOutWithGoogle();
+                    goToHome(context);
                   },
                   child: new Text(
                     "Log Out",
                     style: const TextStyle(
-                        color: Colors.blue,
+                        color: Colors.white,
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold),
-                  )),
+                  ),
+                color: Colors.grey,
+              ),
             ],
           );
         });

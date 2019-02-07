@@ -6,12 +6,19 @@ import 'package:fitapp/main.dart';
 import 'dart:io';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:fitapp/feed/floating_action_bar.dart';
+import 'package:fitapp/pages/upload_page.dart';
+import 'package:fitapp/feed/upload_text.dart';
+
 
 class Feed extends StatefulWidget {
   _Feed createState() => new _Feed();
 }
 
 class _Feed extends State<Feed> {
+
+  TextEditingController myController = new TextEditingController();
+
   List<ImagePost> feedData;
 
   @override
@@ -22,9 +29,52 @@ class _Feed extends State<Feed> {
 
   buildFeed() {
     if (feedData != null) {
-      return new ListView(
-        padding: EdgeInsets.all(10.0),
-        children: feedData,
+      return new Container(
+        padding: EdgeInsets.only(top: 5.0),
+        child: new Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            new Container(
+              child: new ListTile(
+                leading: new CircleAvatar(
+                  backgroundImage: NetworkImage(currentUserModel.photoUrl),
+                  radius: 30.0,
+                ),
+                title: new TextField(
+                  controller: myController,
+                  maxLines: 2,
+                  scrollPadding: EdgeInsets.all(5.0),
+                  decoration: InputDecoration(
+                      hintText: "Waddup?"
+                  ),
+                ),
+                trailing: IconButton(
+                    icon: Icon(Icons.send), 
+                    onPressed: (){Future.delayed(Duration(seconds: 1), () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => TextUpload(title: myController.text)),
+                      );
+                    });
+                    },
+                ),
+              ),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(20.0))
+              ),
+              height: 80.0,
+              padding: EdgeInsets.only(top: 5.0),
+            ),
+            new Flexible(
+                child: new ListView(
+                  padding: EdgeInsets.all(10.0),
+                  children: feedData,
+                  scrollDirection: Axis.vertical,
+                )
+            )
+          ],
+        )
       );
     } else {
       return new Container(
@@ -37,17 +87,39 @@ class _Feed extends State<Feed> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(
+      resizeToAvoidBottomPadding: false,
+        appBar: new AppBar(
         title: const Text('EFFit',
             style: const TextStyle(
-                fontFamily: "NotoSansYi-Regular", color: Colors.black, fontSize: 35.0)),
+                fontFamily: "Bangers", color: Colors.black, fontSize: 35.0
+            )
+        ),
         centerTitle: true,
         backgroundColor: Colors.white,
       ),
       body: new RefreshIndicator(
         onRefresh: _refresh,
-        child: buildFeed(),
+        child: new Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              // Add one stop for each color. Stops should increase from 0 to 1
+              stops: [0.1, 0.5, 0.7, 0.9],
+              colors: [
+                // Colors are easy thanks to Flutter's Colors class.
+                Colors.teal[100],
+                Colors.purple[200],
+                Colors.teal[500],
+                Colors.teal[600],
+              ],
+            ),
+          ),
+          child: buildFeed()
+        ),
       ),
+//      floatingActionButton: FancyFab(),
+//      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 

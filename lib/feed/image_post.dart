@@ -135,26 +135,69 @@ class _ImagePost extends State<ImagePost> {
         alignment: Alignment.center,
         children: <Widget>[
 //          new FadeInImage.memoryNetwork(placeholder: kTransparentImage, image: mediaUrl),
-          new ClipRRect(
-            borderRadius: BorderRadius.circular(20.0),
+        mediaUrl.toString().startsWith("https://")
+        ?  new ClipRRect(
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(0.0),
+                bottomRight: Radius.circular(0.0)),
             child: new CachedNetworkImage(
               imageUrl: mediaUrl,
               fit: BoxFit.fill,
               placeholder: loadingPlaceHolder,
               errorWidget: new Icon(Icons.error),
             ),
+          ) :
+        new Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              // Add one stop for each color. Stops should increase from 0 to 1
+              stops: [0.1, 0.5, 0.7, 0.9],
+              colors: [
+                // Colors are easy thanks to Flutter's Colors class.
+                Colors.grey[100],
+                Colors.grey[400],
+                Colors.grey[400],
+                Colors.grey[100],
+              ],
+            ),
+          ),
+            width: double.infinity,
+            height: 150.0,
+            padding: EdgeInsets.all(10.0),
+            child: new Column(
+              children: <Widget>[
+                new Expanded(
+                  child: new Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                            mediaUrl,
+                          style: TextStyle(
+                              fontSize: 20.0,
+                              fontFamily: "Bangers",
+                              color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                )
+              ],
+            )
           ),
           showHeart
               ? new Positioned(
                   child: new Opacity(
                       opacity: 0.85,
                       child: new Icon(
-                        FontAwesomeIcons.solidHeart,
+                        Icons.fitness_center,
                         size: 80.0,
                         color: Colors.white,
                       )),
                 )
-              : new Container()
+              : new Container(),
         ],
       ),
     );
@@ -179,10 +222,12 @@ class _ImagePost extends State<ImagePost> {
             username = snapshot.data.data['username'];
           }
           return Container(
-              margin: new EdgeInsets.only(left: 5.0, right: 5.0,bottom: 5.0),
+              //margin: new EdgeInsets.only(bottom: 5.0),
               decoration: new BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                color: Colors.amberAccent,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10.0),
+                    topRight: Radius.circular(10.0)),
+                color: Color.fromRGBO(0,206,209, 5.0),
               ),
             child:  new ListTile(
               leading: new CircleAvatar(
@@ -211,18 +256,24 @@ class _ImagePost extends State<ImagePost> {
   Widget build(BuildContext context) {
     liked = (likes[googleSignIn.currentUser.id.toString()] == true);
 
-    return new Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        buildPostHeader(ownerId: ownerId),
-        buildLikeableImage(),
-        new Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            new Padding(padding: const EdgeInsets.only(left: 20.0, top: 40.0)),
-            buildLikeIcon(),
-            new Padding(padding: const EdgeInsets.only(right: 20.0)),
-            new GestureDetector(
+    return new Container (
+      margin: EdgeInsets.only(top: 20.0),
+      decoration: new BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+        color: Colors.white,
+      ),
+        child: new Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          buildPostHeader(ownerId: ownerId),
+          buildLikeableImage(),
+          new Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              new Padding(padding: const EdgeInsets.only(left: 20.0, top: 40.0)),
+              buildLikeIcon(),
+              new Padding(padding: const EdgeInsets.only(right: 20.0)),
+              new GestureDetector(
                 child: const Icon(
                   FontAwesomeIcons.comment,
                   size: 25.0,
@@ -251,15 +302,17 @@ class _ImagePost extends State<ImagePost> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             new Container(
-                margin: const EdgeInsets.only(left: 20.0, bottom: 10.0),
+                margin: const EdgeInsets.only(left: 20.0, bottom: 20.0),
                 child: new Text(
                   "$username ",
                   style: boldStyle,
-                )),
+                )
+            ),
             new Expanded(child: new Text(description)),
           ],
         )
       ],
+    )
     );
   }
 
