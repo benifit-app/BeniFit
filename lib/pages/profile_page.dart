@@ -257,13 +257,28 @@ class _ProfilePage extends State<ProfilePage> {
       }
 
       return new Container(
-          child: new FutureBuilder<List<ImagePost>>(
+        padding: EdgeInsets.all(10.0),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            // Add one stop for each color. Stops should increase from 0 to 1
+            stops: [0.1, 0.5, 0.7, 0.9],
+            colors: [
+              // Colors are easy thanks to Flutter's Colors class.
+              Colors.teal[100],
+              Colors.purple[200],
+              Colors.teal[500],
+              Colors.teal[600],
+            ],
+          ),       ),
+        child: new FutureBuilder<List<ImagePost>>(
         future: getPosts(),
         builder: (context, snapshot) {
           if (!snapshot.hasData)
             return new Container(
                 alignment: FractionalOffset.center,
-                padding: const EdgeInsets.only(top: 10.0),
+                padding: const EdgeInsets.only(top: 0.0),
                 child: new CircularProgressIndicator());
           else if (view == "grid") {
             // build the grid
@@ -321,45 +336,55 @@ class _ProfilePage extends State<ProfilePage> {
                     padding: const EdgeInsets.all(16.0),
                     child: new Column(
                       children: <Widget>[
-                        new Row(
-                          children: <Widget>[
-                            new CircleAvatar(
-                              radius: 40.0,
-                              backgroundColor: Colors.grey,
-                              backgroundImage: new NetworkImage(user.photoUrl),
-                            ),
-                            new Expanded(
-                              flex: 1,
-                              child: new Column(
-                                children: <Widget>[
-                                  new Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: <Widget>[
-                                      buildStatColumn("posts", postCount),
-                                      buildStatColumn("followers", _countFollowings(user.followers)),
-                                      buildStatColumn("following", _countFollowings(user.following)),
-                                    ],
-                                  ),
-                                  new Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: <Widget>[
-                                        buildProfileFollowButton(user)
-                                      ]),
-                                ],
-                              ),
-                            )
-                          ],
+                        new Container(
+                           child:new Row(
+                                 mainAxisAlignment: MainAxisAlignment.center,
+                                 children: <Widget>[
+                                   new CircleAvatar(
+                                     radius: 70.0,
+                                     backgroundColor: Colors.grey,
+                                     backgroundImage: new NetworkImage(user.photoUrl),
+                                   )
+                                 ],
+                               ),
+                          height: 200.0,
+                          decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(10.0)
+                          ),
                         ),
                         new Container(
-                            alignment: Alignment.centerLeft,
-                            padding: const EdgeInsets.only(top: 15.0),
+                            alignment: Alignment.center,
+                            padding: const EdgeInsets.only(top: 15.0,bottom: 5.0),
                             child: new Text(
                               user.displayName,
-                              style: new TextStyle(fontWeight: FontWeight.bold),
+                              style: new TextStyle(
+                                fontFamily: "Billabong",
+                                  fontSize: 50.0,
+                                  fontWeight: FontWeight.bold
+                              ),
                             )),
+                         new Row(
+                           mainAxisAlignment: MainAxisAlignment.spaceAround,
+                           children: <Widget>[
+//                             new Container(
+//                                 child: buildStatColumn("posts", postCount),
+//                             ),
+                             new Container(
+                                child: buildStatColumn("followers", _countFollowings(user.followers)),
+                             ),
+                             new Container(
+                                child:  buildStatColumn("following", _countFollowings(user.following))
+                             ),
+                           ],
+                         ),
+                         new Row(
+                             mainAxisAlignment:
+                                 MainAxisAlignment.spaceEvenly,
+                             children: <Widget>[
+                               buildProfileFollowButton(user)
+                             ]
+                         ),
                         new Container(
                           alignment: Alignment.centerLeft,
                           padding: const EdgeInsets.only(top: 1.0),

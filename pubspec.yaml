@@ -44,11 +44,14 @@ flutter:
     - family: Billabong
       fonts:
         - asset: assets/fonts/Billabong.ttf
-        - asset: assets/fonts/BUBBLEBO.ttf
-        - asset: assets/fonts/BUBBLEBOY2.ttf
-        - asset: assets/fonts/SUPERFLY.ttf
-        - asset: assets/fonts/monaco.ttf
-        - asset: assets/fonts/NotoSansYi-Regular.ttf
+    - family: Bangers
+      fonts:
+        - asset: assets/fonts/Bangers-Regular.ttf
+    - family: Lobster
+      fonts:
+        - asset: assets/fonts/Lobster-Regular.ttf
+
+
   assets:
     - assets/images/google_signin_button.png
   # To add assets to your application, add an assets section, like this:

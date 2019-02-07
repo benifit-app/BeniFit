@@ -144,6 +144,7 @@ class fitapp extends StatelessWidget {
       title: 'fitapp',
       routes: <String, WidgetBuilder>{
         '/home': (_) => new HomePage(), // Home Page
+        '/feed': (_) => new Feed(), //Feed Page
       },
       theme: new ThemeData(
           // This is the theme of your application.
@@ -188,7 +189,7 @@ class _HomePageState extends State<HomePage> {
                 'EFFit',
                 style: new TextStyle(
                     fontSize: 60.0,
-                    fontFamily: "monaco",
+                    fontFamily: "Bangers",
                     color: Colors.black),
               ),
               new Padding(padding: const EdgeInsets.only(bottom: 100.0)),
