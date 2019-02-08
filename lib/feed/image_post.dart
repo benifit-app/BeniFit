@@ -224,10 +224,23 @@ class _ImagePost extends State<ImagePost> {
           return Container(
               //margin: new EdgeInsets.only(bottom: 5.0),
               decoration: new BoxDecoration(
+                gradient:  LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  // Add one stop for each color. Stops should increase from 0 to 1
+                  stops: [0.1, 0.5, 0.7, 0.9],
+                  colors: [
+                    // Colors are easy thanks to Flutter's Colors class.
+                    Colors.teal[100],
+                    Colors.purple[200],
+                    Colors.teal[500],
+                    Colors.teal[600],
+                  ],
+                ),
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10.0),
                     topRight: Radius.circular(10.0)),
-                color: Color.fromRGBO(0,206,209, 5.0),
+
               ),
             child:  new ListTile(
               leading: new CircleAvatar(

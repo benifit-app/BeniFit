@@ -91,11 +91,11 @@ class _Feed extends State<Feed> {
         appBar: new AppBar(
         title: const Text('EFFit',
             style: const TextStyle(
-                fontFamily: "Bangers", color: Colors.black, fontSize: 35.0
+                fontFamily: "Bangers", color: Colors.white, fontSize: 35.0
             )
         ),
         centerTitle: true,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.grey,
       ),
       body: new RefreshIndicator(
         onRefresh: _refresh,
@@ -108,10 +108,10 @@ class _Feed extends State<Feed> {
               stops: [0.1, 0.5, 0.7, 0.9],
               colors: [
                 // Colors are easy thanks to Flutter's Colors class.
-                Colors.teal[100],
-                Colors.purple[200],
-                Colors.teal[500],
-                Colors.teal[600],
+                Colors.blueGrey[100],
+                Colors.blueGrey[200],
+                Colors.blueGrey[500],
+                Colors.blueGrey[600],
               ],
             ),
           ),
