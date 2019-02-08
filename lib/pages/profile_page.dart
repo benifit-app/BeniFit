@@ -398,7 +398,8 @@ class _ProfilePage extends State<ProfilePage> {
                   new Divider(height: 0.0),
                   buildUserPosts(),
                 ],
-              ));
+              )
+          );
         });
   }
 
@@ -453,7 +454,8 @@ class ImageTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return new GestureDetector(
         onTap: () => clickedImage(context),
-        child: new Image.network(imagePost.mediaUrl, fit: BoxFit.cover));
+        child: new Image.network(imagePost.mediaUrl, fit: BoxFit.cover)
+    );
   }
 }
 
