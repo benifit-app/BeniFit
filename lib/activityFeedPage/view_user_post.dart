@@ -37,18 +37,27 @@ class _ViewUserPosts extends State<ViewUserPosts> {
 
   @override
   Widget build(BuildContext context) {
-    return               new Row(
+    return new Row(
       mainAxisAlignment:
       MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         new Column(
           children: <Widget>[
+            new Text(
+                "Shows Posts On Feed"
+            )
+          ],
+        ),
+        new Column(
+          children: <Widget>[
             new RaisedButton(
-              child: new Text(
-                'User posts on Feed',
-                style: pressed
-                    ? TextStyle(color: Colors.black)
-                    : TextStyle(color:Colors.white),
+              child: pressed ?
+              new Text(
+                'ON',
+                style: TextStyle(color: Colors.white)
+              ) : new Text(
+                'OFF',
+                style: TextStyle(color:Colors.black),
               ),
               onPressed: () {
                 setState(() {
@@ -59,11 +68,12 @@ class _ViewUserPosts extends State<ViewUserPosts> {
                 unfollowSelf();
               },
               color: pressed
-                  ? Colors.blueGrey
-                  : Colors.teal,
+                  ? Colors.teal
+                  : Colors.black12,
+              splashColor: Colors.blueGrey,
             )
           ],
-        )
+        ),
       ],
     );
   }

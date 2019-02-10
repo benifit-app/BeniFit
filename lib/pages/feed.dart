@@ -30,7 +30,7 @@ class _Feed extends State<Feed> {
   buildFeed() {
     if (feedData != null) {
       return new Container(
-        padding: EdgeInsets.only(top: 5.0),
+        padding: EdgeInsets.only(top: 0.0),
         child: new Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -68,7 +68,7 @@ class _Feed extends State<Feed> {
             ),
             new Flexible(
                 child: new ListView(
-                  padding: EdgeInsets.all(10.0),
+                  padding: EdgeInsets.all(0.0),
                   children: feedData,
                   scrollDirection: Axis.vertical,
                 )

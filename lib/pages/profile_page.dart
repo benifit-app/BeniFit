@@ -278,7 +278,7 @@ class _ProfilePage extends State<ProfilePage> {
       }
 
       return new Container(
-        padding: EdgeInsets.all(10.0),
+        padding: EdgeInsets.all(0.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topRight,

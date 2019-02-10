@@ -165,7 +165,7 @@ class _ImagePost extends State<ImagePost> {
           ),
             width: double.infinity,
             height: 150.0,
-            padding: EdgeInsets.all(10.0),
+            padding: EdgeInsets.all(0.0),
             child: new Column(
               children: <Widget>[
                 new Expanded(
