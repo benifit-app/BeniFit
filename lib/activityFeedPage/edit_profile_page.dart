@@ -6,9 +6,11 @@ import 'package:fitapp/pages/profile_page.dart'; //for the user class
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:fitapp/main/create_account.dart';
+import 'package:fitapp/activityFeedPage/view_user_post.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn _googleSignIn = new GoogleSignIn();
+String currentUserId = googleSignIn.currentUser.id;
 
 
 Future<Null> signOutWithGoogle() async {
@@ -59,6 +61,7 @@ class EditProfilePage extends StatelessWidget {
       "bio": bioController.text,
     });
   }
+
 
   Widget buildTextField({String name, TextEditingController controller}) {
     return new Column(
@@ -142,6 +145,7 @@ class EditProfilePage extends StatelessWidget {
                   ),
                 color: Colors.grey,
               ),
+              ViewUserPosts()
             ],
           );
         });

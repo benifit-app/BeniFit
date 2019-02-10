@@ -42,39 +42,15 @@
             {
               "client_id": "512038169526-i339clphkudnsqgvqlo6n1tcsmnftjv6.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "512038169526-clumpj4i53lqt7hi6vlppcqjru177397.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.fitapp"
+              }
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:512038169526:android:d353f259cc2bb63b",
-        "android_client_info": {
-          "package_name": "com.example.effit"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "512038169526-i339clphkudnsqgvqlo6n1tcsmnftjv6.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyB4abNu_5KcQLeYvm2ksDWbv0g1wMhVOY8"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2
@@ -117,6 +93,13 @@
             {
               "client_id": "512038169526-i339clphkudnsqgvqlo6n1tcsmnftjv6.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "512038169526-clumpj4i53lqt7hi6vlppcqjru177397.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.fitapp"
+              }
             }
           ]
         },
@@ -196,7 +179,23 @@
       },
       "oauth_client": [
         {
-          "client_id": "512038169526-fr5222ii9343ipjr1r59kdqvbbf2bqe1.apps.googleusercontent.com",
+          "client_id": "512038169526-205kj80deiat35jb6to33mks9ce0aq88.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "me.danics.firestoretest",
+            "certificate_hash": "3cb7923f793ef8ac2d250bbafa20565b8305a348"
+          }
+        },
+        {
+          "client_id": "512038169526-17p9c7oepuh05nfivvoh6dc08c6l5fh8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "me.danics.firestoretest",
+            "certificate_hash": "969c92a58dd87bbc4d7d8bc098a77cbf8fda8cf3"
+          }
+        },
+        {
+          "client_id": "512038169526-fchca45fgkg6mofot3akgjprmrd0uk9u.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "me.danics.firestoretest",
@@ -223,6 +222,13 @@
             {
               "client_id": "512038169526-i339clphkudnsqgvqlo6n1tcsmnftjv6.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "512038169526-clumpj4i53lqt7hi6vlppcqjru177397.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.fitapp"
+              }
             }
           ]
         },

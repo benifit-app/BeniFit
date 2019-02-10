@@ -94,6 +94,8 @@ class _ProfilePage extends State<ProfilePage> {
       "userProfileImg": currentUserModel.photoUrl,
       "timestamp": new DateTime.now().toString()
     });
+//    print(profileId); // user to follow/unfollow
+//    print(currentUserId); // currently signed in as
   }
 
   unfollowUser() {
@@ -119,6 +121,25 @@ class _ProfilePage extends State<ProfilePage> {
         .document(currentUserId)
         .delete();
   }
+
+  followSelf() {
+    print('following self');
+
+    Firestore.instance.document("insta_users/$currentUserId").updateData({
+      'following.$currentUserId': true
+      //firestore plugin doesnt support deleting, so it must be nulled / falsed
+    });
+  }
+
+  unfollowSelf() {
+
+    Firestore.instance.document("insta_users/$currentUserId").updateData({
+      'following.$currentUserId': false
+      //firestore plugin doesnt support deleting, so it must be nulled / falsed
+    });
+  }
+
+  bool pressed = true;
 
   @override
   Widget build(BuildContext context) {
@@ -367,10 +388,10 @@ class _ProfilePage extends State<ProfilePage> {
                          new Row(
                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                            children: <Widget>[
-//                             new Container(
-//                                 child: buildStatColumn("posts", postCount),
-//                             ),
                              new Container(
+                               child: buildStatColumn("posts", postCount),
+                             ),
+                            new Container(
                                 child: buildStatColumn("followers", _countFollowings(user.followers)),
                              ),
                              new Container(
@@ -398,8 +419,7 @@ class _ProfilePage extends State<ProfilePage> {
                   new Divider(height: 0.0),
                   buildUserPosts(),
                 ],
-              )
-          );
+              ));
         });
   }
 
@@ -454,8 +474,7 @@ class ImageTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return new GestureDetector(
         onTap: () => clickedImage(context),
-        child: new Image.network(imagePost.mediaUrl, fit: BoxFit.cover)
-    );
+        child: new Image.network(imagePost.mediaUrl, fit: BoxFit.cover));
   }
 }
 

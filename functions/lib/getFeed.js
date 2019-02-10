@@ -25,8 +25,7 @@ function getAllPosts(following, res) {
     return __awaiter(this, void 0, void 0, function* () {
         let listOfPosts = [];
         for (let user in following) {
-          //listOfPosts.push(yield getUserPosts(following[user], res));
-          listOfPosts.push(yield getUserPosts(user, res));
+            listOfPosts.push(yield getUserPosts(following[user], res));
         }
         return listOfPosts;
     });
