@@ -97,6 +97,7 @@ class _Feed extends State<Feed> {
         centerTitle: true,
         backgroundColor: Colors.grey,
       ),
+      floatingActionButton: FancyFab(),
       body: new RefreshIndicator(
         onRefresh: _refresh,
         child: new Container(
