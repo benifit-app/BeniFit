@@ -155,8 +155,8 @@ class fitapp extends StatelessWidget {
           // "hot reload" (press "r" in the console where you ran "flutter run",
           // or press Run > Flutter Hot Reload in IntelliJ). Notice that the
           // counter didn't reset back to zero; the application is not restarted.
-          primarySwatch: Colors.blue,
-          buttonColor: Colors.pink,
+          primarySwatch: Colors.teal,
+          buttonColor: Colors.blueGrey,
           primaryIconTheme: new IconThemeData(color: Colors.black)),
       home: new HomePage(title: 'EFFit'),
     );

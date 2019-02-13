@@ -162,6 +162,8 @@ class _TextUpload extends State<TextUpload> {
         file = null;
         uploading = false;
       });
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
   }
 }
 

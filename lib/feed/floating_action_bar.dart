@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fitapp/pages/direct_message/direct_text.dart';
 
 class FancyFab extends StatefulWidget {
   final Function() onPressed;
@@ -73,6 +74,7 @@ class _FancyFabState extends State<FancyFab>
   Widget add() {
     return Container(
       child: FloatingActionButton(
+        heroTag: 2,
         onPressed: null,
         tooltip: 'Add',
         child: Icon(Icons.add),
@@ -83,6 +85,7 @@ class _FancyFabState extends State<FancyFab>
   Widget image() {
     return Container(
       child: FloatingActionButton(
+        heroTag: 1,
         onPressed: null,
         tooltip: 'Image',
         child: Icon(Icons.image),
@@ -93,7 +96,13 @@ class _FancyFabState extends State<FancyFab>
   Widget inbox() {
     return Container(
       child: FloatingActionButton(
-        onPressed: null,
+        heroTag: 0,
+        onPressed:  () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ChatScreen()),
+          );
+        },
         tooltip: 'Inbox',
         child: Icon(Icons.inbox),
       ),
