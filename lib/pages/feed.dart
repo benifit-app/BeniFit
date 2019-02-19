@@ -98,6 +98,7 @@ class _Feed extends State<Feed> {
     return MaterialApp(
       home: DefaultTabController(
           length: 3,
+          initialIndex: 1,
           child: new Scaffold(
             resizeToAvoidBottomPadding: false,
             appBar: new AppBar(
