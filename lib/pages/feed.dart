@@ -10,6 +10,9 @@ import 'package:fitapp/feed/floating_action_bar.dart';
 import 'package:fitapp/pages/upload_page.dart';
 import 'package:fitapp/feed/upload_text.dart';
 
+//for accessing functions in other pages
+import 'package:fitapp/test.dart';
+
 
 class Feed extends StatefulWidget {
   _Feed createState() => new _Feed();
@@ -21,13 +24,15 @@ class _Feed extends State<Feed> {
 
   List<ImagePost> feedData;
 
+  ScrollController _scrollController = new ScrollController();
+
   @override
   void initState() {
     super.initState();
     this._loadFeed();
   }
 
-  buildFeed() {
+  buildFeed(){
     if (feedData != null) {
       return new Container(
         padding: EdgeInsets.only(top: 0.0),
@@ -37,7 +42,9 @@ class _Feed extends State<Feed> {
             new Container(
               child: new ListTile(
                 leading: new CircleAvatar(
+                  backgroundColor: Colors.grey,
                   backgroundImage: NetworkImage(currentUserModel.photoUrl),
+                  //backgroundImage: null,
                   radius: 30.0,
                 ),
                 title: new TextField(
@@ -70,6 +77,7 @@ class _Feed extends State<Feed> {
                 child: new ListView(
                   padding: EdgeInsets.all(0.0),
                   children: feedData,
+                  controller: _scrollController,
                   scrollDirection: Axis.vertical,
                 )
             )
@@ -85,18 +93,89 @@ class _Feed extends State<Feed> {
   }
 
   @override
+  Widget build(BuildContext context){
+    return MaterialApp(
+      home: DefaultTabController(
+          length: 3,
+          child: new Scaffold(
+            resizeToAvoidBottomPadding: false,
+            appBar: new AppBar(
+                title: const Text('Effit',
+                style: const TextStyle(
+                  fontFamily: "Bangers", color: Colors.white, fontSize: 35.0
+                ),
+                bottom: TabBar(
+                  tabs: <Widget>[
+                    Tab(Icon: Icon(Icons.map)),
+                    Tab(Icon: Icon(Icons.smartphone)),
+                    Tab(Icon: Icon(Icons.fitness_center))
+                  ],
+                )
+              ),
+            centerTitle: true,
+            backgroundColor: Colors.grey,
+
+            ),
+            body:
+              new RefreshIndicator(
+              onRefresh: _refresh,
+              child: new Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topRight,
+                      end: Alignment.bottomLeft,
+                      // Add one stop for each color. Stops should increase from 0 to 1
+                      stops: [0.1, 0.5, 0.7, 0.9],
+                      colors: [
+                        // Colors are easy thanks to Flutter's Colors class.
+                        Colors.blueGrey[100],
+                        Colors.blueGrey[200],
+                        Colors.blueGrey[500],
+                        Colors.blueGrey[600],
+                      ],
+                    ),
+                  ),
+                  child: buildFeed()
+              ),
+            ),
+//      floatingActionButton: FancyFab(),
+//      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+          ),
+      ),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return new Scaffold(
       resizeToAvoidBottomPadding: false,
         appBar: new AppBar(
-        title: const Text('EFFit',
-            style: const TextStyle(
-                fontFamily: "Bangers", color: Colors.white, fontSize: 35.0
+//        title: const Text('Effit',
+//            style: const TextStyle(
+//                fontFamily: "Bangers", color: Colors.white, fontSize: 35.0
+//            )
+//        ),
+          //centerTitle: true,
+          backgroundColor: Colors.grey,
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.map),
+              tooltip: 'Activity Locator',
+
+              //onPressed: _changePage(1),
+            ),
+            IconButton(
+              icon: Icon(Icons.smartphone),
+              tooltip: 'Effit',
+              //onPressed: _changePage(2),
+            ),
+            IconButton(
+              icon: Icon(Icons.fitness_center),
+              tooltip: 'Personal Training',
+              //onPressed: _changePage(3),
             )
+          ],
         ),
-        centerTitle: true,
-        backgroundColor: Colors.grey,
-      ),
       floatingActionButton: FancyFab(),
       body: new RefreshIndicator(
         onRefresh: _refresh,
@@ -124,6 +203,7 @@ class _Feed extends State<Feed> {
     );
   }
 
+
   Future<Null> _refresh() async {
     await _getFeed();
     setState(() {
@@ -143,6 +223,7 @@ class _Feed extends State<Feed> {
       setState(() {
         feedData = listOfPosts;
       });
+
     } else {
       _getFeed();
     }
@@ -191,4 +272,9 @@ class _Feed extends State<Feed> {
 
     return listOfPosts;
   }
+
+  void scrollToTop(){
+    _scrollController.animateTo(0.0, duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
+  }
+
 }
