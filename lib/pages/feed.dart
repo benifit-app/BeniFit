@@ -26,14 +26,6 @@ class _Feed extends State<Feed> {
 
   ScrollController _scrollController = new ScrollController();
 
-  //get the device icon
-  Icon platformIcon;
-  if(Platform.isAndroid){
-    platformIcon = Icon(Icons.phone_android);
-  }else if (Platform.isIOS){
-    platformIcon = Icon(Icons.phone_iphone);
-  }
-
   @override
   void initState() {
     super.initState();
