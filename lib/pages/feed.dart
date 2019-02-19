@@ -26,6 +26,14 @@ class _Feed extends State<Feed> {
 
   ScrollController _scrollController = new ScrollController();
 
+  //get the device icon
+  Icon platformIcon;
+  if(Platform.isAndroid){
+    platformIcon = Icon(Icons.phone_android);
+  }else if (Platform.isIOS){
+    platformIcon = Icon(Icons.phone_iphone);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -92,6 +100,7 @@ class _Feed extends State<Feed> {
     }
   }
 
+  //Build for the material app with tabs
   @override
   Widget build(BuildContext context){
     return MaterialApp(
@@ -100,44 +109,53 @@ class _Feed extends State<Feed> {
           child: new Scaffold(
             resizeToAvoidBottomPadding: false,
             appBar: new AppBar(
-                title: const Text('Effit',
+              title: const Text('Effit',
                 style: const TextStyle(
                   fontFamily: "Bangers", color: Colors.white, fontSize: 35.0
                 ),
-                bottom: TabBar(
-                  tabs: <Widget>[
-                    Tab(Icon: Icon(Icons.map)),
-                    Tab(Icon: Icon(Icons.smartphone)),
-                    Tab(Icon: Icon(Icons.fitness_center))
-                  ],
-                )
               ),
-            centerTitle: true,
-            backgroundColor: Colors.grey,
+              centerTitle: true,
+              backgroundColor: Colors.grey,
+              bottom: TabBar(
+                tabs: <Widget>[
+                  Tab(icon: Icon(Icons.map)),
+                  Tab(icon: Platform.isIOS ? Icon(Icons.phone_iphone) : Icon(Icons.phone_android)),
+                  Tab(icon: Icon(Icons.fitness_center))
+                ]
+              )
+            ),
+            body: TabBarView(
+              children: [
+                //Activity locator Tab
+                Icon(Icons.map),
 
-            ),
-            body:
-              new RefreshIndicator(
-              onRefresh: _refresh,
-              child: new Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topRight,
-                      end: Alignment.bottomLeft,
-                      // Add one stop for each color. Stops should increase from 0 to 1
-                      stops: [0.1, 0.5, 0.7, 0.9],
-                      colors: [
-                        // Colors are easy thanks to Flutter's Colors class.
-                        Colors.blueGrey[100],
-                        Colors.blueGrey[200],
-                        Colors.blueGrey[500],
-                        Colors.blueGrey[600],
-                      ],
-                    ),
+                //Effit Tab
+                new RefreshIndicator(
+                  onRefresh: _refresh,
+                  child: new Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topRight,
+                          end: Alignment.bottomLeft,
+                          // Add one stop for each color. Stops should increase from 0 to 1
+                          stops: [0.1, 0.5, 0.7, 0.9],
+                          colors: [
+                            // Colors are easy thanks to Flutter's Colors class.
+                            Colors.blueGrey[100],
+                            Colors.blueGrey[200],
+                            Colors.blueGrey[500],
+                            Colors.blueGrey[600],
+                          ],
+                        ),
+                      ),
+                      child: buildFeed()
                   ),
-                  child: buildFeed()
-              ),
-            ),
+                ),
+
+                //Personal Trainer Tab
+                Icon(Icons.fitness_center)
+              ]
+            )
 //      floatingActionButton: FancyFab(),
 //      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
           ),
@@ -145,63 +163,46 @@ class _Feed extends State<Feed> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      resizeToAvoidBottomPadding: false,
-        appBar: new AppBar(
+  //Default build
+//  @override
+//  Widget build(BuildContext context) {
+//    return new Scaffold(
+//      resizeToAvoidBottomPadding: false,
+//        appBar: new AppBar(
 //        title: const Text('Effit',
 //            style: const TextStyle(
 //                fontFamily: "Bangers", color: Colors.white, fontSize: 35.0
 //            )
 //        ),
-          //centerTitle: true,
-          backgroundColor: Colors.grey,
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.map),
-              tooltip: 'Activity Locator',
-
-              //onPressed: _changePage(1),
-            ),
-            IconButton(
-              icon: Icon(Icons.smartphone),
-              tooltip: 'Effit',
-              //onPressed: _changePage(2),
-            ),
-            IconButton(
-              icon: Icon(Icons.fitness_center),
-              tooltip: 'Personal Training',
-              //onPressed: _changePage(3),
-            )
-          ],
-        ),
-      floatingActionButton: FancyFab(),
-      body: new RefreshIndicator(
-        onRefresh: _refresh,
-        child: new Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              // Add one stop for each color. Stops should increase from 0 to 1
-              stops: [0.1, 0.5, 0.7, 0.9],
-              colors: [
-                // Colors are easy thanks to Flutter's Colors class.
-                Colors.blueGrey[100],
-                Colors.blueGrey[200],
-                Colors.blueGrey[500],
-                Colors.blueGrey[600],
-              ],
-            ),
-          ),
-          child: buildFeed()
-        ),
-      ),
+//          //centerTitle: true,
+//          backgroundColor: Colors.grey,
+//        ),
 //      floatingActionButton: FancyFab(),
-//      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-    );
-  }
+//      body: new RefreshIndicator(
+//        onRefresh: _refresh,
+//        child: new Container(
+//          decoration: BoxDecoration(
+//            gradient: LinearGradient(
+//              begin: Alignment.topRight,
+//              end: Alignment.bottomLeft,
+//              // Add one stop for each color. Stops should increase from 0 to 1
+//              stops: [0.1, 0.5, 0.7, 0.9],
+//              colors: [
+//                // Colors are easy thanks to Flutter's Colors class.
+//                Colors.blueGrey[100],
+//                Colors.blueGrey[200],
+//                Colors.blueGrey[500],
+//                Colors.blueGrey[600],
+//              ],
+//            ),
+//          ),
+//          child: buildFeed()
+//        ),
+//      ),
+////      floatingActionButton: FancyFab(),
+////      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+//    );
+//  }
 
 
   Future<Null> _refresh() async {
