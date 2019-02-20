@@ -55,7 +55,9 @@ class _Uploader extends State<Uploader> {
     
     return file == null
         ? new IconButton(
-            icon: new Icon(Icons.file_upload), onPressed: _selectImage)
+            icon: new Icon(Icons.camera_alt),
+            onPressed: _selectImage,
+            iconSize: 50.0,)
         : new Scaffold(
             resizeToAvoidBottomPadding: false,
             appBar: new AppBar(

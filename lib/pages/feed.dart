@@ -39,40 +39,6 @@ class _Feed extends State<Feed> {
         child: new Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new Container(
-              child: new ListTile(
-                leading: new CircleAvatar(
-                  backgroundColor: Colors.grey,
-                  backgroundImage: NetworkImage(currentUserModel.photoUrl),
-                  //backgroundImage: null,
-                  radius: 30.0,
-                ),
-                title: new TextField(
-                  controller: myController,
-                  maxLines: 2,
-                  scrollPadding: EdgeInsets.all(5.0),
-                  decoration: InputDecoration(
-                      hintText: "Waddup?"
-                  ),
-                ),
-                trailing: IconButton(
-                    icon: Icon(Icons.send), 
-                    onPressed: (){Future.delayed(Duration(seconds: 1), () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => TextUpload(title: myController.text)),
-                      );
-                    });
-                    },
-                ),
-              ),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(20.0))
-              ),
-              height: 80.0,
-              padding: EdgeInsets.only(top: 5.0),
-            ),
             new Flexible(
                 child: new ListView(
                   padding: EdgeInsets.all(0.0),
@@ -100,6 +66,9 @@ class _Feed extends State<Feed> {
           length: 3,
           initialIndex: 1,
           child: new Scaffold(
+            floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
+            floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+            floatingActionButton: new FancyFab(),
             resizeToAvoidBottomPadding: false,
             appBar: new AppBar(
               title: const Text('Effit',
