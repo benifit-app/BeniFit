@@ -12,3 +12,5 @@ import 'package:fitapp/pages/activity_feed.dart';
 import 'package:fitapp/main/create_account.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'dart:io' show Platform;
+
+
