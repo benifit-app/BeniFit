@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fitapp/pages/feed.dart';
 import 'package:fitapp/pages/upload_page.dart';
+import 'package:fitapp/feed/floating_action_bar.dart';
 import 'dart:async';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -147,7 +148,6 @@ class fitapp extends StatelessWidget {
       title: 'fitapp',
       routes: <String, WidgetBuilder>{
         '/home': (_) => new HomePage(), // Home Page
-        '/feed': (_) => new Feed(), //Feed Page
       },
       theme: new ThemeData(
           // This is the theme of your application.
@@ -180,6 +180,8 @@ class _HomePageState extends State<HomePage> {
   int _page = 0;
   bool triedSilentLogin = false;
   bool setupNotifications = false;
+  ScrollController feedScroll = new ScrollController();
+
 
   Scaffold buildLoginPage() {
     return new Scaffold(
@@ -223,33 +225,37 @@ class _HomePageState extends State<HomePage> {
     return googleSignIn.currentUser == null
         ? buildLoginPage()
         : new Scaffold(
+            floatingActionButton: new FancyFab(),
+            floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
             body: new PageView(
               children: [
                 new Container(
                     color: Colors.white,
-                    child: new Feed(),
+                    child: new Feed(scrolly: feedScroll),
                 ),
                 new Container(
                     color: Colors.white,
-                    child: new SearchPage()),
+                    child: new SearchPage()
+                ),
                 new Container(
                     color: Colors.white,
                     child: new Uploader(),
                 ),
                 new Container(
                     color: Colors.white,
-                    child: new ActivityFeedPage()),
+                    child: new ActivityFeedPage()
+                ),
                 new Container(
                     color: Colors.white,
-                    child: new ProfilePage(
-                      userId: googleSignIn.currentUser.id,
-                    )),
+                    child: new ProfilePage(userId: googleSignIn.currentUser.id,)
+                ),
               ],
               controller: pageController,
               physics: new NeverScrollableScrollPhysics(),
               onPageChanged: onPageChanged,
             ),
-            bottomNavigationBar: new CupertinoTabBar(
+            bottomNavigationBar:
+            new CupertinoTabBar(
               activeColor: Colors.orange,
               items: <BottomNavigationBarItem>[
                 new BottomNavigationBarItem(
@@ -302,7 +308,11 @@ class _HomePageState extends State<HomePage> {
     //Animating Page
     pageController.jumpToPage(page);
     if(page == 0){
-      //scrollToTop();
+      feedScroll.animateTo(
+          0.0,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut
+      );
     }
   }
 
