@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+    <head>
+        <script src="https://www.gstatic.com/firebasejs/5.8.3/firebase.js"></script>
+        <script>
+          // Initialize Firebase
+          var config = {
+            apiKey: "AIzaSyCBU5OflMm1BDP2rBsIdoc5xDbz5yWMpRU",
+            authDomain: "effit-51aa5.firebaseapp.com",
+            databaseURL: "https://effit-51aa5.firebaseio.com",
+            projectId: "effit-51aa5",
+            storageBucket: "effit-51aa5.appspot.com",
+            messagingSenderId: "512038169526"
+          };
+          firebase.initializeApp(config);
+        </script>
+    </head>
+
+    <body>
+        <h1>Converter:</h1><br>
+        <form name="myform">
+            <input type="file" id='file-input'>
+        </form><br><br>
+
+        <p>Muscle Groups: </p><br>
+        <p id='mg'></p><br><br>
+
+        <button id='randomElement' onclick="getRandomExercise()">Random exercise/muscle group</button><br>
+        <p id='rand'></p><br><br>
+
+        <button id='allFromGroup' onclick="getExercisesFromRandomMuscleGroup()">Get all Exercise from random Group</button><br>
+        <p id='group'></p><br><br>
+
+        <button id='everything' onclick="getEverything()">Get everything</button><br>
+        <p id='every'></p><br><br>
+    </body>
+    
+
+    <script>
+        //get the output object
+        var outputLocation = document.getElementById('mg');
+
+        //Create Global Variables
+        var muscleGroupsArray;
+        var arrayLength;
+        var actualValues = 0;
+        var fullArray;
+        var fullArrayLength;
+
+        //note to self, just save all the elements then remove the duplicates in a new array
+        //Get everything from the selected TXT file with CSVs
+        const input = document.querySelector('input[type="file"]');
+        input.addEventListener('change', function(e){
+            console.log(input.files)
+            const reader = new FileReader()
+            reader.onload = function() {
+                const lines = reader.result.split('\n').map(function (line) {
+                    return line.split(', ');
+                })
+                arrayLength = 19;
+                muscleGroupsArray = new Array(arrayLength);
+                var i;
+                for(i = 0; i < lines.length; i++){
+                    //console.log('Add function called for the ' + i + ' time');
+                    addToMuscleGroupArray(lines[i][1], lines.length);
+                }
+                console.log(lines);
+                //console.log('Length of lines = ' + lines.length);
+                outputLocation.textContent = outputPassArray(muscleGroupsArray)
+                //outputMuscleGroupArray(arrayLength);
+                fullArray = lines;
+                fullArrayLength = lines.length;
+            }
+            reader.readAsText(input.files[0])
+        }, false)
+
+        //function for adding element to muscle groups
+        function addToMuscleGroupArray(input, arrayLength){
+            //Set variables
+            var i;
+            var duplicate = false;
+
+            //if it's the first element in the array, automatically add it
+            if(actualValues == 0){
+                muscleGroupsArray[0] = input;
+                actualValues++;
+                //console.log(input + ' added to array');
+            }else{
+                //check if there are any duplicates
+                for(i = 0; i < actualValues; i++){
+                    //console.log(muscleGroupsArray[i] + ' == ' + input + ' results to: ' + (muscleGroupsArray[i] == input));
+                    if(muscleGroupsArray[i] == input){
+                        duplicate = true;
+                        //console.log('Duplicate detected: ' + input);
+                    }
+                }
+                //if there are no duplicates, add to the array
+                if(duplicate == false && input != undefined){
+                    muscleGroupsArray[actualValues] = input;
+                    actualValues++;
+                    //console.log(input + ' added to array');
+                }
+            }
+
+            //outputMuscleGroupArray(arrayLength);
+        }
+
+        //function for outputing the muscle group array
+        function outputMuscleGroupArray(arrayLength){
+            var output = "";
+
+            var i;
+            for(i = 0; i < arrayLength; i++){
+                if(i == (arrayLength - 1)){
+                    output += muscleGroupsArray[i];
+                }else{
+                    output += muscleGroupsArray[i] + ', '
+                }
+                //console.log(muscleGroupsArray[i]);
+            }
+
+            console.log(output);
+            outputLocation.textContent = output;
+        }
+
+        //function for getting a random exercise from a random muscle group
+        function getRandomExercise(){
+            var i, exercise, muscle;
+            i = Math.floor(Math.random() * 899)
+
+            exercise = fullArray[i][0];
+            muscle = fullArray[i][1];
+
+            document.getElementById('rand').innerHTML = "Exercise: " + exercise + "<br>" + "\tMuscle: " + muscle;
+        }
+
+        //function for getting all of the exercises from a random muscle group
+        function getExercisesFromRandomMuscleGroup(){
+            //set variables
+            var i, j;
+            var randomMuscle;
+            var groupArray = new Array();
+            var output = "";
+            var groupArrayLength;
+
+            //get random muscle group
+            i = Math.floor(Math.random() * 19);
+            randomMuscle = muscleGroupsArray[i];
+
+            //loop through master array and push to the result array
+            for(i = 0; i < fullArrayLength; i++){
+                if(fullArray[i][1] == randomMuscle){
+                    if(i == 0){
+                        groupArray[0] = fullArray[i][0];
+                    }else{
+                        groupArray.push(fullArray[i][0]);
+                    }
+                }
+            }
+
+            // //set the length of the result array
+            // groupArrayLength = groupArray.length;
+
+            // //loop through the array to make an output
+            // for(j = 0; j < groupArrayLength; j++){
+            //     if(j == (groupArrayLength-1)){
+            //         output += groupArray[j];
+            //     }else{
+            //         output += groupArray[j] + ', ';
+            //     }
+            // }
+
+            //get the DOM going
+            document.getElementById('group').innerHTML = "Muscle group: " + randomMuscle + "<br>" + "Exercises: " + outputPassArray(groupArray);
+        }
+
+        //return the array of exercises given a muscle group
+        function getArrayFromMuscleGroup(passGroup){
+            //set variables
+            var i;
+            var groupArray = new Array();
+            var output = "";
+
+            //loop through master array and push to the result array
+            for(i = 0; i < fullArrayLength; i++){
+                if(fullArray[i][1] == passGroup){
+                    if(i == 0){
+                        groupArray[0] = fullArray[i][0];
+                    }else{
+                        groupArray.push(fullArray[i][0]);
+                    }
+                }
+            }
+
+            //return the groupArray as output
+            return groupArray;
+        }
+
+        //return the output from an array that has been passed
+        function outputPassArray(passArray){
+            //set variables
+            var i;
+            var passLength = passArray.length;
+            var output = "";
+
+            //loop through the array to create the output
+            for(i = 0; i < passLength; i++){
+                if(i == (passLength - 1)){
+                    output += passArray[i];
+                }else{
+                    output += passArray[i] + ', '
+                }
+            }
+
+            //return the output
+            return output;
+        }
+
+        //function for managing everything
+        function getEverything(){
+            //set variables
+            var output = "";
+            var totalLength;
+
+            //set the result array variables
+            var abdominalsArray = new Array();
+            var abdominalsArray;
+            var adductorsArray = new Array();
+            var quadricepsArray = new Array();
+            var bicepsArray = new Array();
+            var shouldersArray = new Array();
+            var chestArray = new Array();
+            var hamstringArray = new Array();
+            var middleBackArray = new Array();
+            var calvesArray = new Array();
+            var glutesArray = new Array();
+            var lowerBackArray = new Array();
+            var latsArray = new Array();
+            var tricepsArray = new Array();
+            var trapsArray = new Array();
+            var stationaryArray = new Array();
+            var forearmsArray = new Array();
+            var neckArray = new Array();
+            var abductorArray = new Array();
+            var treadmillArray = new Array();
+
+            //get every result array
+            abdominalsArray = getArrayFromMuscleGroup(muscleGroupsArray[0]);
+            adductorsArray = getArrayFromMuscleGroup(muscleGroupsArray[1]);
+            quadricepsArray = getArrayFromMuscleGroup(muscleGroupsArray[2]);
+            bicepsArray = getArrayFromMuscleGroup(muscleGroupsArray[3]);
+            shouldersArray = getArrayFromMuscleGroup(muscleGroupsArray[4]);
+            chestArray = getArrayFromMuscleGroup(muscleGroupsArray[5]);
+            hamstringArray = getArrayFromMuscleGroup(muscleGroupsArray[6]);
+            middleBackArray = getArrayFromMuscleGroup(muscleGroupsArray[7]);
+            calvesArray = getArrayFromMuscleGroup(muscleGroupsArray[8]);
+            glutesArray = getArrayFromMuscleGroup(muscleGroupsArray[9]);
+            lowerBackArray = getArrayFromMuscleGroup(muscleGroupsArray[10]);
+            latsArray = getArrayFromMuscleGroup(muscleGroupsArray[11]);
+            tricepsArray = getArrayFromMuscleGroup(muscleGroupsArray[12]);
+            trapsArray = getArrayFromMuscleGroup(muscleGroupsArray[13]);
+            stationaryArray = getArrayFromMuscleGroup(muscleGroupsArray[14]);
+            forearmsArray = getArrayFromMuscleGroup(muscleGroupsArray[15]);
+            neckArray = getArrayFromMuscleGroup(muscleGroupsArray[16]);
+            abductorArray = getArrayFromMuscleGroup(muscleGroupsArray[17]);
+            treadmillArray = getArrayFromMuscleGroup(muscleGroupsArray[18]);
+
+            //get the total length
+            totalLength = abdominalsArray.length + adductorsArray.length + quadricepsArray.length + bicepsArray.length + shouldersArray.length + chestArray.length + hamstringArray.length + middleBackArray.length + calvesArray.length + glutesArray.length + lowerBackArray.length + latsArray.length + tricepsArray.length + tricepsArray.length + trapsArray.length + stationaryArray.length + forearmsArray.length + neckArray.length + abductorArray.length + treadmillArray.length;
+
+            //DOM output from text (for testing)
+            document.getElementById('every').innerHTML = "total length: " + totalLength;
+
+        }
+
+    </script>
+</html>
