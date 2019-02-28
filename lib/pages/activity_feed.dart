@@ -126,6 +126,7 @@ class ActivityFeedItem extends StatelessWidget {
     }
   }
 
+  //Post Object
   @override
   Widget build(BuildContext context) {
     configureItem(context);

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fitapp/pages/direct_message/direct_text.dart';
+import 'package:fitapp/feed/upload_text.dart';
+import 'package:fitapp/pages/upload_page.dart';
 
 class FancyFab extends StatefulWidget {
   final Function() onPressed;
@@ -75,9 +77,14 @@ class _FancyFabState extends State<FancyFab>
     return Container(
       child: FloatingActionButton(
         heroTag: 2,
-        onPressed: null,
+        onPressed: (){
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => TextUpload(title: 'Enter Text Here')),
+          );
+        },
         tooltip: 'Add',
-        child: Icon(Icons.add),
+        child: Icon(Icons.text_fields),
       ),
     );
   }
@@ -86,7 +93,12 @@ class _FancyFabState extends State<FancyFab>
     return Container(
       child: FloatingActionButton(
         heroTag: 1,
-        onPressed: null,
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Uploader()),
+          );
+        },
         tooltip: 'Image',
         child: Icon(Icons.image),
       ),

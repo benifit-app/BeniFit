@@ -59,8 +59,7 @@ class _TextUpload extends State<TextUpload> {
 
   Widget build(BuildContext context) {
 
-        return file != null
-        ?  new Scaffold(
+        return new Scaffold(
         resizeToAvoidBottomPadding: false,
         appBar: new AppBar(
           backgroundColor: Colors.white70,
@@ -86,7 +85,7 @@ class _TextUpload extends State<TextUpload> {
         body: new ListView(
           children: <Widget>[
             new PostForm(
-              imageFile: getText().toString(),
+              imageFile: null,
               descriptionController: descriptionController,
               locationController: locationController,
               loading: uploading,
@@ -110,7 +109,7 @@ class _TextUpload extends State<TextUpload> {
             ),
             (address == null) ? Container() : Divider(),
           ],
-        )) : new Future.delayed(Duration(seconds: 2), () {Navigator.pop(context);});
+        ));
   }
 
   //method to build buttons with location.
@@ -145,9 +144,7 @@ class _TextUpload extends State<TextUpload> {
   }
 
   void clearImage() {
-    setState(() {
-      file = null;
-    });
+    new Future.delayed(Duration(seconds: 0), () {Navigator.pop(context);});
   }
 
   void postImage() {
@@ -155,7 +152,7 @@ class _TextUpload extends State<TextUpload> {
       uploading = true;
     });
       postToFireStore(
-          mediaUrl: getText(),
+          mediaUrl: descriptionController.text,
           description: "Read It, Like It, Do It",
           location: locationController.text);
       setState(() {
@@ -197,7 +194,7 @@ class PostForm extends StatelessWidget {
               child: new TextField(
                 controller: descriptionController,
                 decoration: new InputDecoration(
-                    hintText: imageFile,
+                    hintText: 'Waddup Doe?',
                     border: InputBorder.none),
               ),
             ),

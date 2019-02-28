@@ -10,6 +10,9 @@ import 'package:fitapp/feed/floating_action_bar.dart';
 import 'package:fitapp/pages/upload_page.dart';
 import 'package:fitapp/feed/upload_text.dart';
 
+//for accessing functions in other pages
+import 'package:fitapp/test.dart';
+
 
 class Feed extends StatefulWidget {
   _Feed createState() => new _Feed();
@@ -21,55 +24,26 @@ class _Feed extends State<Feed> {
 
   List<ImagePost> feedData;
 
+  ScrollController _scrollController = new ScrollController();
+
   @override
   void initState() {
     super.initState();
     this._loadFeed();
   }
 
-  buildFeed() {
+  buildFeed(){
     if (feedData != null) {
       return new Container(
         padding: EdgeInsets.only(top: 0.0),
         child: new Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new Container(
-              child: new ListTile(
-                leading: new CircleAvatar(
-                  backgroundImage: NetworkImage(currentUserModel.photoUrl),
-                  radius: 30.0,
-                ),
-                title: new TextField(
-                  controller: myController,
-                  maxLines: 2,
-                  scrollPadding: EdgeInsets.all(5.0),
-                  decoration: InputDecoration(
-                      hintText: "Waddup?"
-                  ),
-                ),
-                trailing: IconButton(
-                    icon: Icon(Icons.send), 
-                    onPressed: (){Future.delayed(Duration(seconds: 1), () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => TextUpload(title: myController.text)),
-                      );
-                    });
-                    },
-                ),
-              ),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(20.0))
-              ),
-              height: 80.0,
-              padding: EdgeInsets.only(top: 5.0),
-            ),
             new Flexible(
                 child: new ListView(
                   padding: EdgeInsets.all(0.0),
                   children: feedData,
+                  controller: _scrollController,
                   scrollDirection: Axis.vertical,
                 )
             )
@@ -84,45 +58,114 @@ class _Feed extends State<Feed> {
     }
   }
 
+  //Build for the material app with tabs
   @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      resizeToAvoidBottomPadding: false,
-        appBar: new AppBar(
-        title: const Text('EFFit',
-            style: const TextStyle(
-                fontFamily: "Bangers", color: Colors.white, fontSize: 35.0
-            )
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.grey,
-      ),
-      floatingActionButton: FancyFab(),
-      body: new RefreshIndicator(
-        onRefresh: _refresh,
-        child: new Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              // Add one stop for each color. Stops should increase from 0 to 1
-              stops: [0.1, 0.5, 0.7, 0.9],
-              colors: [
-                // Colors are easy thanks to Flutter's Colors class.
-                Colors.blueGrey[100],
-                Colors.blueGrey[200],
-                Colors.blueGrey[500],
-                Colors.blueGrey[600],
-              ],
+  Widget build(BuildContext context){
+    return MaterialApp(
+      home: DefaultTabController(
+          length: 3,
+          initialIndex: 1,
+          child: new Scaffold(
+            floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
+            floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+            floatingActionButton: new FancyFab(),
+            resizeToAvoidBottomPadding: false,
+            appBar: new AppBar(
+              title: const Text('Effit',
+                style: const TextStyle(
+                  fontFamily: "Bangers", color: Colors.white, fontSize: 35.0
+                ),
+              ),
+              centerTitle: true,
+              backgroundColor: Colors.grey,
+              bottom: TabBar(
+                tabs: <Widget>[
+                  Tab(icon: Icon(Icons.map)),
+                  Tab(icon: Platform.isIOS ? Icon(Icons.phone_iphone) : Icon(Icons.phone_android)),
+                  Tab(icon: Icon(Icons.fitness_center))
+                ]
+              )
             ),
-          ),
-          child: buildFeed()
-        ),
-      ),
+            body: TabBarView(
+              children: [
+                //Activity locator Tab
+                Icon(Icons.map),
+
+                //Effit Tab
+                new RefreshIndicator(
+                  onRefresh: _refresh,
+                  child: new Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topRight,
+                          end: Alignment.bottomLeft,
+                          // Add one stop for each color. Stops should increase from 0 to 1
+                          stops: [0.1, 0.5, 0.7, 0.9],
+                          colors: [
+                            // Colors are easy thanks to Flutter's Colors class.
+                            Colors.blueGrey[100],
+                            Colors.blueGrey[200],
+                            Colors.blueGrey[500],
+                            Colors.blueGrey[600],
+                          ],
+                        ),
+                      ),
+                      child: buildFeed()
+                  ),
+                ),
+
+                //Personal Trainer Tab
+                Icon(Icons.fitness_center)
+              ]
+            )
 //      floatingActionButton: FancyFab(),
 //      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+          ),
+      ),
     );
   }
+
+  //Default build
+//  @override
+//  Widget build(BuildContext context) {
+//    return new Scaffold(
+//      resizeToAvoidBottomPadding: false,
+//        appBar: new AppBar(
+//        title: const Text('Effit',
+//            style: const TextStyle(
+//                fontFamily: "Bangers", color: Colors.white, fontSize: 35.0
+//            )
+//        ),
+//          //centerTitle: true,
+//          backgroundColor: Colors.grey,
+//        ),
+//      floatingActionButton: FancyFab(),
+//      body: new RefreshIndicator(
+//        onRefresh: _refresh,
+//        child: new Container(
+//          decoration: BoxDecoration(
+//            gradient: LinearGradient(
+//              begin: Alignment.topRight,
+//              end: Alignment.bottomLeft,
+//              // Add one stop for each color. Stops should increase from 0 to 1
+//              stops: [0.1, 0.5, 0.7, 0.9],
+//              colors: [
+//                // Colors are easy thanks to Flutter's Colors class.
+//                Colors.blueGrey[100],
+//                Colors.blueGrey[200],
+//                Colors.blueGrey[500],
+//                Colors.blueGrey[600],
+//              ],
+//            ),
+//          ),
+//          child: buildFeed()
+//        ),
+//      ),
+////      floatingActionButton: FancyFab(),
+////      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+//    );
+//  }
+
 
   Future<Null> _refresh() async {
     await _getFeed();
@@ -143,6 +186,7 @@ class _Feed extends State<Feed> {
       setState(() {
         feedData = listOfPosts;
       });
+
     } else {
       _getFeed();
     }
@@ -191,4 +235,9 @@ class _Feed extends State<Feed> {
 
     return listOfPosts;
   }
+
+  void scrollToTop(){
+    _scrollController.animateTo(0.0, duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
+  }
+
 }

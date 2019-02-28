@@ -13,6 +13,9 @@ import 'package:fitapp/main/create_account.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'dart:io' show Platform;
 
+//for accessing functions in other .dart files
+import "pages/feed.dart";
+
 final auth = FirebaseAuth.instance;
 final googleSignIn = new GoogleSignIn();
 final ref = Firestore.instance.collection('insta_users');
@@ -158,7 +161,7 @@ class fitapp extends StatelessWidget {
           primarySwatch: Colors.teal,
           buttonColor: Colors.blueGrey,
           primaryIconTheme: new IconThemeData(color: Colors.black)),
-      home: new HomePage(title: 'EFFit'),
+      home: new HomePage(title: 'EFfit'),
     );
   }
 }
@@ -186,7 +189,7 @@ class _HomePageState extends State<HomePage> {
           child: new Column(
             children: <Widget>[
               new Text(
-                'EFFit',
+                'EFFIT',
                 style: new TextStyle(
                     fontSize: 60.0,
                     fontFamily: "Bangers",
@@ -298,6 +301,9 @@ class _HomePageState extends State<HomePage> {
   void navigationTapped(int page) {
     //Animating Page
     pageController.jumpToPage(page);
+    if(page == 0){
+      //scrollToTop();
+    }
   }
 
   void onPageChanged(int page) {
