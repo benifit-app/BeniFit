@@ -111,8 +111,8 @@ class _ImagePost extends State<ImagePost> {
     IconData icon;
 
     if (liked) {
-      color = Colors.purpleAccent;
-      icon = Icons.fitness_center;
+      color = Colors.blue;
+      icon = FontAwesomeIcons.fire;
     } else {
       icon = FontAwesomeIcons.heart;
     }
@@ -192,7 +192,7 @@ class _ImagePost extends State<ImagePost> {
                   child: new Opacity(
                       opacity: 0.85,
                       child: new Icon(
-                        Icons.fitness_center,
+                        FontAwesomeIcons.fire,
                         size: 80.0,
                         color: Colors.white,
                       )),
@@ -201,6 +201,41 @@ class _ImagePost extends State<ImagePost> {
         ],
       ),
     );
+  }
+
+  getProfile({String ownerId}){
+    return new FutureBuilder(
+        future: Firestore.instance
+            .collection('insta_users')
+            .document(ownerId)
+            .get(),
+        builder: (context, snapshot) {
+          String imageUrl = " ";
+          String username = "  ";
+
+          if (snapshot.data != null) {
+            imageUrl = snapshot.data.data['photoUrl'];
+          }
+          return Container(
+            //margin: new EdgeInsets.only(bottom: 5.0),
+              decoration: new BoxDecoration(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(0.0),
+                    topRight: Radius.circular(0.0)),
+
+              ),
+              child: new Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  new CircleAvatar(
+                    backgroundImage: new CachedNetworkImageProvider(imageUrl),
+                    backgroundColor: Colors.grey,
+                  ),
+                ],
+              )
+          );
+        });
   }
 
   buildPostHeader({String ownerId}) {
@@ -231,16 +266,15 @@ class _ImagePost extends State<ImagePost> {
                   stops: [0.1, 0.5, 0.7, 0.9],
                   colors: [
                     // Colors are easy thanks to Flutter's Colors class.
-                    Colors.teal[100],
-                    Colors.purple[200],
-                    Colors.teal[500],
-                    Colors.teal[600],
+                    Colors.black87,
+                    Colors.black87,
+                    Colors.black87,
+                    Colors.black87,
                   ],
                 ),
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10.0),
-                    topRight: Radius.circular(10.0)),
-
+//                borderRadius: BorderRadius.only(
+//                    topLeft: Radius.circular(0.0),
+//                    topRight: Radius.circular(0.0)),
               ),
             child:  new ListTile(
               leading: new CircleAvatar(
@@ -248,13 +282,13 @@ class _ImagePost extends State<ImagePost> {
                 backgroundColor: Colors.grey,
               ),
               title: new GestureDetector(
-                child: new Text(username, style: boldStyle),
+                child: new Text(username, style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                 onTap: () {
                   openProfile(context, ownerId);
                 },
               ),
-              subtitle: new Text(this.location),
-              trailing: const Icon(Icons.more_vert),
+              subtitle: new Text(this.location, style: new TextStyle(color: Colors.grey),),
+              trailing: const Icon(Icons.more_vert, color: Colors.white,),
             )
           );
         });
@@ -272,60 +306,60 @@ class _ImagePost extends State<ImagePost> {
     return new Container (
       margin: EdgeInsets.only(top: 20.0),
       decoration: new BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+       // borderRadius: BorderRadius.all(Radius.circular(10.0)),
         color: Colors.white,
       ),
         child: new Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          buildPostHeader(ownerId: ownerId),
-          buildLikeableImage(),
-          new Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              new Padding(padding: const EdgeInsets.only(left: 20.0, top: 40.0)),
-              buildLikeIcon(),
-              new Padding(padding: const EdgeInsets.only(right: 20.0)),
-              new GestureDetector(
-                child: const Icon(
-                  FontAwesomeIcons.comment,
-                  size: 25.0,
-                ),
-                onTap: () {
-                  goToComments(
-                      context: context,
-                      postId: postId,
-                      ownerId: ownerId,
-                      mediaUrl: mediaUrl);
-                }),
-          ],
-        ),
-        new Row(
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            new Container(
-              margin: const EdgeInsets.only(left: 20.0),
-              child: new Text(
-                "$likeCount likes",
-                style: boldStyle,
-              ),
+            buildPostHeader(ownerId: ownerId),
+            buildLikeableImage(),
+            new Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                new Padding(padding: const EdgeInsets.only(left: 20.0, top: 40.0)),
+                buildLikeIcon(),
+                new Padding(padding: const EdgeInsets.only(right: 20.0)),
+                new GestureDetector(
+                    child: const Icon(
+                      FontAwesomeIcons.comment,
+                      size: 25.0,
+                    ),
+                    onTap: () {
+                      goToComments(
+                          context: context,
+                          postId: postId,
+                          ownerId: ownerId,
+                          mediaUrl: mediaUrl);
+                    }),
+              ],
+            ),
+            new Row(
+              children: <Widget>[
+                new Container(
+                  margin: const EdgeInsets.only(left: 20.0),
+                  child: new Text(
+                    "$likeCount likes",
+                    style: boldStyle,
+                  ),
+                )
+              ],
+            ),
+            new Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                new Container(
+                    margin: const EdgeInsets.only(left: 20.0, bottom: 20.0),
+                    child: new Text(
+                      "$username ",
+                      style: boldStyle,
+                    )
+                ),
+                new Expanded(child: new Text(description)),
+              ],
             )
           ],
-        ),
-        new Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            new Container(
-                margin: const EdgeInsets.only(left: 20.0, bottom: 20.0),
-                child: new Text(
-                  "$username ",
-                  style: boldStyle,
-                )
-            ),
-            new Expanded(child: new Text(description)),
-          ],
         )
-      ],
-    )
     );
   }
 

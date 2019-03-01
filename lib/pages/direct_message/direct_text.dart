@@ -104,7 +104,10 @@ class ChatScreenState extends State<ChatScreen>  with TickerProviderStateMixin {
 
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(title: new Text("Friendlychat")),
+      appBar: new AppBar(
+          title: new Text("Friendlychat"),
+          backgroundColor: Colors.grey,
+      ),
       body: new Column(
         children: <Widget>[
           new Flexible(

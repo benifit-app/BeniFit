@@ -80,7 +80,7 @@ class _FancyFabState extends State<FancyFab>
         onPressed: (){
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => TextUpload(title: 'Enter Text Here')),
+            MaterialPageRoute(builder: (context) => TextUpload()),
           );
         },
         tooltip: 'Add',
@@ -123,6 +123,7 @@ class _FancyFabState extends State<FancyFab>
 
   Widget toggle() {
     return Container(
+      padding: EdgeInsets.only(bottom: 10.0),
       child: FloatingActionButton(
         backgroundColor: _buttonColor.value,
         onPressed: animate,

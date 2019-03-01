@@ -10,15 +10,17 @@ import 'package:fitapp/feed/floating_action_bar.dart';
 import 'package:fitapp/pages/upload_page.dart';
 import 'package:fitapp/feed/upload_text.dart';
 
-//for accessing functions in other pages
-import 'package:fitapp/test.dart';
-
 
 class Feed extends StatefulWidget {
-  _Feed createState() => new _Feed();
+  final ScrollController scrolly;
+  const Feed({this.scrolly});
+
+  _Feed createState() => new _Feed(this.scrolly);
 }
 
 class _Feed extends State<Feed> {
+  final ScrollController scrollable;
+  _Feed(this.scrollable);
 
   TextEditingController myController = new TextEditingController();
 
@@ -30,6 +32,7 @@ class _Feed extends State<Feed> {
   void initState() {
     super.initState();
     this._loadFeed();
+    _scrollController = scrollable;
   }
 
   buildFeed(){
@@ -66,9 +69,6 @@ class _Feed extends State<Feed> {
           length: 3,
           initialIndex: 1,
           child: new Scaffold(
-            floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
-            floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-            floatingActionButton: new FancyFab(),
             resizeToAvoidBottomPadding: false,
             appBar: new AppBar(
               title: const Text('Effit',
@@ -82,7 +82,7 @@ class _Feed extends State<Feed> {
                 tabs: <Widget>[
                   Tab(icon: Icon(Icons.map)),
                   Tab(icon: Platform.isIOS ? Icon(Icons.phone_iphone) : Icon(Icons.phone_android)),
-                  Tab(icon: Icon(Icons.fitness_center))
+                  Tab(icon: Icon(Icons.fitness_center)),
                 ]
               )
             ),
@@ -90,7 +90,6 @@ class _Feed extends State<Feed> {
               children: [
                 //Activity locator Tab
                 Icon(Icons.map),
-
                 //Effit Tab
                 new RefreshIndicator(
                   onRefresh: _refresh,
@@ -103,17 +102,16 @@ class _Feed extends State<Feed> {
                           stops: [0.1, 0.5, 0.7, 0.9],
                           colors: [
                             // Colors are easy thanks to Flutter's Colors class.
-                            Colors.blueGrey[100],
-                            Colors.blueGrey[200],
-                            Colors.blueGrey[500],
-                            Colors.blueGrey[600],
+                            Colors.black,
+                            Colors.black,
+                            Colors.black,
+                            Colors.black,
                           ],
                         ),
                       ),
                       child: buildFeed()
                   ),
                 ),
-
                 //Personal Trainer Tab
                 Icon(Icons.fitness_center)
               ]
