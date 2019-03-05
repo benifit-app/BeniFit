@@ -69,6 +69,7 @@
                 //outputMuscleGroupArray(arrayLength);
                 fullArray = lines;
                 fullArrayLength = lines.length;
+                //console.log("FullArray length = " + fullArray.length)
             }
             reader.readAsText(input.files[0])
         }, false)
@@ -215,6 +216,13 @@
             return output;
         }
 
+        //function for adding into firebase
+        function addToFirebase(passMuscleGroup, passExerciseArray){
+            //Connect to firebase
+
+            //Add to it
+        }
+
         //function for managing everything
         function getEverything(){
             //set variables
@@ -223,7 +231,6 @@
 
             //set the result array variables
             var abdominalsArray = new Array();
-            var abdominalsArray;
             var adductorsArray = new Array();
             var quadricepsArray = new Array();
             var bicepsArray = new Array();
@@ -264,8 +271,28 @@
             abductorArray = getArrayFromMuscleGroup(muscleGroupsArray[17]);
             treadmillArray = getArrayFromMuscleGroup(muscleGroupsArray[18]);
 
+            console.log("abdominalsArray length = " + abdominalsArray.length + "/96");
+            console.log("adductorsArray length = " + adductorsArray.length + "/15");
+            console.log("quadricepsArray length = " + quadricepsArray.length + "/149");
+            console.log("bicepsArray length = " + bicepsArray.length + "/55");
+            console.log("shouldersArray length = " + shouldersArray.length + "/133");
+            console.log("chestArray length = " + chestArray.length + "/85");
+            console.log("hamstringArray length = " + hamstringArray.length + "/78");
+            console.log("middleBackArray lenght = " + middleBackArray.length + "/36");
+            console.log("calvesArray length = " + calvesArray.length + "/30");
+            console.log("glutesArray length = " + glutesArray.length + "/23");
+            console.log("lowerBackArray length = " + lowerBackArray.length + "/30");
+            console.log("latsArray length = " + latsArray.length + "/38");
+            console.log("tricepsArray length = " + tricepsArray.length + "/72");
+            console.log("trapsArray length = " + trapsArray.length + "/16");
+            console.log("stationaryArray length = " + stationaryArray.length + "/2");
+            console.log("forearmsArray length = " + forearmsArray.length + "/25");
+            console.log("neckArray length = " + neckArray.length + "/8");
+            console.log("abductorArray length = " + abductorArray.length + "/8");
+            console.log("treadmillArray length = " + treadmillArray.length + "/2");
+
             //get the total length
-            totalLength = abdominalsArray.length + adductorsArray.length + quadricepsArray.length + bicepsArray.length + shouldersArray.length + chestArray.length + hamstringArray.length + middleBackArray.length + calvesArray.length + glutesArray.length + lowerBackArray.length + latsArray.length + tricepsArray.length + tricepsArray.length + trapsArray.length + stationaryArray.length + forearmsArray.length + neckArray.length + abductorArray.length + treadmillArray.length;
+            totalLength = abdominalsArray.length + adductorsArray.length + quadricepsArray.length + bicepsArray.length + shouldersArray.length + chestArray.length + hamstringArray.length + middleBackArray.length + calvesArray.length + glutesArray.length + lowerBackArray.length + latsArray.length + tricepsArray.length + trapsArray.length + stationaryArray.length + forearmsArray.length + neckArray.length + abductorArray.length + treadmillArray.length;
 
             //DOM output from text (for testing)
             document.getElementById('every').innerHTML = "total length: " + totalLength;

@@ -111,8 +111,8 @@ bent press, abdominals
 bent-arm barbell pullover, lats
 bent-arm dumbbell pullover, chest
 bent-knee hip raise, abdominals
+bicycling, stationary
 bicycling, quadriceps
-bicycling, stationary, quadriceps
 board press, triceps
 body tricep press, triceps
 body-up, triceps
@@ -634,9 +634,11 @@ rope crunch, abdominals
 rope jumping, quadriceps
 rope straight-arm pulldown, lats
 round the world shoulder stretch, shoulders
-rowing, stationary, quadriceps
+rowing, stationary
+rowing, quadriceps
 runner's stretch, hamstrings
-running, treadmill, quadriceps
+running, treadmill
+running, quadriceps
 russian twist, abdominals
 sandbag load, quadriceps
 scapular pull-up, traps
@@ -868,7 +870,8 @@ upward stretch, shoulders
 v-bar pulldown, lats
 v-bar pullup, lats
 vertical swing, hamstrings
-walking, treadmill, quadriceps
+walking, treadmill
+walking, quadriceps
 weighted ball hyperextension, lower back
 weighted ball side bend, abdominals
 weighted bench dip, triceps
