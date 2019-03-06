@@ -78,6 +78,10 @@
             reader.readAsText(input.files[0])
         }, false)
 
+        String.prototype.capitalize = function(){
+            return this.replace(/(?:^|\s)\S/g, function(a) {return a.toUpperCase();});
+        }
+
         //function for adding element to muscle groups
         function addToMuscleGroupArray(input, arrayLength){
             //Set variables
@@ -189,9 +193,9 @@
             for(i = 0; i < fullArrayLength; i++){
                 if(fullArray[i][1] == passGroup){
                     if(i == 0){
-                        groupArray[0] = fullArray[i][0];
+                        groupArray[0] = fullArray[i][0].capitalize();
                     }else{
-                        groupArray.push(fullArray[i][0]);
+                        groupArray.push(fullArray[i][0].capitalize());
                     }
                 }
             }
@@ -346,6 +350,24 @@
 
             //add to the database TEST 1: Abdominals
             addToFirebase(muscleGroupsArray[0], abdominalsArray);
+            addToFirebase(muscleGroupsArray[1], adductorsArray);
+            addToFirebase(muscleGroupsArray[2], quadricepsArray);
+            addToFirebase(muscleGroupsArray[3], bicepsArray);
+            addToFirebase(muscleGroupsArray[4], shouldersArray);
+            addToFirebase(muscleGroupsArray[5], chestArray);
+            addToFirebase(muscleGroupsArray[6], hamstringArray);
+            addToFirebase(muscleGroupsArray[7], middleBackArray);
+            addToFirebase(muscleGroupsArray[8], calvesArray);
+            addToFirebase(muscleGroupsArray[9], glutesArray);
+            addToFirebase(muscleGroupsArray[10], lowerBackArray);
+            addToFirebase(muscleGroupsArray[11], latsArray);
+            addToFirebase(muscleGroupsArray[12], tricepsArray);
+            addToFirebase(muscleGroupsArray[13], trapsArray);
+            addToFirebase(muscleGroupsArray[14], stationaryArray);
+            addToFirebase(muscleGroupsArray[15], forearmsArray);
+            addToFirebase(muscleGroupsArray[16], neckArray);
+            addToFirebase(muscleGroupsArray[17], abductorArray);
+            addToFirebase(muscleGroupsArray[18], treadmillArray);
 
         }
 
