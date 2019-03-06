@@ -36,6 +36,10 @@
     
 
     <script>
+        //Get a reference to the firebase database
+        //FIX THIS ASAP******************
+        var database = firebase.firestore();
+
         //get the output object
         var outputLocation = document.getElementById('mg');
 
@@ -218,9 +222,52 @@
 
         //function for adding into firebase
         function addToFirebase(passMuscleGroup, passExerciseArray){
-            //Connect to firebase
+            //Set necessary variables
+            var passLength = passExerciseArray.length;
+            var i;
 
-            //Add to it
+            //Begin looping through the array and add everything
+            for(i = 0; i < passLength; i++){
+                //Add the Muscle Group to RealTime Database
+                //database.ref('ExerciseDB/MuscleGroup/' + passMuscleGroup + '/' + passExerciseArray[i]).set({
+                //    Exersice_Name: passExerciseArray[i],
+                //    Muscle_Group: passMuscleGroup,
+                //    Exercise_Type : "NULL",
+                //    Mechanics: "NULL",
+                //    Equipment_Needed: "NULL",
+                //    Spotter_Recommended: "NULL",
+                //    Difficulty: "Null",
+                //    Description: "NULL",
+                //}, function(error) {
+                //    if (error) {
+                //        // The write failed...
+                //        console.log("Error on: " + i + " iteration.\nFailed to write: " + passExerciseArray[i] + " in muscle group: " + passMuscleGroup + "\n")
+                //    } else {
+                //        // Data saved successfully!
+                //        console.log(passMuscleGroup + " was saved!\n" + passExerciseArray[i] + " was saved too!\n");
+                //    }
+                //});
+
+                //Add The Muscle Group and Exercises to Cloud Firestore
+                database.collection("ExerciseDB").doc("Muscle Groups").collection(passMuscleGroup).doc(passExerciseArray[i]).set({
+                    Exersice_Name: passExerciseArray[i],
+                    Muscle_Group: passMuscleGroup,
+                    Exercise_Type : "NULL",
+                    Mechanics: "NULL",
+                    Equipment_Needed: "NULL",
+                    Spotter_Recommended: "NULL",
+                    Difficulty: "Null",
+                    Description: "NULL",
+                })
+                .then(function() {
+                    // Data saved successfully!
+                    console.log(passMuscleGroup + " was saved!\n" + passExerciseArray[i] + " was saved!");
+                })
+                .catch(function(error) {
+                    // The write failed...
+                    console.log("Error on: " + i + " iteration.\nFailed to write: " + passExerciseArray[i] + " in muscle group: " + passMuscleGroup + "\n")
+                });
+            }
         }
 
         //function for managing everything
@@ -296,6 +343,9 @@
 
             //DOM output from text (for testing)
             document.getElementById('every').innerHTML = "total length: " + totalLength;
+
+            //add to the database TEST 1: Abdominals
+            addToFirebase(muscleGroupsArray[0], abdominalsArray);
 
         }
 

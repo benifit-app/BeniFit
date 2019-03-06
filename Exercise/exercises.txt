@@ -1,7 +1,7 @@
 ab crunch machine, abdominals
 ab roller, abdominals
 adductor, adductors
-adductor/groin, adductors
+adductor - groin, adductors
 advanced kettlebell windmill, abdominals
 air bike, abdominals
 all fours quad stretch, quadriceps
@@ -29,7 +29,7 @@ axle deadlift, lower back
 ab crunch machine, abdominals
 ab roller, abdominals
 adductor, adductors
-adductor/groin, adductors
+adductor - groin, adductors
 advanced kettlebell windmill, abdominals
 air bike, abdominals
 all fours quad stretch, quadriceps
@@ -129,7 +129,7 @@ box squat, quadriceps
 box squat with bands, quadriceps
 box squat with chains, quadriceps
 brachialis-smr, biceps
-bradford/rocky presses, shoulders
+bradford - rocky presses, shoulders
 butt lift (bridge), glutes
 butt-ups, abdominals
 butterfly, chest
@@ -328,7 +328,7 @@ glute kickback, glutes
 goblet squat, quadriceps
 good morning, hamstrings
 good morning off pins, hamstrings
-gorilla chin/crunch, abdominals
+gorilla chin - crunch, abdominals
 groin and back stretch, adductors
 groiners, adductors
 hack squat, quadriceps
@@ -414,7 +414,7 @@ kipping muscle up, lats
 knee across the body, glutes
 knee circles, calves
 knee tuck jump, hamstrings
-knee/hip raise on parallel bars, abdominals
+knee - hip raise on parallel bars, abdominals
 kneeling arm drill, shoulders
 kneeling cable crunch with alternating oblique twists, abdominals
 kneeling cable triceps extension, triceps
@@ -626,7 +626,7 @@ rickshaw deadlift, quadriceps
 ring dips, triceps
 rocket jump, quadriceps
 rocking standing calf raise, calves
-rocky pull-ups/pulldowns, lats
+rocky pull-ups - pulldowns, lats
 romanian deadlift, hamstrings
 romanian deadlift from deficit, hamstrings
 rope climb, lats
@@ -845,7 +845,7 @@ thigh adductor, adductors
 tire flip, quadriceps
 toe touchers, abdominals
 torso rotation, abdominals
-trail running/walking, quadriceps
+trail running - walking, quadriceps
 trap bar deadlift, quadriceps
 tricep dumbbell kickback, triceps
 tricep side stretch, triceps
