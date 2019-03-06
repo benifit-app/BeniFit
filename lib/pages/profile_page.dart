@@ -287,10 +287,10 @@ class _ProfilePage extends State<ProfilePage> {
             stops: [0.1, 0.5, 0.7, 0.9],
             colors: [
               // Colors are easy thanks to Flutter's Colors class.
-              Colors.teal[100],
-              Colors.purple[200],
-              Colors.teal[500],
-              Colors.teal[600],
+              Colors.black,
+              Colors.black,
+              Colors.black,
+              Colors.black,
             ],
           ),       ),
         child: new FutureBuilder<List<ImagePost>>(
@@ -347,9 +347,9 @@ class _ProfilePage extends State<ProfilePage> {
               appBar: new AppBar(
                 title: new Text(
                   user.username,
-                  style: const TextStyle(color: Colors.black),
+                  style: const TextStyle(color: Colors.white),
                 ),
-                backgroundColor: Colors.white,
+                backgroundColor: Colors.grey,
               ),
               body: new ListView(
                 children: <Widget>[
