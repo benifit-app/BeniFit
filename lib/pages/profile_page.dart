@@ -4,6 +4,7 @@ import 'package:fitapp/main.dart';
 import 'package:fitapp/feed/image_post.dart';
 import 'dart:async';
 import 'package:fitapp/activityFeedPage/edit_profile_page.dart';
+import 'package:nima/nima_actor.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({this.userId});
@@ -357,6 +358,14 @@ class _ProfilePage extends State<ProfilePage> {
                     padding: const EdgeInsets.all(16.0),
                     child: new Column(
                       children: <Widget>[
+                        new Container(
+                          height: 200,
+                          width: 200,
+                          child: new NimaActor("assets/Flexer.nma",
+                              alignment:Alignment.center,
+                              fit:BoxFit.contain,
+                              animation:"flex"),
+                        ),
                         new Container(
                            child:new Row(
                                  mainAxisAlignment: MainAxisAlignment.center,

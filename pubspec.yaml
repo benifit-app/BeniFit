@@ -20,6 +20,7 @@ dependencies:
   firebase_messaging: ^2.0.2
   location: ^1.4.1
   geocoder: ^0.1.1
+  nima: ^1.0.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -54,6 +55,8 @@ flutter:
 
   assets:
     - assets/images/google_signin_button.png
+    - assets/Flexer.nma
+    - assets/Flexer.png
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
