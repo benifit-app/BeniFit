@@ -4,6 +4,7 @@ import 'package:fitapp/main.dart';
 import 'package:fitapp/feed/image_post.dart';
 import 'dart:async';
 import 'package:fitapp/activityFeedPage/edit_profile_page.dart';
+import 'package:nima/nima_actor.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({this.userId});
@@ -287,10 +288,10 @@ class _ProfilePage extends State<ProfilePage> {
             stops: [0.1, 0.5, 0.7, 0.9],
             colors: [
               // Colors are easy thanks to Flutter's Colors class.
-              Colors.teal[100],
-              Colors.purple[200],
-              Colors.teal[500],
-              Colors.teal[600],
+              Colors.black,
+              Colors.black,
+              Colors.black,
+              Colors.black,
             ],
           ),       ),
         child: new FutureBuilder<List<ImagePost>>(
@@ -357,6 +358,14 @@ class _ProfilePage extends State<ProfilePage> {
                     padding: const EdgeInsets.all(16.0),
                     child: new Column(
                       children: <Widget>[
+                        new Container(
+                          height: 200,
+                          width: 200,
+                          child: new NimaActor("assets/Flexer.nma",
+                              alignment:Alignment.center,
+                              fit:BoxFit.contain,
+                              animation:"flex"),
+                        ),
                         new Container(
                            child:new Row(
                                  mainAxisAlignment: MainAxisAlignment.center,
