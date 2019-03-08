@@ -160,7 +160,7 @@ class fitapp extends StatelessWidget {
           // counter didn't reset back to zero; the application is not restarted.
           primarySwatch: Colors.teal,
           buttonColor: Colors.blueGrey,
-          primaryIconTheme: new IconThemeData(color: Colors.black)),
+          primaryIconTheme: new IconThemeData(color: Colors.white)),
       home: new HomePage(title: 'EFfit'),
     );
   }

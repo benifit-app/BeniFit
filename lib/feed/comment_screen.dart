@@ -31,9 +31,9 @@ class _CommentScreenState extends State<CommentScreen> {
       appBar: new AppBar(
         title: new Text(
           "Comments",
-          style: new TextStyle(color: Colors.black),
+          style: new TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.grey,
       ),
       body: buildPage(),
     );
