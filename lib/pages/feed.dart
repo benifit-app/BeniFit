@@ -12,6 +12,7 @@ import 'package:fitapp/feed/upload_text.dart';
 
 //for accessing functions in other pages
 import 'package:fitapp/test.dart';
+import 'package:fitapp/personal_trainer/exercise_card.dart';
 
 
 class Feed extends StatefulWidget {
@@ -25,6 +26,8 @@ class _Feed extends State<Feed> {
   List<ImagePost> feedData;
 
   ScrollController _scrollController = new ScrollController();
+
+  ptExerciseCard newCard = new ptExerciseCard();
 
   @override
   void initState() {
@@ -115,7 +118,8 @@ class _Feed extends State<Feed> {
                 ),
 
                 //Personal Trainer Tab
-                Icon(Icons.fitness_center)
+                //Icon(Icons.fitness_center)
+                new ptExerciseCard()
               ]
             )
 //      floatingActionButton: FancyFab(),
