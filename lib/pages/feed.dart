@@ -10,6 +10,10 @@ import 'package:fitapp/feed/floating_action_bar.dart';
 import 'package:fitapp/pages/upload_page.dart';
 import 'package:fitapp/feed/upload_text.dart';
 
+//for accessing functions in other pages
+import 'package:fitapp/test.dart';
+import 'package:fitapp/personal_trainer/exercise_card.dart';
+
 
 class Feed extends StatefulWidget {
   final ScrollController scrolly;
@@ -113,7 +117,8 @@ class _Feed extends State<Feed> {
                   ),
                 ),
                 //Personal Trainer Tab
-                Icon(Icons.fitness_center)
+                //Icon(Icons.fitness_center)
+                new ptExerciseCard(),
               ]
             )
 //      floatingActionButton: FancyFab(),
