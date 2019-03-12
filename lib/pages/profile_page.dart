@@ -350,6 +350,9 @@ class _ProfilePage extends State<ProfilePage> {
                   user.username,
                   style: const TextStyle(color: Colors.white),
                 ),
+                actions: <Widget>[
+                  IconButton(icon: Icon(Icons.settings), onPressed: null)
+                ],
                 backgroundColor: Colors.grey,
               ),
               body: new ListView(
