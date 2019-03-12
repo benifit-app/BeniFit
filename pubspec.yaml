@@ -57,6 +57,8 @@ flutter:
     - assets/images/google_signin_button.png
     - assets/Flexer.nma
     - assets/Flexer.png
+    - assets/flexin.nma
+    - assets/flexin.png
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg

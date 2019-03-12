@@ -350,6 +350,9 @@ class _ProfilePage extends State<ProfilePage> {
                   user.username,
                   style: const TextStyle(color: Colors.black),
                 ),
+                actions: <Widget>[
+                  IconButton(icon: Icon(Icons.settings), onPressed: null)
+                ],
                 backgroundColor: Colors.white,
               ),
               body: new ListView(
@@ -358,40 +361,85 @@ class _ProfilePage extends State<ProfilePage> {
                     padding: const EdgeInsets.all(16.0),
                     child: new Column(
                       children: <Widget>[
-                        new Container(
-                          height: 200,
-                          width: 200,
-                          child: new NimaActor("assets/Flexer.nma",
-                              alignment:Alignment.center,
-                              fit:BoxFit.contain,
-                              animation:"flex"),
-                        ),
-                        new Container(
-                           child:new Row(
-                                 mainAxisAlignment: MainAxisAlignment.center,
-                                 children: <Widget>[
-                                   new CircleAvatar(
-                                     radius: 70.0,
-                                     backgroundColor: Colors.grey,
-                                     backgroundImage: new NetworkImage(user.photoUrl),
-                                   )
-                                 ],
-                               ),
-                          height: 200.0,
-                          decoration: BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius: BorderRadius.circular(10.0)
+                           Row(
+                            children: <Widget>[
+                              Expanded(
+                                child:
+                                Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.black),
+                                    borderRadius: BorderRadius.circular(10.0)
+                                  ),
+                                  height: 200,
+                                  child:
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: <Widget>[
+                                      buildStatColumn("height", 6),
+                                      buildStatColumn("weight", 201),
+                                    ],
+                                  ),
+                                ),
+                                flex: 2,
+                              ),
+                              Expanded(
+                                  child:
+                                  Container(
+                                    height: 300,
+                                    width: 200,
+                                    child: new NimaActor("assets/flexin.nma",
+                                        alignment:Alignment.center,
+                                        fit:BoxFit.contain,
+                                        animation:"Untitled"),
+                                  ),
+                                flex: 5,
+                              ),
+                              Expanded(
+                                  child:
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        border: Border.all(color: Colors.black),
+                                        borderRadius: BorderRadius.circular(10.0)
+                                    ),
+                                    height: 200,
+                                    child:
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: <Widget>[
+                                        buildStatColumn("PR Bench", 300),
+                                        buildStatColumn("PR Squat", 405),
+                                      ],
+                                    ),
+                                  ),
+                                flex: 2,
+                              )
+                            ],
                           ),
-                        ),
+//                        new Container(
+//                           child:new Row(
+//                                 mainAxisAlignment: MainAxisAlignment.center,
+//                                 children: <Widget>[
+//                                   new CircleAvatar(
+//                                     radius: 70.0,
+//                                     backgroundColor: Colors.grey,
+//                                     backgroundImage: new NetworkImage(user.photoUrl),
+//                                   )
+//                                 ],
+//                               ),
+//                          height: 200.0,
+//                          decoration: BoxDecoration(
+//                            color: Colors.grey,
+//                            borderRadius: BorderRadius.circular(10.0)
+//                          ),
+//                        ),
                         new Container(
                             alignment: Alignment.center,
                             padding: const EdgeInsets.only(top: 15.0,bottom: 5.0),
                             child: new Text(
                               user.displayName,
                               style: new TextStyle(
-                                fontFamily: "Billabong",
+                                fontFamily: "Bangers",
                                   fontSize: 50.0,
-                                  fontWeight: FontWeight.bold
                               ),
                             )),
                          new Row(
