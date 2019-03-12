@@ -27,8 +27,6 @@ class _Feed extends State<Feed> {
 
   ScrollController _scrollController = new ScrollController();
 
-  ptExerciseCard newCard = new ptExerciseCard();
-
   @override
   void initState() {
     super.initState();
@@ -119,7 +117,7 @@ class _Feed extends State<Feed> {
 
                 //Personal Trainer Tab
                 //Icon(Icons.fitness_center)
-                new ptExerciseCard()
+                new ptExerciseCard(),
               ]
             )
 //      floatingActionButton: FancyFab(),

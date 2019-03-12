@@ -22,11 +22,10 @@ class _ptExerciseCardState extends State<ptExerciseCard> {
   Widget build(BuildContext context) {
     return Container(
       child: new ListView.builder(
-          itemCount:  2,
+          itemCount:  1,  //amount of cards you want in a class
           itemBuilder: (BuildContext context, int i) {
             return Card(
-              margin:
-              const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 0.0),
+              margin: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 0.0),
               child: new ExpansionPanelList(
                 expansionCallback: (int index, bool status) {
                   setState(() {
@@ -38,14 +37,18 @@ class _ptExerciseCardState extends State<ptExerciseCard> {
                     isExpanded: _activeMeterIndex == i,
                     headerBuilder: (BuildContext context,
                         bool isExpanded) =>
-                    new Container(
-                        padding:
-                        const EdgeInsets.only(left: 15.0),
+                    new Container(  //container for building the header
+                        padding: const EdgeInsets.only(left: 5.0),
                         alignment: Alignment.centerLeft,
                         child: new Text(
-                          'list-$i',
+                          'Child inside Container',
                         )),
-                    body: new Container(child: new Text('content-$i'),),),
+                    body: new Container(
+                      padding: const EdgeInsets.only(left: 5.0, bottom: 5.0),
+                      alignment: Alignment.centerLeft,
+                      child: new Text('Text inside child inside new container inside body test for wrap'),
+                    ),
+                  ),
                 ],
               ),
             );
