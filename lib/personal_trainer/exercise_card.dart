@@ -27,32 +27,90 @@ class _ptExerciseCardState extends State<ptExerciseCard> {
             return Card(
               margin: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 0.0),
               child: new ExpansionPanelList(
-                expansionCallback: (int index, bool status) {
-                  setState(() {
-                    _activeMeterIndex = _activeMeterIndex == i ? null : i;
-                  });
-                },
-                children: [
-                  new ExpansionPanel(
-                    isExpanded: _activeMeterIndex == i,
-                    headerBuilder: (BuildContext context,
-                        bool isExpanded) =>
-                    new Container(  //container for building the header
-                        padding: const EdgeInsets.only(left: 5.0),
-                        alignment: Alignment.centerLeft,
-                        child: new Text(
-                          'Child inside Container',
-                        )),
-                    body: new Container(
-                      padding: const EdgeInsets.only(left: 5.0, bottom: 5.0),
-                      alignment: Alignment.centerLeft,
-                      child: new Text('Text inside child inside new container inside body test for wrap'),
-                    ),
-                  ),
-                ],
+                  expansionCallback: (int index, bool status) {
+                    setState(() {
+                      _activeMeterIndex = _activeMeterIndex == i ? null : i;
+                    });
+                  },
+                  children: [
+                    new ExpansionPanel(
+                        isExpanded: _activeMeterIndex == i,
+                        headerBuilder: (BuildContext context,
+                            bool isExpanded) =>
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <
+                                  Widget>[ //NOTE to future Alex: put all the text in containers so you can pad it
+                                Container(
+                                  padding: const EdgeInsets.only(
+                                      left: 0.0, right: 20.0),
+                                  alignment: Alignment.centerLeft,
+                                  child: Text('Exercise Name'),
+
+                                ),
+                                Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: <Widget>[
+                                      Container(
+                                        padding: const EdgeInsets.only(left: 15.0, bottom: 5.0),
+                                        alignment: Alignment.center,
+                                        child: Text('Muscle Group'),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        children: <Widget>[
+                                          Container(
+                                            padding: const EdgeInsets.only(left: 5.0, right: 5.0),
+                                            alignment: Alignment.centerLeft,
+                                            child: Text('Difficulty'),
+                                          ),
+                                          Container(
+                                            padding: const EdgeInsets.only(left: 10.0),
+                                            alignment: Alignment.centerRight,
+                                            child: Text('Spotter'),
+                                          ),
+                                        ],
+                                      )
+                                    ]
+                                ),
+                              ],
+                            ),
+                        body:
+                        Column(
+                            children: <Widget>[
+                              Row(
+                                  children: <Widget>[
+                                    Container(
+                                      padding: const EdgeInsets.only(left: 20.0, right: 5.0),
+                                      alignment: Alignment.centerLeft,
+                                      child: Text('Exercise Type'),
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.only(left: 15.0, right: 10.0),
+                                      alignment: Alignment.center,
+                                      child: Text('Mechanic'),
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.only(left: 15.0, right: 5.0),
+                                      alignment: Alignment.centerRight,
+                                      child: Text('Equipment Needed'),
+                                    )
+                                  ]
+                              ),
+                              Container(
+                                  padding: const EdgeInsets.only(top: 5.0, left: 10.0, bottom: 10),
+                                  alignment: Alignment.centerLeft,
+                                  child: Text('Description')
+                              )
+                            ]
+                        )
+                    )
+                  ] //Children
               ),
             );
-          }),
+          }
+      ),
     );
   }
 }
