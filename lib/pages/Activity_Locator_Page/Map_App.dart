@@ -18,7 +18,7 @@ final List<Page> _allPages = <Page>[
   ScrollingMapPage(),
 ];
 
-class MapsDemo extends StatelessWidget {
+class MapApp extends StatelessWidget {
   void _pushPage(BuildContext context, Page page) {
     Navigator.of(context).push(MaterialPageRoute<void>(
         builder: (_) => Scaffold(
@@ -30,7 +30,23 @@ class MapsDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('GoogleMaps examples')),
+      appBar: AppBar(
+          title: const Text('GoogleMaps examples')
+          actions: <Widget>[
+            IconButton(
+            icon: Icon(Icons.playlist_play),
+            tooltip: 'Air it',
+          ),
+          IconButton(
+          icon: Icon(Icons.playlist_add),
+          tooltip: 'Restitch it',
+          ),
+          IconButton(
+          icon: Icon(Icons.playlist_add_check),
+          tooltip: 'Repair it',
+          ),
+          ],
+      ),
       body: ListView.builder(
         itemCount: _allPages.length,
         itemBuilder: (_, int index) => ListTile(

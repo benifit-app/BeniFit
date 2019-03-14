@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fitapp/feed/floating_action_bar.dart';
 import 'package:fitapp/pages/upload_page.dart';
 import 'package:fitapp/feed/upload_text.dart';
-import 'package:fitapp/pages/Activity_Locator_Page/Maps_Demo.dart';
+import 'package:fitapp/pages/Activity_Locator_Page/Map_App.dart';
 //for accessing functions in other pages
 //import 'package:fitapp/test.dart';
 import 'package:fitapp/personal_trainer/exercise_card.dart';
@@ -77,11 +77,11 @@ class _Feed extends State<Feed> {
             appBar: new AppBar(
               title: const Text('Effit',
                 style: const TextStyle(
-                  fontFamily: "Bangers", color: Colors.white, fontSize: 35.0
+                  fontFamily: "Bangers", color: Colors.white, fontSize: 40.0
                 ),
               ),
               centerTitle: true,
-              backgroundColor: Colors.grey,
+              backgroundColor: Colors.red,
               bottom: TabBar(
                 tabs: <Widget>[
                   Tab(icon: Icon(Icons.map)),
@@ -93,7 +93,7 @@ class _Feed extends State<Feed> {
             body: TabBarView(
               children: [
                 //Activity locator Tab
-                new MapsDemo(),
+                new MapApp(),
 //                Icon(Icons.map),
                 //Effit Tab
                 new RefreshIndicator(
