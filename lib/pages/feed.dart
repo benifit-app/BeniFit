@@ -81,7 +81,7 @@ class _Feed extends State<Feed> {
                 ),
               ),
               centerTitle: true,
-              backgroundColor: Colors.red,
+              backgroundColor: Colors.grey,
               bottom: TabBar(
                 tabs: <Widget>[
                   Tab(icon: Icon(Icons.map)),
@@ -118,8 +118,7 @@ class _Feed extends State<Feed> {
                   ),
                 ),
                 //Personal Trainer Tab
-                //Icon(Icons.fitness_center)
-                new ptExerciseCard(),
+                Icon(Icons.fitness_center)
               ]
             )
 //      floatingActionButton: FancyFab(),
