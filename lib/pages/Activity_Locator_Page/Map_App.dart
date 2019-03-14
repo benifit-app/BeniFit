@@ -31,7 +31,7 @@ class MapApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text('GoogleMaps examples')
+          title: const Text('GoogleMaps examples'),
           actions: <Widget>[
             IconButton(
             icon: Icon(Icons.playlist_play),
