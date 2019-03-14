@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fitapp/feed/floating_action_bar.dart';
 import 'package:fitapp/pages/upload_page.dart';
 import 'package:fitapp/feed/upload_text.dart';
-
+import 'package:fitapp/pages/Activity_Locator_Page/Maps_Demo.dart';
 
 class Feed extends StatefulWidget {
   final ScrollController scrolly;
@@ -89,7 +89,8 @@ class _Feed extends State<Feed> {
             body: TabBarView(
               children: [
                 //Activity locator Tab
-                Icon(Icons.map),
+                new MapsDemo(),
+//                Icon(Icons.map),
                 //Effit Tab
                 new RefreshIndicator(
                   onRefresh: _refresh,
