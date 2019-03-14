@@ -36,6 +36,10 @@
     
 
     <script>
+        //Get a reference to the firebase database
+        //FIX THIS ASAP******************
+        var database = firebase.firestore();
+
         //get the output object
         var outputLocation = document.getElementById('mg');
 
@@ -69,9 +73,14 @@
                 //outputMuscleGroupArray(arrayLength);
                 fullArray = lines;
                 fullArrayLength = lines.length;
+                //console.log("FullArray length = " + fullArray.length)
             }
             reader.readAsText(input.files[0])
         }, false)
+
+        String.prototype.capitalize = function(){
+            return this.replace(/(?:^|\s)\S/g, function(a) {return a.toUpperCase();});
+        }
 
         //function for adding element to muscle groups
         function addToMuscleGroupArray(input, arrayLength){
@@ -184,9 +193,9 @@
             for(i = 0; i < fullArrayLength; i++){
                 if(fullArray[i][1] == passGroup){
                     if(i == 0){
-                        groupArray[0] = fullArray[i][0];
+                        groupArray[0] = fullArray[i][0].capitalize();
                     }else{
-                        groupArray.push(fullArray[i][0]);
+                        groupArray.push(fullArray[i][0].capitalize());
                     }
                 }
             }
@@ -215,6 +224,56 @@
             return output;
         }
 
+        //function for adding into firebase
+        function addToFirebase(passMuscleGroup, passExerciseArray){
+            //Set necessary variables
+            var passLength = passExerciseArray.length;
+            var i;
+
+            //Begin looping through the array and add everything
+            for(i = 0; i < passLength; i++){
+                //Add the Muscle Group to RealTime Database
+                //database.ref('ExerciseDB/MuscleGroup/' + passMuscleGroup + '/' + passExerciseArray[i]).set({
+                //    Exersice_Name: passExerciseArray[i],
+                //    Muscle_Group: passMuscleGroup,
+                //    Exercise_Type : "NULL",
+                //    Mechanics: "NULL",
+                //    Equipment_Needed: "NULL",
+                //    Spotter_Recommended: "NULL",
+                //    Difficulty: "Null",
+                //    Description: "NULL",
+                //}, function(error) {
+                //    if (error) {
+                //        // The write failed...
+                //        console.log("Error on: " + i + " iteration.\nFailed to write: " + passExerciseArray[i] + " in muscle group: " + passMuscleGroup + "\n")
+                //    } else {
+                //        // Data saved successfully!
+                //        console.log(passMuscleGroup + " was saved!\n" + passExerciseArray[i] + " was saved too!\n");
+                //    }
+                //});
+
+                //Add The Muscle Group and Exercises to Cloud Firestore
+                database.collection("ExerciseDB").doc("Muscle Groups").collection(passMuscleGroup).doc(passExerciseArray[i]).set({
+                    Exersice_Name: passExerciseArray[i],
+                    Muscle_Group: passMuscleGroup,
+                    Exercise_Type : "NULL",
+                    Mechanics: "NULL",
+                    Equipment_Needed: "NULL",
+                    Spotter_Recommended: "NULL",
+                    Difficulty: "Null",
+                    Description: "NULL",
+                })
+                .then(function() {
+                    // Data saved successfully!
+                    console.log(passMuscleGroup + " was saved!\n" + passExerciseArray[i] + " was saved!");
+                })
+                .catch(function(error) {
+                    // The write failed...
+                    console.log("Error on: " + i + " iteration.\nFailed to write: " + passExerciseArray[i] + " in muscle group: " + passMuscleGroup + "\n")
+                });
+            }
+        }
+
         //function for managing everything
         function getEverything(){
             //set variables
@@ -223,7 +282,6 @@
 
             //set the result array variables
             var abdominalsArray = new Array();
-            var abdominalsArray;
             var adductorsArray = new Array();
             var quadricepsArray = new Array();
             var bicepsArray = new Array();
@@ -264,11 +322,52 @@
             abductorArray = getArrayFromMuscleGroup(muscleGroupsArray[17]);
             treadmillArray = getArrayFromMuscleGroup(muscleGroupsArray[18]);
 
+            console.log("abdominalsArray length = " + abdominalsArray.length + "/96");
+            console.log("adductorsArray length = " + adductorsArray.length + "/15");
+            console.log("quadricepsArray length = " + quadricepsArray.length + "/149");
+            console.log("bicepsArray length = " + bicepsArray.length + "/55");
+            console.log("shouldersArray length = " + shouldersArray.length + "/133");
+            console.log("chestArray length = " + chestArray.length + "/85");
+            console.log("hamstringArray length = " + hamstringArray.length + "/78");
+            console.log("middleBackArray lenght = " + middleBackArray.length + "/36");
+            console.log("calvesArray length = " + calvesArray.length + "/30");
+            console.log("glutesArray length = " + glutesArray.length + "/23");
+            console.log("lowerBackArray length = " + lowerBackArray.length + "/30");
+            console.log("latsArray length = " + latsArray.length + "/38");
+            console.log("tricepsArray length = " + tricepsArray.length + "/72");
+            console.log("trapsArray length = " + trapsArray.length + "/16");
+            console.log("stationaryArray length = " + stationaryArray.length + "/2");
+            console.log("forearmsArray length = " + forearmsArray.length + "/25");
+            console.log("neckArray length = " + neckArray.length + "/8");
+            console.log("abductorArray length = " + abductorArray.length + "/8");
+            console.log("treadmillArray length = " + treadmillArray.length + "/2");
+
             //get the total length
-            totalLength = abdominalsArray.length + adductorsArray.length + quadricepsArray.length + bicepsArray.length + shouldersArray.length + chestArray.length + hamstringArray.length + middleBackArray.length + calvesArray.length + glutesArray.length + lowerBackArray.length + latsArray.length + tricepsArray.length + tricepsArray.length + trapsArray.length + stationaryArray.length + forearmsArray.length + neckArray.length + abductorArray.length + treadmillArray.length;
+            totalLength = abdominalsArray.length + adductorsArray.length + quadricepsArray.length + bicepsArray.length + shouldersArray.length + chestArray.length + hamstringArray.length + middleBackArray.length + calvesArray.length + glutesArray.length + lowerBackArray.length + latsArray.length + tricepsArray.length + trapsArray.length + stationaryArray.length + forearmsArray.length + neckArray.length + abductorArray.length + treadmillArray.length;
 
             //DOM output from text (for testing)
             document.getElementById('every').innerHTML = "total length: " + totalLength;
+
+            //add to the database TEST 1: Abdominals
+            addToFirebase(muscleGroupsArray[0], abdominalsArray);
+            addToFirebase(muscleGroupsArray[1], adductorsArray);
+            addToFirebase(muscleGroupsArray[2], quadricepsArray);
+            addToFirebase(muscleGroupsArray[3], bicepsArray);
+            addToFirebase(muscleGroupsArray[4], shouldersArray);
+            addToFirebase(muscleGroupsArray[5], chestArray);
+            addToFirebase(muscleGroupsArray[6], hamstringArray);
+            addToFirebase(muscleGroupsArray[7], middleBackArray);
+            addToFirebase(muscleGroupsArray[8], calvesArray);
+            addToFirebase(muscleGroupsArray[9], glutesArray);
+            addToFirebase(muscleGroupsArray[10], lowerBackArray);
+            addToFirebase(muscleGroupsArray[11], latsArray);
+            addToFirebase(muscleGroupsArray[12], tricepsArray);
+            addToFirebase(muscleGroupsArray[13], trapsArray);
+            addToFirebase(muscleGroupsArray[14], stationaryArray);
+            addToFirebase(muscleGroupsArray[15], forearmsArray);
+            addToFirebase(muscleGroupsArray[16], neckArray);
+            addToFirebase(muscleGroupsArray[17], abductorArray);
+            addToFirebase(muscleGroupsArray[18], treadmillArray);
 
         }
 
