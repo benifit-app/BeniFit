@@ -1,6 +1,5 @@
 #include "AppDelegate.h"
 #include "GeneratedPluginRegistrant.h"
-#include "AppDelegate.h"
 #include "GeneratedPluginRegistrant.h"
 
 #import "GoogleMaps/GoogleMaps.h"
