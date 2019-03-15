@@ -21,6 +21,7 @@ dependencies:
   location: ^1.4.1
   geocoder: ^0.1.1
   nima: ^1.0.0
+  flutter_pedometer: ^0.9.2
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
