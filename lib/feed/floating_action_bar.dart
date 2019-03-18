@@ -81,7 +81,7 @@ class _FancyFabState extends State<FancyFab>
         onPressed:(){
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => pedometer()),
+            MaterialPageRoute(builder: (context) => Pedometer()),
           );
         },
         tooltip: 'Pedometer',

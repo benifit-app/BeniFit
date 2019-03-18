@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter_pedometer/flutter_pedometer.dart';
 
-class MyApp extends StatefulWidget {
+class Pedometer extends StatefulWidget {
   @override
-  _MyAppState createState() => new _MyAppState();
+  _PedometerState createState() => new _PedometerState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _PedometerState extends State<Pedometer> {
   String _stepCountValue = 'Unknown';
   StreamSubscription<int> _subscription;
 
