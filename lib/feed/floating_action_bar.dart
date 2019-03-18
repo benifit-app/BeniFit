@@ -77,11 +77,11 @@ class _FancyFabState extends State<FancyFab>
   Widget pedometer() {
     return Container(
       child:FloatingActionButton(
-        heroTag:3,
+        heroTag: 3,
         onPressed:(){
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => pedometer_tool()),
+            MaterialPageRoute(builder: (context) => pedometer()),
           );
         },
         tooltip: 'Pedometer',
