@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fitapp/pages/direct_message/direct_text.dart';
 import 'package:fitapp/feed/upload_text.dart';
 import 'package:fitapp/pages/upload_page.dart';
+import 'package:fitapp/pages/pedometer_tool.dart';
 
 class FancyFab extends StatefulWidget {
   final Function() onPressed;
@@ -73,6 +74,22 @@ class _FancyFabState extends State<FancyFab>
     isOpened = !isOpened;
   }
 
+  Widget pedometer() {
+    return Container(
+      child:FloatingActionButton(
+        heroTag: 3,
+        onPressed:(){
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Pedometer()),
+          );
+        },
+        tooltip: 'Pedometer',
+        child: Icon(Icons.directions_walk),
+      ),
+    );
+  }
+
   Widget add() {
     return Container(
       child: FloatingActionButton(
@@ -119,6 +136,7 @@ class _FancyFabState extends State<FancyFab>
         child: Icon(Icons.inbox),
       ),
     );
+
   }
 
   Widget toggle() {
@@ -141,6 +159,14 @@ class _FancyFabState extends State<FancyFab>
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
+        Transform(
+          transform: Matrix4.translationValues(
+            0.0,
+            _translateButton.value * 4.0,
+            0.0,
+          ),
+          child: pedometer(),
+        ),
         Transform(
           transform: Matrix4.translationValues(
             0.0,
