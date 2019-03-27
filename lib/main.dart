@@ -12,6 +12,7 @@ import 'package:fitapp/pages/search_page.dart';
 import 'package:fitapp/pages/activity_feed.dart';
 import 'package:fitapp/main/create_account.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:fitapp/pages/attendance_page.dart';
 import 'package:fitapp/pages/pedometer_tool.dart';
 import 'dart:io' show Platform;
 
@@ -250,6 +251,10 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.white,
                     child: new ProfilePage(userId: googleSignIn.currentUser.id,)
                 ),
+                new Container(
+                  color: Colors.white,
+                  child: new AttendancePage()
+                ),
               ],
               controller: pageController,
               physics: new NeverScrollableScrollPhysics(),
@@ -277,6 +282,10 @@ class _HomePageState extends State<HomePage> {
                     backgroundColor: Colors.white),
                 new BottomNavigationBarItem(
                     icon: new Icon(Icons.person, color: (_page == 4) ? Colors.black : Colors.grey),
+                    title: new Container(height: 0.0),
+                    backgroundColor: Colors.white),
+                new BottomNavigationBarItem(
+                    icon: new Icon(Icons.assignment_ind, color: (_page == 5) ? Colors.black : Colors.grey),
                     title: new Container(height: 0.0),
                     backgroundColor: Colors.white),
               ],
