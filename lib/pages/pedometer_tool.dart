@@ -8,7 +8,7 @@ class Pedometer extends StatefulWidget {
 }
 
 class _PedometerState extends State<Pedometer> {
-  String _stepCountValue = 'Unknown';
+  String _stepCountValue = '0';
   StreamSubscription<int> _subscription;
 
   @override
@@ -48,10 +48,15 @@ class _PedometerState extends State<Pedometer> {
     return new MaterialApp(
       home: new Scaffold(
         appBar: new AppBar(
-          title: const Text('Plugin example app'),
+          backgroundColor: Colors.greenAccent,
+          title: const Text("EFFIT - Let's Walk", textAlign: TextAlign.center),
         ),
+        backgroundColor: Colors.blueGrey,
         body: new Center(
-          child: new Text('Steps taken: $_stepCountValue\n'),
+          child: new Text("Keep walking, you're only at: $_stepCountValue\n",
+            style: DefaultTextStyle.of(context).style.apply(fontSizeFactor: 0.5),
+              textAlign: TextAlign.center
+          )
         ),
       ),
     );
