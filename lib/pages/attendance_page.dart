@@ -56,15 +56,16 @@ class _AttendancePage extends State<AttendancePage> {
       _AttendanceValue = "$counter";
       print('Pressed $counter times.');
       await prefs.setInt('counter', counter);
+      return _AttendanceValue;
   }
 
-    @override
+    /*@override
     Widget build(BuildContext context) {
       return new MaterialApp(
         home: new Scaffold(
           appBar: new AppBar(
             backgroundColor: Colors.greenAccent,
-            title: const Text("EFFIT - Let's Clock In", textAlign: TextAlign.center),
+            title: const Text("EFFIT - I'm Here", textAlign: TextAlign.center),
           ),
           backgroundColor: Colors.blueGrey,
           body: new Container(
@@ -80,15 +81,57 @@ class _AttendancePage extends State<AttendancePage> {
                     onPressed: _decrementCounter,
                   child: new Text('Press to remove Attendance!',),
                 ),
-
-                new RaisedButton(
-                  onPressed: _showCounter,
-                  child: new Text('Current Attendace is: $_AttendanceValue people', ),
-                )
               ]
             ),
           ),
         ),
+
       );
+    }*/
+
+    @override
+    Widget build(BuildContext context)
+    {
+      return new Scaffold(
+        appBar: new AppBar(
+          backgroundColor: Colors.greenAccent,
+          title: new Text("EFFIT - I'm Here"),
+        ),
+        body: new ListTile(
+          title: new RaisedButton(
+          child: new Text('Press to say you are here!'),
+              onPressed: ()  {
+            _incrementCounter();
+            var route = new MaterialPageRoute(
+            builder: (BuildContext context) => new showAttendancePage(attendanceValue: _AttendanceValue),
+            );
+            Navigator.of(context).push(route);
+          },
+          ),
+          ),
+        );
     }
+}
+
+class showAttendancePage extends StatefulWidget {
+  final String attendanceValue;
+
+  showAttendancePage({Key key, this.attendanceValue}) : super (key: key);
+
+
+  @override
+  _showAttendancePageState createState() => new _showAttendancePageState();
+}
+
+class _showAttendancePageState extends State<showAttendancePage> {
+  @override
+  Widget build(BuildContext context){
+    return new Scaffold(
+      appBar: new AppBar(
+        backgroundColor: Colors.greenAccent,
+        title: new Text("Current Attendnce"),
+      ),
+      body: new Text("Look there is:\n ${widget.attendanceValue}"),
+    );
   }
+}
