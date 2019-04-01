@@ -8,7 +8,7 @@ final LatLngBounds sydneyBounds = LatLngBounds(
 );
 
 class MapUiPage extends Page {
-  MapUiPage() : super(const Icon(Icons.map), 'User interface');
+  MapUiPage() : super(const Icon(Icons.event), 'Search Events');
 
   @override
   Widget build(BuildContext context) {
@@ -110,6 +110,15 @@ class MapUiBodyState extends State<MapUiBody> {
     );
   }
 
+  Widget _mapCycle() {
+    final MapType nextType =
+    MapType.values[(_mapType.index + 1) % MapType.values.length];
+        setState(() {
+          _mapType = nextType;
+          }
+        );
+  }
+
   Widget _rotateToggler() {
     return FlatButton(
       child: Text('${_rotateGesturesEnabled ? 'disable' : 'enable'} rotate'),
@@ -182,13 +191,59 @@ class MapUiBodyState extends State<MapUiBody> {
       onCameraMove: _updateCameraPosition,
     );
 
+//  @override
+//  Widget build(BuildContext context) {
+//    final Widget googleMap = Stack(
+//        children: <Widget>[
+//          GoogleMap(
+//            onMapCreated: onMapCreated,
+//            initialCameraPosition: _kInitialPosition,
+//            compassEnabled: _compassEnabled,
+//            cameraTargetBounds: _cameraTargetBounds,
+//            minMaxZoomPreference: _minMaxZoomPreference,
+//            mapType: _mapType,
+//            rotateGesturesEnabled: _rotateGesturesEnabled,
+//            scrollGesturesEnabled: _scrollGesturesEnabled,
+//            tiltGesturesEnabled: _tiltGesturesEnabled,
+//            zoomGesturesEnabled: _zoomGesturesEnabled,
+//            myLocationEnabled: _myLocationEnabled,
+//            onCameraMove: _updateCameraPosition,
+//          ),
+//          Padding(
+//            padding: const EdgeInsets.all(0.0),
+//            child: Align(
+//              alignment: Alignment.topRight,
+//              child: FloatingActionButton(
+//                onPressed: () => _mapCycle(),
+//                materialTapTargetSize: MaterialTapTargetSize.padded,
+//                backgroundColor: Colors.green,
+//                child: const Icon(Icons.map, size: 36.0),
+//              ),
+//            ),
+//          ),
+//          Padding(
+//            padding: const EdgeInsets.only(top: 60.0),
+//            child: Align(
+//              alignment: Alignment.topRight,
+//              child: FloatingActionButton(
+//                onPressed: () => print(Text("Hello)")),
+//                materialTapTargetSize: MaterialTapTargetSize.padded,
+//                backgroundColor: Colors.green,
+//                child: const Icon(Icons.add, size: 36.0),
+//              ),
+//            ),
+//          )
+//        ]
+//    );
+
+
     final List<Widget> columnChildren = <Widget>[
       Padding(
         padding: const EdgeInsets.all(10.0),
         child: Center(
           child: SizedBox(
-            width: 300.0,
-            height: 200.0,
+            width: 500.0,
+            height: 300.0,
             child: googleMap,
           ),
         ),
