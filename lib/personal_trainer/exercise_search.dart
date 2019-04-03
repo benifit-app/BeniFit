@@ -13,15 +13,16 @@ import 'package:fitapp/feed/upload_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitapp/personal_trainer/firestore_query_functions.dart';
 import 'package:fitapp/personal_trainer/customCard.dart';
+import 'package:expandable/expandable.dart';
 
 //video for search bar:  https://www.youtube.com/watch?v=FPcl1tu0gDs
 
 
-class SearchPage extends StatefulWidget {
-  _SearchPage createState() => new _SearchPage();
+class exerciseSearchPage extends StatefulWidget {
+  _exerciseSearchPage createState() => new _exerciseSearchPage();
 }
 
-class _SearchPage extends State<SearchPage> {
+class _exerciseSearchPage extends State<exerciseSearchPage> {
   Future<QuerySnapshot> queryResults;
 
   buildSearchField() {
@@ -38,17 +39,14 @@ class _SearchPage extends State<SearchPage> {
   }
 
   ListView buildSearchResults(List<DocumentSnapshot> docs) {
-    List<UserSearchItem> userSearchItems = [];
+    List<testCard> userSearchItems = [];
+    List<Text> textList = [];
 
     docs.forEach((DocumentSnapshot doc) {
-      return new testCard(doc.data['Exercise_Name'],
-          doc.data['Muscle_Group'],
-          doc.data['Difficulty'],
-          doc.data['Spotter_Recommended'],
-          doc.data['Exercise_Type'],
-          doc.data['Mechanics'],
-          doc.data['Equipment_Needed'],
-          doc.data['Description']);
+      var entry = new testCard(doc.data['Exercise_Name'], doc.data['Muscle_Group'], doc.data['Difficulty'], doc.data['Spotter_Recommended'], doc.data['Exercise_Type'], doc.data['Mechanics'], doc.data['Equipment_Needed'], doc.data['Description']);
+      userSearchItems.add(entry);
+
+      //textList.add(new Text("Added to Doc"));
 
       //User user = new User.fromDocument(doc);
       //UserSearchItem searchItem = new UserSearchItem(user);
@@ -63,7 +61,7 @@ class _SearchPage extends State<SearchPage> {
   void submit(String searchValue) async {
     Future<QuerySnapshot> searchFuture = Firestore.instance
         .collection("NewExerciseDB")
-        .where('exercise_name', isLessThanOrEqualTo: searchValue)
+        .where('Muscle_Group', isEqualTo: searchValue)
         .getDocuments();
 
     setState(() {
@@ -75,11 +73,12 @@ class _SearchPage extends State<SearchPage> {
     return new Scaffold(
       appBar: buildSearchField(),
       body: queryResults == null
-          ? new Text("")
+          ? new Text("Results are null")
           : new FutureBuilder<QuerySnapshot>(
           future: queryResults,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
+              new Text("Snapshot has data");
               return buildSearchResults(snapshot.data.documents);
             } else {
               return new Container(
