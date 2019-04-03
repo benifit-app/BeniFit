@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:flutter/material.dart'
+import 'package:flutter/material.dart';
 import 'package:async/async.dart';
 import 'package:fitapp/main.dart';
 import 'dart:io';
@@ -12,6 +12,7 @@ import 'package:fitapp/feed/upload_text.dart';
 //import for the custom firestore query dart file
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitapp/personal_trainer/firestore_query_functions.dart';
+import 'package:fitapp/personal_trainer/customCard.dart';
 
 //video for search bar:  https://www.youtube.com/watch?v=FPcl1tu0gDs
 
@@ -40,6 +41,14 @@ class _SearchPage extends State<SearchPage> {
     List<UserSearchItem> userSearchItems = [];
 
     docs.forEach((DocumentSnapshot doc) {
+      return new testCard(doc.data['Exercise_Name'],
+          doc.data['Muscle_Group'],
+          doc.data['Difficulty'],
+          doc.data['Spotter_Recommended'],
+          doc.data['Exercise_Type'],
+          doc.data['Mechanics'],
+          doc.data['Equipment_Needed'],
+          doc.data['Description']);
 
       //User user = new User.fromDocument(doc);
       //UserSearchItem searchItem = new UserSearchItem(user);
@@ -52,13 +61,13 @@ class _SearchPage extends State<SearchPage> {
   }
 
   void submit(String searchValue) async {
-    Future<QuerySnapshot> users = Firestore.instance
+    Future<QuerySnapshot> searchFuture = Firestore.instance
         .collection("NewExerciseDB")
         .where('exercise_name', isLessThanOrEqualTo: searchValue)
         .getDocuments();
 
     setState(() {
-      queryResults = users;
+      queryResults = searchFuture;
     });
   }
 
@@ -91,7 +100,7 @@ class UserSearchItem extends StatelessWidget {
       fontWeight: FontWeight.bold,
     );
 
-    return new GestureDetector(
+    /*return new GestureDetector(
         child: new ListTile(
           leading: new CircleAvatar(
             backgroundImage: new NetworkImage(user.photoUrl),
@@ -102,6 +111,6 @@ class UserSearchItem extends StatelessWidget {
         ),
         onTap: () {
           openProfile(context, user.id);
-        });
+        });*/
   }
 }
