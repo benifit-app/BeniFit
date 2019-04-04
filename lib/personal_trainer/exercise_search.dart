@@ -59,9 +59,26 @@ class _exerciseSearchPage extends State<exerciseSearchPage> {
   }
 
   void submit(String searchValue) async {
+    /*Future<QuerySnapshot> searchFuture;
+    var query = Firestore.instance.collection('NewExerciseDB');
+    var searchbuilder;
+    
+    for(var i = 0; i < searchValue.length; i++){
+      searchbuilder = searchbuilder + searchValue[i];
+      query = query.where('Exercise_Name', isGreaterThanOrEqualTo: searchbuilder);
+    }
+
+    searchFuture = query.getDocuments();*/
+
+    List<String> searchWord;
+    for(var i = 0; i < searchValue.length; i++){
+      searchWord.add(searchValue[i]);
+    }
+
     Future<QuerySnapshot> searchFuture = Firestore.instance
         .collection("NewExerciseDB")
-        .where('Muscle_Group', isEqualTo: searchValue)
+        .startAt(searchWord)
+        //.where('Exercise_Name',  isGreaterThanOrEqualTo: searchValue)
         .getDocuments();
 
     setState(() {
