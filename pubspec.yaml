@@ -21,6 +21,8 @@ dependencies:
   location: ^1.4.1
   geocoder: ^0.1.1
   nima: ^1.0.0
+  flutter_svg: ^0.5.5+1
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -55,6 +57,11 @@ flutter:
 
   assets:
     - assets/images/google_signin_button.png
+    - assets/images/gender_arrow.svg
+    - assets/images/gender_female.svg
+    - assets/images/gender_male.svg
+    - assets/images/gender_other.svg
+    - assets/images/person.svg
     - assets/Flexer.nma
     - assets/Flexer.png
     - assets/flexin.nma

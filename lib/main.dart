@@ -15,7 +15,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'dart:io' show Platform;
 
 //for accessing functions in other .dart files
-import "pages/feed.dart";
 
 final auth = FirebaseAuth.instance;
 final googleSignIn = new GoogleSignIn();
@@ -120,7 +119,8 @@ tryCreateUserRecord(BuildContext context) async {
                         ),
                       ],
                     )),
-              )),
+              )
+      ),
     );
 
     if (userName != null || userName.length != 0) {
@@ -130,6 +130,13 @@ tryCreateUserRecord(BuildContext context) async {
         "photoUrl": user.photoUrl,
         "email": user.email,
         "displayName": user.displayName,
+        "gender": "",
+        "height": "",
+        "weight": "",
+        "bmi": "",
+        "bodyFat": "",
+        "prBench": "",
+        "prSquat": "",
         "bio": "",
         "followers": {},
         "following": {},
@@ -160,130 +167,35 @@ class fitapp extends StatelessWidget {
           // counter didn't reset back to zero; the application is not restarted.
           primarySwatch: Colors.teal,
           buttonColor: Colors.blueGrey,
-          primaryIconTheme: new IconThemeData(color: Colors.black)),
+          primaryIconTheme: new IconThemeData(color: Colors.black)
+      ),
       home: new HomePage(title: 'EFfit'),
     );
   }
 }
 
+PageController pageController;
+
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
   final String title;
 
+
   @override
-  _HomePageState createState() => new _HomePageState();
+  _HomePageState createState() => new _HomePageState(this.title);
 }
 
-PageController pageController;
+class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin{
+  _HomePageState(this.title);
 
-class _HomePageState extends State<HomePage> {
+  final String title;
+
+
   int _page = 0;
   bool triedSilentLogin = false;
   bool setupNotifications = false;
   ScrollController feedScroll = new ScrollController();
-
-
-  Scaffold buildLoginPage() {
-    return new Scaffold(
-      body: new Center(
-        child: new Padding(
-          padding: const EdgeInsets.only(top: 240.0),
-          child: new Column(
-            children: <Widget>[
-              new Text(
-                'EFFIT',
-                style: new TextStyle(
-                    fontSize: 60.0,
-                    fontFamily: "Bangers",
-                    color: Colors.black),
-              ),
-              new Padding(padding: const EdgeInsets.only(bottom: 100.0)),
-              new GestureDetector(
-                onTap: login,
-                child: new Image.asset(
-                  "assets/images/google_signin_button.png",
-                  width: 225.0,
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if (triedSilentLogin == false) {
-      silentLogin(context);
-    }
-
-    if (setupNotifications == false) {
-      setUpNotifications();
-    }
-
-    return googleSignIn.currentUser == null
-        ? buildLoginPage()
-        : new Scaffold(
-            floatingActionButton: new FancyFab(),
-            floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-            body: new PageView(
-              children: [
-                new Container(
-                    color: Colors.white,
-                    child: new Feed(scrolly: feedScroll),
-                ),
-                new Container(
-                    color: Colors.white,
-                    child: new SearchPage()
-                ),
-                new Container(
-                    color: Colors.white,
-                    child: new Uploader(),
-                ),
-                new Container(
-                    color: Colors.white,
-                    child: new ActivityFeedPage()
-                ),
-                new Container(
-                    color: Colors.white,
-                    child: new ProfilePage(userId: googleSignIn.currentUser.id,)
-                ),
-              ],
-              controller: pageController,
-              physics: new NeverScrollableScrollPhysics(),
-              onPageChanged: onPageChanged,
-            ),
-            bottomNavigationBar:
-            new CupertinoTabBar(
-              activeColor: Colors.orange,
-              items: <BottomNavigationBarItem>[
-                new BottomNavigationBarItem(
-                    icon: new Icon(Icons.home, color: (_page == 0) ? Colors.black : Colors.grey),
-                    title: new Container(height: 0.0),
-                    backgroundColor: Colors.white),
-                new BottomNavigationBarItem(
-                    icon: new Icon(Icons.search, color: (_page == 1) ? Colors.black : Colors.grey),
-                    title: new Container(height: 0.0),
-                    backgroundColor: Colors.white),
-                new BottomNavigationBarItem(
-                    icon: new Icon(Icons.add_circle, color: (_page == 2) ? Colors.black : Colors.grey),
-                    title: new Container(height: 0.0),
-                    backgroundColor: Colors.white),
-                new BottomNavigationBarItem(
-                    icon: new Icon(Icons.star, color: (_page == 3) ? Colors.black : Colors.grey),
-                    title: new Container(height: 0.0),
-                    backgroundColor: Colors.white),
-                new BottomNavigationBarItem(
-                    icon: new Icon(Icons.person, color: (_page == 4) ? Colors.black : Colors.grey),
-                    title: new Container(height: 0.0),
-                    backgroundColor: Colors.white),
-              ],
-              onTap: navigationTapped,
-              currentIndex: _page,
-            ),
-          );
-  }
+  TabController _tabController;
 
   void login() async {
     await _ensureLoggedIn(context);
@@ -326,6 +238,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     pageController = new PageController();
+    _tabController = new TabController(length: 3, vsync: this, initialIndex: 1);
   }
 
   @override
@@ -333,4 +246,149 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
     pageController.dispose();
   }
+
+
+  Scaffold buildLoginPage() {
+    return new Scaffold(
+      body: new Center(
+        child: new Padding(
+          padding: const EdgeInsets.only(top: 240.0),
+          child: new Column(
+            children: <Widget>[
+              new Text(
+                'EFFIT',
+                style: new TextStyle(
+                    fontSize: 60.0,
+                    fontFamily: "Bangers",
+                    color: Colors.black),
+              ),
+              new Padding(padding: const EdgeInsets.only(bottom: 100.0)),
+              new GestureDetector(
+                onTap: login,
+                child: new Image.asset(
+                  "assets/images/google_signin_button.png",
+                  width: 225.0,
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (triedSilentLogin == false) {
+      silentLogin(context);
+    }
+
+    if (setupNotifications == false) {
+      setUpNotifications();
+    }
+
+    return googleSignIn.currentUser == null
+        ? buildLoginPage() :
+    new MaterialApp(
+      home: DefaultTabController(
+        length: 3,
+        initialIndex: 1,
+        child: new Scaffold(
+            resizeToAvoidBottomPadding: false,
+            appBar: new AppBar(
+                title: const Text('Effit',
+                  style: const TextStyle(
+                      fontFamily: "Bangers", color: Colors.white, fontSize: 35.0
+                  ),
+                ),
+                centerTitle: true,
+                backgroundColor: Colors.grey,
+                bottom: TabBar(
+                  controller: _tabController,
+                  tabs: <Tab>[
+                    Tab(icon: Icon(Icons.map)),
+                    Tab(icon: Platform.isIOS ? Icon(Icons.phone_iphone) : Icon(Icons.phone_android)),
+                    Tab(icon: Icon(Icons.fitness_center)),
+                  ],
+//                  controller: _tabController,
+                )
+            ),
+            body: TabBarView(
+              controller: _tabController,
+              children: <Widget> [
+                //Activity locator Tab
+                Icon(Icons.map),
+                //Effit Tab
+                new Scaffold(
+                  floatingActionButton: new FancyFab(),
+                  floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+                  body: new PageView(
+                    children: [
+                      new Container(
+                        color: Colors.white,
+                        child: new Feed(scrolly: feedScroll),
+                      ),
+                      new Container(
+                          color: Colors.white,
+                          child: new SearchPage()
+                      ),
+                      new Container(
+                        color: Colors.white,
+                        child: new Uploader(),
+                      ),
+                      new Container(
+                          color: Colors.white,
+                          child: new ActivityFeedPage()
+                      ),
+                      new Container(
+                          color: Colors.white,
+                          child: new ProfilePage(userId: googleSignIn.currentUser.id,)
+                      ),
+                    ],
+                    controller: pageController,
+                    physics: new NeverScrollableScrollPhysics(),
+                    onPageChanged: onPageChanged,
+                  ),
+                  bottomNavigationBar:
+                  _tabController.index != 1 ?
+                  new BottomAppBar() :
+                  new CupertinoTabBar(
+                    activeColor: Colors.orange,
+                    items: <BottomNavigationBarItem>[
+                      new BottomNavigationBarItem(
+                          icon: new Icon(Icons.home, color: (_page == 0) ? Colors.black : Colors.grey),
+                          title: new Container(height: 0.0),
+                          backgroundColor: Colors.white),
+                      new BottomNavigationBarItem(
+                          icon: new Icon(Icons.search, color: (_page == 1) ? Colors.black : Colors.grey),
+                          title: new Container(height: 0.0),
+                          backgroundColor: Colors.white),
+                      new BottomNavigationBarItem(
+                          icon: new Icon(Icons.add_circle, color: (_page == 2) ? Colors.black : Colors.grey),
+                          title: new Container(height: 0.0),
+                          backgroundColor: Colors.white),
+                      new BottomNavigationBarItem(
+                          icon: new Icon(Icons.star, color: (_page == 3) ? Colors.black : Colors.grey),
+                          title: new Container(height: 0.0),
+                          backgroundColor: Colors.white),
+                      new BottomNavigationBarItem(
+                          icon: new Icon(Icons.person, color: (_page == 4) ? Colors.black : Colors.grey),
+                          title: new Container(height: 0.0),
+                          backgroundColor: Colors.white),
+                    ],
+                    onTap: navigationTapped,
+                    currentIndex: _page,
+                  ),
+                ),
+                //Personal Trainer Tab
+                Icon(Icons.fitness_center)
+              ],
+//              controller: _tabController,
+            )
+        ),
+      ),
+    );
+  }
+
 }
+
