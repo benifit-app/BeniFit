@@ -6,6 +6,7 @@ import 'move_camera.dart';
 import 'page.dart';
 import 'place_marker.dart';
 import 'scrolling_map.dart';
+import 'firemap.dart';
 
 final List<Page> _allPages = <Page>[
   MapUiPage(),
@@ -13,6 +14,7 @@ final List<Page> _allPages = <Page>[
   MoveCameraPage(),
   PlaceMarkerPage(),
   ScrollingMapPage(),
+  FireMapPage(),
 ];
 
 class MapApp extends StatelessWidget {
