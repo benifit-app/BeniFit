@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fitapp/pages/feed.dart';
 import 'package:fitapp/pages/upload_page.dart';
+import 'package:fitapp/feed/floating_action_bar.dart';
 import 'dart:async';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,7 +12,11 @@ import 'package:fitapp/pages/search_page.dart';
 import 'package:fitapp/pages/activity_feed.dart';
 import 'package:fitapp/main/create_account.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:fitapp/personal_trainer/exercise_search.dart';
+import 'package:fitapp/pages/Activity_Locator_Page/Map_App.dart';
 import 'dart:io' show Platform;
+
+//for accessing functions in other .dart files
 
 final auth = FirebaseAuth.instance;
 final googleSignIn = new GoogleSignIn();
@@ -116,7 +121,8 @@ tryCreateUserRecord(BuildContext context) async {
                         ),
                       ],
                     )),
-              )),
+              )
+      ),
     );
 
     if (userName != null || userName.length != 0) {
@@ -126,6 +132,13 @@ tryCreateUserRecord(BuildContext context) async {
         "photoUrl": user.photoUrl,
         "email": user.email,
         "displayName": user.displayName,
+        "gender": "",
+        "height": "",
+        "weight": "",
+        "bmi": "",
+        "bodyFat": "",
+        "prBench": "",
+        "prSquat": "",
         "bio": "",
         "followers": {},
         "following": {},
@@ -144,7 +157,6 @@ class fitapp extends StatelessWidget {
       title: 'fitapp',
       routes: <String, WidgetBuilder>{
         '/home': (_) => new HomePage(), // Home Page
-        '/feed': (_) => new Feed(), //Feed Page
       },
       theme: new ThemeData(
           // This is the theme of your application.
@@ -157,26 +169,86 @@ class fitapp extends StatelessWidget {
           // counter didn't reset back to zero; the application is not restarted.
           primarySwatch: Colors.teal,
           buttonColor: Colors.blueGrey,
-          primaryIconTheme: new IconThemeData(color: Colors.black)),
-      home: new HomePage(title: 'EFFit'),
+          primaryIconTheme: new IconThemeData(color: Colors.black)
+      ),
+      home: new HomePage(title: 'EFfit'),
     );
   }
 }
+
+PageController pageController;
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
   final String title;
 
+
   @override
-  _HomePageState createState() => new _HomePageState();
+  _HomePageState createState() => new _HomePageState(this.title);
 }
 
-PageController pageController;
+class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin{
+  _HomePageState(this.title);
 
-class _HomePageState extends State<HomePage> {
+  final String title;
+
+
   int _page = 0;
   bool triedSilentLogin = false;
   bool setupNotifications = false;
+  ScrollController feedScroll = new ScrollController();
+  TabController _tabController;
+
+  void login() async {
+    await _ensureLoggedIn(context);
+    setState(() {
+      triedSilentLogin = true;
+    });
+  }
+
+  void setUpNotifications() {
+    _setUpNotifications();
+    setState(() {
+      setupNotifications = true;
+    });
+  }
+
+  void silentLogin(BuildContext context) async {
+    await _silentLogin(context);
+    setState(() {});
+  }
+
+  void navigationTapped(int page) {
+    //Animating Page
+    pageController.jumpToPage(page);
+    if(page == 0){
+      feedScroll.animateTo(
+          0.0,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut
+      );
+    }
+  }
+
+  void onPageChanged(int page) {
+    setState(() {
+      this._page = page;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    pageController = new PageController();
+    _tabController = new TabController(length: 3, vsync: this, initialIndex: 1);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    pageController.dispose();
+  }
+
 
   Scaffold buildLoginPage() {
     return new Scaffold(
@@ -186,7 +258,7 @@ class _HomePageState extends State<HomePage> {
           child: new Column(
             children: <Widget>[
               new Text(
-                'EFFit',
+                'EFFIT',
                 style: new TextStyle(
                     fontSize: 60.0,
                     fontFamily: "Bangers",
@@ -218,103 +290,107 @@ class _HomePageState extends State<HomePage> {
     }
 
     return googleSignIn.currentUser == null
-        ? buildLoginPage()
-        : new Scaffold(
-            body: new PageView(
-              children: [
-                new Container(
-                    color: Colors.white,
-                    child: new Feed(),
+        ? buildLoginPage() :
+    new MaterialApp(
+      home: DefaultTabController(
+        length: 3,
+        initialIndex: 1,
+        child: new Scaffold(
+            resizeToAvoidBottomPadding: false,
+            appBar: new AppBar(
+                title: const Text('Effit',
+                  style: const TextStyle(
+                      fontFamily: "Bangers", color: Colors.white, fontSize: 35.0
+                  ),
                 ),
-                new Container(
-                    color: Colors.white,
-                    child: new SearchPage()),
-                new Container(
-                    color: Colors.white,
-                    child: new Uploader(),
+                centerTitle: true,
+                backgroundColor: Colors.grey,
+                bottom: TabBar(
+                  controller: _tabController,
+                  tabs: <Tab>[
+                    Tab(icon: Icon(Icons.map)),
+                    Tab(icon: Platform.isIOS ? Icon(Icons.phone_iphone) : Icon(Icons.phone_android)),
+                    Tab(icon: Icon(Icons.fitness_center)),
+                  ],
+//                  controller: _tabController,
+                )
+            ),
+            body: TabBarView(
+              controller: _tabController,
+              children: <Widget> [
+                //Activity locator Tab
+                new MapApp(),
+                //Effit Tab
+                new Scaffold(
+                  floatingActionButton: new FancyFab(),
+                  floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+                  body: new PageView(
+                    children: [
+                      new Container(
+                        color: Colors.white,
+                        child: new Feed(scrolly: feedScroll),
+                      ),
+                      new Container(
+                          color: Colors.white,
+                          child: new SearchPage()
+                      ),
+                      new Container(
+                        color: Colors.white,
+                        child: new Uploader(),
+                      ),
+                      new Container(
+                          color: Colors.white,
+                          child: new ActivityFeedPage()
+                      ),
+                      new Container(
+                          color: Colors.white,
+                          child: new ProfilePage(userId: googleSignIn.currentUser.id,)
+                      ),
+                    ],
+                    controller: pageController,
+                    physics: new NeverScrollableScrollPhysics(),
+                    onPageChanged: onPageChanged,
+                  ),
+                  bottomNavigationBar:
+                  _tabController.index != 1 ?
+                  new BottomAppBar() :
+                  new CupertinoTabBar(
+                    activeColor: Colors.orange,
+                    items: <BottomNavigationBarItem>[
+                      new BottomNavigationBarItem(
+                          icon: new Icon(Icons.home, color: (_page == 0) ? Colors.black : Colors.grey),
+                          title: new Container(height: 0.0),
+                          backgroundColor: Colors.white),
+                      new BottomNavigationBarItem(
+                          icon: new Icon(Icons.search, color: (_page == 1) ? Colors.black : Colors.grey),
+                          title: new Container(height: 0.0),
+                          backgroundColor: Colors.white),
+                      new BottomNavigationBarItem(
+                          icon: new Icon(Icons.add_circle, color: (_page == 2) ? Colors.black : Colors.grey),
+                          title: new Container(height: 0.0),
+                          backgroundColor: Colors.white),
+                      new BottomNavigationBarItem(
+                          icon: new Icon(Icons.star, color: (_page == 3) ? Colors.black : Colors.grey),
+                          title: new Container(height: 0.0),
+                          backgroundColor: Colors.white),
+                      new BottomNavigationBarItem(
+                          icon: new Icon(Icons.person, color: (_page == 4) ? Colors.black : Colors.grey),
+                          title: new Container(height: 0.0),
+                          backgroundColor: Colors.white),
+                    ],
+                    onTap: navigationTapped,
+                    currentIndex: _page,
+                  ),
                 ),
-                new Container(
-                    color: Colors.white,
-                    child: new ActivityFeedPage()),
-                new Container(
-                    color: Colors.white,
-                    child: new ProfilePage(
-                      userId: googleSignIn.currentUser.id,
-                    )),
+                //Personal Trainer Tab
+                new exerciseSearchPage()
               ],
-              controller: pageController,
-              physics: new NeverScrollableScrollPhysics(),
-              onPageChanged: onPageChanged,
-            ),
-            bottomNavigationBar: new CupertinoTabBar(
-              activeColor: Colors.orange,
-              items: <BottomNavigationBarItem>[
-                new BottomNavigationBarItem(
-                    icon: new Icon(Icons.home, color: (_page == 0) ? Colors.black : Colors.grey),
-                    title: new Container(height: 0.0),
-                    backgroundColor: Colors.white),
-                new BottomNavigationBarItem(
-                    icon: new Icon(Icons.search, color: (_page == 1) ? Colors.black : Colors.grey),
-                    title: new Container(height: 0.0),
-                    backgroundColor: Colors.white),
-                new BottomNavigationBarItem(
-                    icon: new Icon(Icons.add_circle, color: (_page == 2) ? Colors.black : Colors.grey),
-                    title: new Container(height: 0.0),
-                    backgroundColor: Colors.white),
-                new BottomNavigationBarItem(
-                    icon: new Icon(Icons.star, color: (_page == 3) ? Colors.black : Colors.grey),
-                    title: new Container(height: 0.0),
-                    backgroundColor: Colors.white),
-                new BottomNavigationBarItem(
-                    icon: new Icon(Icons.person, color: (_page == 4) ? Colors.black : Colors.grey),
-                    title: new Container(height: 0.0),
-                    backgroundColor: Colors.white),
-              ],
-              onTap: navigationTapped,
-              currentIndex: _page,
-            ),
-          );
+//              controller: _tabController,
+            )
+        ),
+      ),
+    );
   }
 
-  void login() async {
-    await _ensureLoggedIn(context);
-    setState(() {
-      triedSilentLogin = true;
-    });
-  }
-
-  void setUpNotifications() {
-    _setUpNotifications();
-    setState(() {
-      setupNotifications = true;
-    });
-  }
-
-  void silentLogin(BuildContext context) async {
-    await _silentLogin(context);
-    setState(() {});
-  }
-
-  void navigationTapped(int page) {
-    //Animating Page
-    pageController.jumpToPage(page);
-  }
-
-  void onPageChanged(int page) {
-    setState(() {
-      this._page = page;
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    pageController = new PageController();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    pageController.dispose();
-  }
 }
+

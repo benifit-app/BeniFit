@@ -54,14 +54,46 @@ class _Uploader extends State<Uploader> {
   Widget build(BuildContext context) {
     
     return file == null
-        ? new IconButton(
-            icon: new Icon(Icons.file_upload), onPressed: _selectImage)
+        ? new Scaffold(
+          appBar: new AppBar(
+            backgroundColor: Colors.grey,
+            leading: new IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () {new Future.delayed(Duration(seconds: 0),
+                        () {Navigator.pop(context);
+                });
+                }),
+            title: new Center(
+              child: const Text(
+                'EFFit',
+                style: const TextStyle(
+                    fontFamily: "Bangers", color: Colors.white, fontSize: 35.0
+                ),
+              ),
+            ),
+            actions: <Widget>[
+              new FlatButton(onPressed: null, child: Icon(Icons.accessibility, color: Colors.white,))
+            ],
+          ),
+          body: new Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              new Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  new IconButton(
+                      icon: new Icon(Icons.camera_alt), onPressed: _selectImage, iconSize: 50.0),
+                ],
+              )
+            ],
+          )
+        )
         : new Scaffold(
             resizeToAvoidBottomPadding: false,
             appBar: new AppBar(
               backgroundColor: Colors.white70,
               leading: new IconButton(
-                  icon: new Icon(Icons.arrow_back, color: Colors.black),
+                  icon: new Icon(Icons.arrow_back, color: Colors.white),
                   onPressed: clearImage),
               title: const Text(
                 'Post to',

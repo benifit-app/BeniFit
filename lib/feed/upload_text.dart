@@ -1,26 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:uuid/uuid.dart';
 import 'dart:async';
 import 'package:fitapp/main.dart';
-import 'dart:io';
-import 'package:image/image.dart' as Im;
-import 'package:path_provider/path_provider.dart';
-import 'dart:math' as Math;
 import 'package:fitapp/uploader/location.dart';
 import 'package:geocoder/geocoder.dart';
 
 class TextUpload extends StatefulWidget {
-  final String title;
-  const TextUpload({Key key, this.title}):super(key: key);
-
   _TextUpload createState() => new _TextUpload();
 }
 
 class _TextUpload extends State<TextUpload> {
-  Text file = new Text("hey");
   //Strings required to save address
   Address address;
 
@@ -33,7 +22,7 @@ class _TextUpload extends State<TextUpload> {
 
   @override
   initState() {
-    if (file == null && promted == false && pageController.page == 2) {
+    if (promted == false && pageController.page == 2) {
       setState(() {
         promted = true;
       });
@@ -53,31 +42,30 @@ class _TextUpload extends State<TextUpload> {
     });
   }
 
-  getText(){
-    return Text(widget.title).data;
-  }
-
   Widget build(BuildContext context) {
 
-        return file != null
-        ?  new Scaffold(
+        return new Scaffold(
         resizeToAvoidBottomPadding: false,
         appBar: new AppBar(
-          backgroundColor: Colors.white70,
+          backgroundColor: Colors.grey,
           leading: new IconButton(
-              icon: new Icon(Icons.arrow_back, color: Colors.black),
-              onPressed: clearImage),
-          title: const Text(
-            'Post to',
-            style: const TextStyle(color: Colors.black),
+              icon: new Icon(Icons.arrow_back, color: Colors.white),
+              onPressed: cleartext),
+          title: new Center(
+            child: const Text(
+              'EFFit',
+              style: const TextStyle(
+                  fontFamily: "Bangers", color: Colors.white, fontSize: 35.0
+              ),
+            ),
           ),
           actions: <Widget>[
             new FlatButton(
-                onPressed: postImage,
+                onPressed: posttext,
                 child: new Text(
                   "Post",
                   style: new TextStyle(
-                      color: Colors.blueAccent,
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontSize: 20.0),
                 ))
@@ -86,7 +74,6 @@ class _TextUpload extends State<TextUpload> {
         body: new ListView(
           children: <Widget>[
             new PostForm(
-              imageFile: getText().toString(),
               descriptionController: descriptionController,
               locationController: locationController,
               loading: uploading,
@@ -110,7 +97,7 @@ class _TextUpload extends State<TextUpload> {
             ),
             (address == null) ? Container() : Divider(),
           ],
-        )) : new Future.delayed(Duration(seconds: 2), () {Navigator.pop(context);});
+        ));
   }
 
   //method to build buttons with location.
@@ -144,36 +131,36 @@ class _TextUpload extends State<TextUpload> {
     }
   }
 
-  void clearImage() {
-    setState(() {
-      file = null;
-    });
+  void cleartext() {
+    new Future.delayed(Duration(seconds: 0),
+            () {Navigator.pop(context);
+        });
   }
 
-  void postImage() {
+  void posttext() {
     setState(() {
       uploading = true;
     });
       postToFireStore(
-          mediaUrl: getText(),
+          mediaUrl: descriptionController.text,
           description: "Read It, Like It, Do It",
           location: locationController.text);
       setState(() {
-        file = null;
         uploading = false;
       });
-    Navigator.of(context)
-        .pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
+    new Future.delayed(Duration(seconds: 0),
+            () {Navigator.pop(context);
+        });
   }
 }
 
 class PostForm extends StatelessWidget {
-  final imageFile;
+  final textFile;
   final TextEditingController descriptionController;
   final TextEditingController locationController;
   final bool loading;
   PostForm(
-      {this.imageFile,
+      {this.textFile,
         this.descriptionController,
         this.loading,
         this.locationController});
@@ -184,26 +171,49 @@ class PostForm extends StatelessWidget {
       children: <Widget>[
         loading
             ? new LinearProgressIndicator()
-            : new Padding(padding: new EdgeInsets.only(top: 0.0)),
+            : new Padding(padding: new EdgeInsets.only(top: 10.0)),
         new Divider(),
         new Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             new CircleAvatar(
+              radius: 50.0,
               backgroundImage: new NetworkImage(currentUserModel.photoUrl),
-            ),
-            new Container(
-              width: 250.0,
-              child: new TextField(
-                controller: descriptionController,
-                decoration: new InputDecoration(
-                    hintText: imageFile,
-                    border: InputBorder.none),
-              ),
             ),
           ],
         ),
-        new Divider(),
+        new Divider(
+          height: 30.0,
+          color: Colors.grey,
+        ),
+        new Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            new Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                new Container(
+                  padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                  decoration: new BoxDecoration(
+                  ),
+                  width: 350.0,
+                  height: 250.0,
+                  child: new TextField(
+                    scrollPadding: EdgeInsets.all(10.0),
+                    maxLines: 10,
+                    controller: descriptionController,
+                    decoration: new InputDecoration(
+                        hintText: 'Waddup Doe?',
+                        border: InputBorder.none),
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+        new Divider(
+          color: Colors.grey,
+        ),
         new ListTile(
           leading: new Icon(Icons.pin_drop),
           title: new Container(

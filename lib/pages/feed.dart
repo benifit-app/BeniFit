@@ -6,70 +6,44 @@ import 'package:fitapp/main.dart';
 import 'dart:io';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:fitapp/feed/floating_action_bar.dart';
-import 'package:fitapp/pages/upload_page.dart';
-import 'package:fitapp/feed/upload_text.dart';
 
 
 class Feed extends StatefulWidget {
-  _Feed createState() => new _Feed();
+  final ScrollController scrolly;
+  const Feed({this.scrolly});
+
+  _Feed createState() => new _Feed(this.scrolly);
 }
 
-class _Feed extends State<Feed> {
+class _Feed extends State<Feed> with SingleTickerProviderStateMixin{
+  final ScrollController scrollable;
+  _Feed(this.scrollable);
 
   TextEditingController myController = new TextEditingController();
 
   List<ImagePost> feedData;
 
+  ScrollController _scrollController = new ScrollController();
+
   @override
   void initState() {
     super.initState();
     this._loadFeed();
+    _scrollController = scrollable;
   }
 
-  buildFeed() {
+  buildFeed(){
     if (feedData != null) {
       return new Container(
         padding: EdgeInsets.only(top: 0.0),
         child: new Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new Container(
-              child: new ListTile(
-                leading: new CircleAvatar(
-                  backgroundImage: NetworkImage(currentUserModel.photoUrl),
-                  radius: 30.0,
-                ),
-                title: new TextField(
-                  controller: myController,
-                  maxLines: 2,
-                  scrollPadding: EdgeInsets.all(5.0),
-                  decoration: InputDecoration(
-                      hintText: "Waddup?"
-                  ),
-                ),
-                trailing: IconButton(
-                    icon: Icon(Icons.send), 
-                    onPressed: (){Future.delayed(Duration(seconds: 1), () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => TextUpload(title: myController.text)),
-                      );
-                    });
-                    },
-                ),
-              ),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(20.0))
-              ),
-              height: 80.0,
-              padding: EdgeInsets.only(top: 5.0),
-            ),
             new Flexible(
                 child: new ListView(
                   padding: EdgeInsets.all(0.0),
                   children: feedData,
+                  controller: _scrollController,
                   scrollDirection: Axis.vertical,
                 )
             )
@@ -84,23 +58,12 @@ class _Feed extends State<Feed> {
     }
   }
 
+  //Build for the material app with tabs
   @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      resizeToAvoidBottomPadding: false,
-        appBar: new AppBar(
-        title: const Text('EFFit',
-            style: const TextStyle(
-                fontFamily: "Bangers", color: Colors.white, fontSize: 35.0
-            )
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.grey,
-      ),
-      floatingActionButton: FancyFab(),
-      body: new RefreshIndicator(
-        onRefresh: _refresh,
-        child: new Container(
+  Widget build(BuildContext context){
+    return new RefreshIndicator(
+      onRefresh: _refresh,
+      child: new Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topRight,
@@ -109,18 +72,15 @@ class _Feed extends State<Feed> {
               stops: [0.1, 0.5, 0.7, 0.9],
               colors: [
                 // Colors are easy thanks to Flutter's Colors class.
-                Colors.blueGrey[100],
-                Colors.blueGrey[200],
-                Colors.blueGrey[500],
-                Colors.blueGrey[600],
+                Colors.black,
+                Colors.black,
+                Colors.black,
+                Colors.black,
               ],
             ),
           ),
           child: buildFeed()
-        ),
       ),
-//      floatingActionButton: FancyFab(),
-//      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
@@ -143,6 +103,7 @@ class _Feed extends State<Feed> {
       setState(() {
         feedData = listOfPosts;
       });
+
     } else {
       _getFeed();
     }
@@ -164,8 +125,7 @@ class _Feed extends State<Feed> {
       if (response.statusCode == HttpStatus.OK) {
         String json = await response.transform(utf8.decoder).join();
         prefs.setString("feed", json);
-        List<Map<String, dynamic>> data =
-        jsonDecode(json).cast<Map<String, dynamic>>();
+        List<Map<String, dynamic>> data = jsonDecode(json).cast<Map<String, dynamic>>();
         listOfPosts = _generateFeed(data);
       } else {
         result =
@@ -191,4 +151,5 @@ class _Feed extends State<Feed> {
 
     return listOfPosts;
   }
+
 }

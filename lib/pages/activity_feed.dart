@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitapp/feed/image_post.dart'; //needed to open image when clicked
 import 'package:fitapp/pages/profile_page.dart'; // to open the profile page when username clicked
 import 'package:fitapp/main.dart'; //needed for currentuser id
+import 'package:nima/nima_actor.dart';
 
 class ActivityFeedPage extends StatefulWidget {
   @override
@@ -20,7 +21,7 @@ class _ActivityFeedPageState extends State<ActivityFeedPage> {
         ),
         backgroundColor: Colors.white,
       ),
-      body: buildActivityFeed(),
+     body: buildActivityFeed(),
     );
   }
 
@@ -60,8 +61,7 @@ class _ActivityFeedPageState extends State<ActivityFeedPage> {
 class ActivityFeedItem extends StatelessWidget {
   final String username;
   final String userId;
-  final String
-      type; // potetial types include liked photo, follow user, comment on photo
+  final String type; // potetial types include liked photo, follow user, comment on photo
   final String mediaUrl;
   final String mediaId;
   final String userProfileImg;
@@ -126,6 +126,7 @@ class ActivityFeedItem extends StatelessWidget {
     }
   }
 
+  //Post Object
   @override
   Widget build(BuildContext context) {
     configureItem(context);

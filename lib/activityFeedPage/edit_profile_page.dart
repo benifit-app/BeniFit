@@ -7,6 +7,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:fitapp/main/create_account.dart';
 import 'package:fitapp/activityFeedPage/view_user_post.dart';
+import 'package:fitapp/activityFeedPage/metrics/metrics.dart';
+import 'package:fitapp/activityFeedPage/metrics/gender/gender_card.dart';
+import 'package:fitapp/activityFeedPage/metrics/gender/gender_card_.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn _googleSignIn = new GoogleSignIn();
@@ -32,6 +35,15 @@ goToHome(BuildContext context){
 class EditProfilePage extends StatelessWidget {
   TextEditingController nameController = new TextEditingController();
   TextEditingController bioController = new TextEditingController();
+  TextEditingController heightController = new TextEditingController();
+  TextEditingController weightController = new TextEditingController();
+  TextEditingController bmiController = new TextEditingController();
+  TextEditingController bodyFatController = new TextEditingController();
+  TextEditingController prBenchController = new TextEditingController();
+  TextEditingController prSquatController = new TextEditingController();
+
+
+
 
   changeProfilePhoto(BuildContext Context) {
     return showDialog(
@@ -43,7 +55,8 @@ class EditProfilePage extends StatelessWidget {
             child: new ListBody(
               children: <Widget>[
                 new Text(
-                    'Changing your profile photo has not been implemented yet'),
+                    'Changing your profile photo has not been implemented yet'
+                ),
               ],
             ),
           ),
@@ -59,6 +72,12 @@ class EditProfilePage extends StatelessWidget {
         .updateData({
       "displayName": nameController.text,
       "bio": bioController.text,
+      "height": heightController.text,
+      "weight": weightController.text,
+      "bmi": bmiController.text,
+      "bodyFat": bodyFatController.text,
+      "prBench": prBenchController.text,
+      "prSquat": prSquatController.text,
     });
   }
 
@@ -128,6 +147,25 @@ class EditProfilePage extends StatelessWidget {
                   children: <Widget>[
                     buildTextField(name: "Name", controller: nameController),
                     buildTextField(name: "Bio", controller: bioController),
+                    new Column(
+                      children: <Widget>[
+                        new Row(
+                          children: <Widget>[
+                            new Expanded(child:
+                              new Container(
+                                child: GenderCard_(),
+                                height: 250,
+                            ))
+                          ],
+                        )
+                      ],
+                    )
+//                    buildTextField(name: "Height", controller: heightController),
+//                    buildTextField(name: "Weight", controller: weightController),
+//                    buildTextField(name: "PR Bench", controller: prBenchController),
+//                    buildTextField(name: "PR Squat", controller: prSquatController),
+//                    buildTextField(name: "BMI", controller: bmiController),
+//                    buildTextField(name: "Body Fat", controller: bodyFatController),
                   ],
                 ),
               ),

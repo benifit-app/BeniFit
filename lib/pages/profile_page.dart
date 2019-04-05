@@ -4,6 +4,7 @@ import 'package:fitapp/main.dart';
 import 'package:fitapp/feed/image_post.dart';
 import 'dart:async';
 import 'package:fitapp/activityFeedPage/edit_profile_page.dart';
+import 'package:nima/nima_actor.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({this.userId});
@@ -143,6 +144,8 @@ class _ProfilePage extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+
+    //Function to create the Stats in Column form
     Column buildStatColumn(String label, int number) {
       return new Column(
         mainAxisSize: MainAxisSize.min,
@@ -160,11 +163,13 @@ class _ProfilePage extends State<ProfilePage> {
                     color: Colors.grey,
                     fontSize: 15.0,
                     fontWeight: FontWeight.w400),
-              ))
+              )
+          )
         ],
       );
     }
 
+    //Function used to change button FEATURES if following profile or, or not, on user profile
     Container buildFollowButton(
         {String text,
         Color backgroundcolor,
@@ -190,6 +195,7 @@ class _ProfilePage extends State<ProfilePage> {
       );
     }
 
+    //Function used to change button FUNCTIONS if following profile, or not, or on user profile
     Container buildProfileFollowButton(User user) {
       // viewing your own profile - should show edit button
       if (currentUserId == profileId) {
@@ -287,10 +293,10 @@ class _ProfilePage extends State<ProfilePage> {
             stops: [0.1, 0.5, 0.7, 0.9],
             colors: [
               // Colors are easy thanks to Flutter's Colors class.
-              Colors.teal[100],
-              Colors.purple[200],
-              Colors.teal[500],
-              Colors.teal[600],
+              Colors.black,
+              Colors.black,
+              Colors.black,
+              Colors.black,
             ],
           ),       ),
         child: new FutureBuilder<List<ImagePost>>(
@@ -349,6 +355,11 @@ class _ProfilePage extends State<ProfilePage> {
                   user.username,
                   style: const TextStyle(color: Colors.black),
                 ),
+                actions: <Widget>[
+                  IconButton(
+                      icon: Icon(Icons.settings),
+                      onPressed: null)
+                ],
                 backgroundColor: Colors.white,
               ),
               body: new ListView(
@@ -357,34 +368,86 @@ class _ProfilePage extends State<ProfilePage> {
                     padding: const EdgeInsets.all(16.0),
                     child: new Column(
                       children: <Widget>[
-                        new Container(
-                           child:new Row(
-                                 mainAxisAlignment: MainAxisAlignment.center,
-                                 children: <Widget>[
-                                   new CircleAvatar(
-                                     radius: 70.0,
-                                     backgroundColor: Colors.grey,
-                                     backgroundImage: new NetworkImage(user.photoUrl),
-                                   )
-                                 ],
-                               ),
-                          height: 200.0,
-                          decoration: BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius: BorderRadius.circular(10.0)
+                           Row(
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.black),
+                                    borderRadius: BorderRadius.circular(10.0)
+                                  ),
+                                  height: 200,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: <Widget>[
+                                      buildStatColumn("height", 6),
+                                      buildStatColumn("weight", 201),
+                                    ],
+                                  ),
+                                ),
+                                flex: 2,
+                              ),
+                              Expanded(
+                                  child:
+                                  Container(
+                                    height: 300,
+                                    width: 200,
+                                    child: new NimaActor("assets/flexin.nma",
+                                        alignment:Alignment.center,
+                                        fit:BoxFit.contain,
+                                        animation:"Untitled"),
+                                  ),
+                                flex: 5,
+                              ),
+                              Expanded(
+                                  child:
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        border: Border.all(color: Colors.black),
+                                        borderRadius: BorderRadius.circular(10.0)
+                                    ),
+                                    height: 200,
+                                    child:
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: <Widget>[
+                                        buildStatColumn("PR Bench", 300),
+                                        buildStatColumn("PR Squat", 405),
+                                      ],
+                                    ),
+                                  ),
+                                flex: 2,
+                              )
+                            ],
                           ),
-                        ),
+//                        new Container(
+//                           child:new Row(
+//                                 mainAxisAlignment: MainAxisAlignment.center,
+//                                 children: <Widget>[
+//                                   new CircleAvatar(
+//                                     radius: 70.0,
+//                                     backgroundColor: Colors.grey,
+//                                     backgroundImage: new NetworkImage(user.photoUrl),
+//                                   )
+//                                 ],
+//                               ),
+//                          height: 200.0,
+//                          decoration: BoxDecoration(
+//                            color: Colors.grey,
+//                            borderRadius: BorderRadius.circular(10.0)
+//                          ),
+//                        ),
                         new Container(
                             alignment: Alignment.center,
                             padding: const EdgeInsets.only(top: 15.0,bottom: 5.0),
                             child: new Text(
                               user.displayName,
                               style: new TextStyle(
-                                fontFamily: "Billabong",
+                                fontFamily: "Bangers",
                                   fontSize: 50.0,
-                                  fontWeight: FontWeight.bold
                               ),
-                            )),
+                            )
+                        ),
                          new Row(
                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                            children: <Widget>[
@@ -419,7 +482,8 @@ class _ProfilePage extends State<ProfilePage> {
                   new Divider(height: 0.0),
                   buildUserPosts(),
                 ],
-              ));
+              )
+          );
         });
   }
 
@@ -487,7 +551,13 @@ class User {
       this.displayName,
       this.bio,
       this.followers,
-      this.following});
+      this.following,
+      this.height,
+      this.weight,
+      this.bmi,
+      this.bodyFat,
+      this.prBench,
+      this.prSquat});
 
   final String email;
   final String id;
@@ -495,8 +565,16 @@ class User {
   final String username;
   final String displayName;
   final String bio;
+  final String height;
+  final String weight;
+  final String bmi;
+  final String bodyFat;
+  final String prBench;
+  final String prSquat;
   final Map followers;
   final Map following;
+
+
 
   factory User.fromDocument(DocumentSnapshot document) {
     return new User(
@@ -506,6 +584,12 @@ class User {
       id: document.documentID,
       displayName: document['displayName'],
       bio: document['bio'],
+      height: document['height'],
+      weight: document['weight'],
+      bmi: document['bmi'],
+      bodyFat: document['bodyFat'],
+      prBench: document['prBench'],
+      prSquat: document['prSquat'],
       followers: document['followers'],
       following: document['following'],
     );
