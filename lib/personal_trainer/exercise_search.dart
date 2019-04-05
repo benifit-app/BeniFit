@@ -40,6 +40,18 @@ class _exerciseSearchPage extends State<exerciseSearchPage> {
     );
   }
 
+  buildSearchFieldIOS(){
+    return new AppBar(
+      backgroundColor: Colors.white,
+      title: new CupertinoTextField(
+        keyboardType: TextInputType.text,
+        clearButtonMode: OverlayVisibilityMode.editing,
+        placeholder: "Search for an exercise...",
+        onSubmitted: submit,
+      )
+    );
+  }
+
   ListView buildSearchResults(List<DocumentSnapshot> docs) {
     List<testCard> userSearchItems = [];
     List<Text> textList = [];
@@ -90,7 +102,7 @@ class _exerciseSearchPage extends State<exerciseSearchPage> {
 
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: buildSearchField(),
+      appBar: Platform.isIOS ? buildSearchFieldIOS() : buildSearchField(),
       body: queryResults == null
           //? new Text("Results are null")
           //? new CupertinoActivityIndicator(radius: 60.0,)
