@@ -10,3 +10,14 @@ import 'package:fitapp/feed/floating_action_bar.dart';
 import 'package:fitapp/pages/upload_page.dart';
 import 'package:fitapp/feed/upload_text.dart';
 
+class ptMainPage extends StatefulWidget{
+  _ptMainPage createState() => new _ptMainPage();
+}
+
+class _ptMainPage extends State<ptMainPage>{
+
+  //builder for the page
+  Widget build(BuildContext context){
+
+  }
+}

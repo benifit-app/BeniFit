@@ -14,6 +14,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitapp/personal_trainer/firestore_query_functions.dart';
 import 'package:fitapp/personal_trainer/customCard.dart';
 import 'package:expandable/expandable.dart';
+import 'package:flutter/cupertino.dart';
 
 //video for search bar:  https://www.youtube.com/watch?v=FPcl1tu0gDs
 
@@ -26,6 +27,7 @@ class _exerciseSearchPage extends State<exerciseSearchPage> {
   Future<QuerySnapshot> queryResults;
 
   buildSearchField() {
+    //NOTE TO FUTURE ALEX: MAKE LOOK CUPERTINO
     return new AppBar(
       backgroundColor: Colors.white,
       title: new Form(
@@ -90,7 +92,13 @@ class _exerciseSearchPage extends State<exerciseSearchPage> {
     return new Scaffold(
       appBar: buildSearchField(),
       body: queryResults == null
-          ? new Text("Results are null")
+          //? new Text("Results are null")
+          //? new CupertinoActivityIndicator(radius: 60.0,)
+          ? new CupertinoTabBar(items: [
+              BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), title: Text('Home')),
+              BottomNavigationBarItem(icon: Icon(CupertinoIcons.conversation_bubble), title: Text('Messages')),
+              BottomNavigationBarItem(icon: Icon(CupertinoIcons.add), title: Text('New'),),
+            ] , )
           : new FutureBuilder<QuerySnapshot>(
           future: queryResults,
           builder: (context, snapshot) {
@@ -100,7 +108,7 @@ class _exerciseSearchPage extends State<exerciseSearchPage> {
             } else {
               return new Container(
                   alignment: FractionalOffset.center,
-                  child: new CircularProgressIndicator());
+                  child: Platform.isIOS ? new CupertinoActivityIndicator() : new CircularProgressIndicator());
             }
           }),
     );
