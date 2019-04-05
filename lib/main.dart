@@ -305,16 +305,26 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 ),
                 centerTitle: true,
                 backgroundColor: Colors.grey,
-                bottom: TabBar(
-                  controller: _tabController,
-                  tabs: <Tab>[
-                    Tab(icon: Icon(Icons.map)),
-                    Tab(icon: Platform.isIOS ? Icon(Icons.phone_iphone) : Icon(Icons.phone_android)),
-                    Tab(icon: Icon(Icons.fitness_center)),
-                  ],
+                bottom: Platform.isIOS
+                  ? CupertinoTabBar(
+                      activeColor: Colors.orange,
+                      currentIndex: 1,
+                      items: [
+                        BottomNavigationBarItem(icon: Icon(CupertinoIcons.home),),
+                        BottomNavigationBarItem(icon: Icon(CupertinoIcons.phone),),
+                        BottomNavigationBarItem(icon: Icon(CupertinoIcons.time),),
+                      ]
+                    )
+                  : TabBar(
+                    controller: _tabController,
+                    tabs: <Tab>[
+                      Tab(icon: Icon(Icons.map)),
+                      Tab(icon: Icon(Icons.phone_android)),
+                      Tab(icon: Icon(Icons.fitness_center)),
+                    ],
 //                  controller: _tabController,
-                )
-            ),
+                    )
+             ),
             body: TabBarView(
               controller: _tabController,
               children: <Widget> [
