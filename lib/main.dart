@@ -13,6 +13,7 @@ import 'package:fitapp/pages/activity_feed.dart';
 import 'package:fitapp/main/create_account.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:fitapp/personal_trainer/exercise_search.dart';
+import 'package:fitapp/pages/Activity_Locator_Page/Map_App.dart';
 import 'dart:io' show Platform;
 
 //for accessing functions in other .dart files
@@ -318,7 +319,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               controller: _tabController,
               children: <Widget> [
                 //Activity locator Tab
-                Icon(Icons.map),
+                new MapApp(),
                 //Effit Tab
                 new Scaffold(
                   floatingActionButton: new FancyFab(),
