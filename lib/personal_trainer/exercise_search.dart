@@ -91,8 +91,7 @@ class _exerciseSearchPage extends State<exerciseSearchPage> {
 
     Future<QuerySnapshot> searchFuture = Firestore.instance
         .collection("NewExerciseDB")
-        .startAt(searchWord)
-        //.where('Exercise_Name',  isGreaterThanOrEqualTo: searchValue)
+        .where('Exercise_Name',  isGreaterThanOrEqualTo: searchValue)
         .getDocuments();
 
     setState(() {
@@ -104,13 +103,7 @@ class _exerciseSearchPage extends State<exerciseSearchPage> {
     return new Scaffold(
       appBar: Platform.isIOS ? buildSearchFieldIOS() : buildSearchField(),
       body: queryResults == null
-          //? new Text("Results are null")
-          //? new CupertinoActivityIndicator(radius: 60.0,)
-          ? new CupertinoTabBar(items: [
-              BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), title: Text('Home')),
-              BottomNavigationBarItem(icon: Icon(CupertinoIcons.conversation_bubble), title: Text('Messages')),
-              BottomNavigationBarItem(icon: Icon(CupertinoIcons.add), title: Text('New'),),
-            ] , )
+          ? new Text("Results are null")
           : new FutureBuilder<QuerySnapshot>(
           future: queryResults,
           builder: (context, snapshot) {
