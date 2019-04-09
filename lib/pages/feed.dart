@@ -6,13 +6,6 @@ import 'package:fitapp/main.dart';
 import 'dart:io';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:fitapp/feed/floating_action_bar.dart';
-import 'package:fitapp/pages/upload_page.dart';
-import 'package:fitapp/feed/upload_text.dart';
-import 'package:fitapp/pages/Activity_Locator_Page/Map_App.dart';
-//for accessing functions in other pages
-//import 'package:fitapp/test.dart';
-import 'package:fitapp/personal_trainer/exercise_card.dart';
 
 
 class Feed extends StatefulWidget {
@@ -22,7 +15,7 @@ class Feed extends StatefulWidget {
   _Feed createState() => new _Feed(this.scrolly);
 }
 
-class _Feed extends State<Feed> {
+class _Feed extends State<Feed> with SingleTickerProviderStateMixin{
   final ScrollController scrollable;
   _Feed(this.scrollable);
 
@@ -68,107 +61,28 @@ class _Feed extends State<Feed> {
   //Build for the material app with tabs
   @override
   Widget build(BuildContext context){
-    return MaterialApp(
-      home: DefaultTabController(
-          length: 3,
-          initialIndex: 1,
-          child: new Scaffold(
-            resizeToAvoidBottomPadding: false,
-            appBar: new AppBar(
-              title: const Text('Effit',
-                style: const TextStyle(
-                  fontFamily: "Bangers", color: Colors.white, fontSize: 40.0
-                ),
-              ),
-              centerTitle: true,
-              backgroundColor: Colors.grey,
-              bottom: TabBar(
-                tabs: <Widget>[
-                  Tab(icon: Icon(Icons.map)),
-                  Tab(icon: Platform.isIOS ? Icon(Icons.phone_iphone) : Icon(Icons.phone_android)),
-                  Tab(icon: Icon(Icons.fitness_center)),
-                ]
-              )
+    return new RefreshIndicator(
+      onRefresh: _refresh,
+      child: new Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              // Add one stop for each color. Stops should increase from 0 to 1
+              stops: [0.1, 0.5, 0.7, 0.9],
+              colors: [
+                // Colors are easy thanks to Flutter's Colors class.
+                Colors.black,
+                Colors.black,
+                Colors.black,
+                Colors.black,
+              ],
             ),
-            body: TabBarView(
-              children: [
-                //Activity locator Tab
-                new MapApp(),
-//                Icon(Icons.map),
-                //Effit Tab
-                new RefreshIndicator(
-                  onRefresh: _refresh,
-                  child: new Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topRight,
-                          end: Alignment.bottomLeft,
-                          // Add one stop for each color. Stops should increase from 0 to 1
-                          stops: [0.1, 0.5, 0.7, 0.9],
-                          colors: [
-                            // Colors are easy thanks to Flutter's Colors class.
-                            Colors.black,
-                            Colors.black,
-                            Colors.black,
-                            Colors.black,
-                          ],
-                        ),
-                      ),
-                      child: buildFeed()
-                  ),
-                ),
-                //Personal Trainer Tab
-                Icon(Icons.fitness_center)
-              ]
-            )
-//      floatingActionButton: FancyFab(),
-//      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
           ),
+          child: buildFeed()
       ),
     );
   }
-
-  //Default build
-//  @override
-//  Widget build(BuildContext context) {
-//    return new Scaffold(
-//      resizeToAvoidBottomPadding: false,
-//        appBar: new AppBar(
-//        title: const Text('Effit',
-//            style: const TextStyle(
-//                fontFamily: "Bangers", color: Colors.white, fontSize: 35.0
-//            )
-//        ),
-//          //centerTitle: true,
-//          backgroundColor: Colors.grey,
-//        ),
-//      floatingActionButton: FancyFab(),
-//      body: new RefreshIndicator(
-//        onRefresh: _refresh,
-//        child: new Container(
-//          decoration: BoxDecoration(
-//            gradient: LinearGradient(
-//              begin: Alignment.topRight,
-//              end: Alignment.bottomLeft,
-//              // Add one stop for each color. Stops should increase from 0 to 1
-//              stops: [0.1, 0.5, 0.7, 0.9],
-//              colors: [
-//                // Colors are easy thanks to Flutter's Colors class.
-//                Colors.blueGrey[100],
-//                Colors.blueGrey[200],
-//                Colors.blueGrey[500],
-//                Colors.blueGrey[600],
-//              ],
-//            ),
-//          ),
-//          child: buildFeed()
-//        ),
-//      ),
-////      floatingActionButton: FancyFab(),
-////      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-//    );
-//  }
-
 
   Future<Null> _refresh() async {
     await _getFeed();
@@ -211,8 +125,7 @@ class _Feed extends State<Feed> {
       if (response.statusCode == HttpStatus.OK) {
         String json = await response.transform(utf8.decoder).join();
         prefs.setString("feed", json);
-        List<Map<String, dynamic>> data =
-        jsonDecode(json).cast<Map<String, dynamic>>();
+        List<Map<String, dynamic>> data = jsonDecode(json).cast<Map<String, dynamic>>();
         listOfPosts = _generateFeed(data);
       } else {
         result =
@@ -237,10 +150,6 @@ class _Feed extends State<Feed> {
     }
 
     return listOfPosts;
-  }
-
-  void scrollToTop(){
-    _scrollController.animateTo(0.0, duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
   }
 
 }
