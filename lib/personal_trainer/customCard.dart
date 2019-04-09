@@ -18,19 +18,100 @@ class testCard extends StatelessWidget{
   //actually building the card
   @override
   Widget build(BuildContext context){
-    return ExpandablePanel(
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      child: ExpandableNotifier(
+        child: Column(
+          children: <Widget>[
+            ExpandablePanel(
+              //header: Text("Header" style: Theme.of(context).textTheme.body2,),
+              header:
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[ //NOTE to future Alex: put all the text in containers so you can pad it
+                    Container(
+                      padding: const EdgeInsets.only(
+                      left: 0.0, right: 20.0),
+                      alignment: Alignment.centerLeft,
+                      child: Text(Exercise_Name, softWrap: true,),
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        Container(
+                          padding: const EdgeInsets.only(left: 15.0, bottom: 5.0),
+                          alignment: Alignment.center,
+                          child: Text(Muscle_Group, softWrap: true,),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Container(
+                              padding: const EdgeInsets.only(left: 5.0, right: 5.0),
+                              alignment: Alignment.centerLeft,
+                              child: Text(Difficulty, softWrap: true,),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.only(left: 10.0),
+                              alignment: Alignment.centerRight,
+                              child: Text(Spotter, softWrap: true,),
+                            ),
+                          ],
+                        )
+                      ]
+                    ),
+                  ],
+                ),
+              expanded:
+                Column(
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Container(
+                          padding: const EdgeInsets.only(left: 20.0, right: 5.0),
+                          alignment: Alignment.centerLeft,
+                          child: Text(Exercise_Type, softWrap: true,),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.only(left: 15.0, right: 10.0),
+                          alignment: Alignment.center,
+                          child: Text(Mechanic, softWrap: true,),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.only(left: 15.0, right: 5.0),
+                          alignment: Alignment.centerRight,
+                          child: Text(Equipment_Needed, softWrap: true,),
+                        )
+                      ]
+                    ),
+                    Container(
+                      padding: const EdgeInsets.only(top: 5.0, left: 10.0, bottom: 10),
+                      alignment: Alignment.centerLeft,
+                      child: Text(Description, softWrap: true,)
+                    )
+                  ]
+                ),
+              tapHeaderToExpand: true,
+              hasIcon: true,
+            )
+          ],
+        )
+      )
+    );
+
+    /*return ExpandablePanel(
       //header: Text("Header" style: Theme.of(context).textTheme.body2,),
       header:
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: <
-              Widget>[ //NOTE to future Alex: put all the text in containers so you can pad it
+          children: <Widget>[ //NOTE to future Alex: put all the text in containers so you can pad it
             Container(
               padding: const EdgeInsets.only(
                   left: 0.0, right: 20.0),
               alignment: Alignment.centerLeft,
-              child: Text(Exercise_Name),
+              child: Text(Exercise_Name, softWrap: true,),
 
             ),
             Column(
@@ -39,7 +120,7 @@ class testCard extends StatelessWidget{
                   Container(
                     padding: const EdgeInsets.only(left: 15.0, bottom: 5.0),
                     alignment: Alignment.center,
-                    child: Text(Muscle_Group),
+                    child: Text(Muscle_Group, softWrap: true,),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -47,12 +128,12 @@ class testCard extends StatelessWidget{
                       Container(
                         padding: const EdgeInsets.only(left: 5.0, right: 5.0),
                         alignment: Alignment.centerLeft,
-                        child: Text(Difficulty),
+                        child: Text(Difficulty, softWrap: true,),
                       ),
                       Container(
                         padding: const EdgeInsets.only(left: 10.0),
                         alignment: Alignment.centerRight,
-                        child: Text(Spotter),
+                        child: Text(Spotter, softWrap: true,),
                       ),
                     ],
                   )
@@ -68,29 +149,29 @@ class testCard extends StatelessWidget{
                     Container(
                       padding: const EdgeInsets.only(left: 20.0, right: 5.0),
                       alignment: Alignment.centerLeft,
-                      child: Text(Exercise_Type),
+                      child: Text(Exercise_Type, softWrap: true,),
                     ),
                     Container(
                       padding: const EdgeInsets.only(left: 15.0, right: 10.0),
                       alignment: Alignment.center,
-                      child: Text(Mechanic),
+                      child: Text(Mechanic, softWrap: true,),
                     ),
                     Container(
                       padding: const EdgeInsets.only(left: 15.0, right: 5.0),
                       alignment: Alignment.centerRight,
-                      child: Text(Equipment_Needed),
+                      child: Text(Equipment_Needed, softWrap: true,),
                     )
                   ]
               ),
               Container(
                   padding: const EdgeInsets.only(top: 5.0, left: 10.0, bottom: 10),
                   alignment: Alignment.centerLeft,
-                  child: Text(Description)
+                  child: Text(Description, softWrap: true,)
               )
             ]
         ),
       tapHeaderToExpand: true,
       hasIcon: true,
-    );
+    );*/
   }
 }

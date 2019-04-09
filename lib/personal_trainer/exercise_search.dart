@@ -54,10 +54,16 @@ class _exerciseSearchPage extends State<exerciseSearchPage> {
 
   ListView buildSearchResults(List<DocumentSnapshot> docs) {
     List<testCard> userSearchItems = [];
-    List<Text> textList = [];
 
     docs.forEach((DocumentSnapshot doc) {
-      var entry = new testCard(doc.data['Exercise_Name'], doc.data['Muscle_Group'], doc.data['Difficulty'], doc.data['Spotter_Recommended'], doc.data['Exercise_Type'], doc.data['Mechanics'], doc.data['Equipment_Needed'], doc.data['Description']);
+      var entry = new testCard(doc.data['Exercise_Name'],
+                               doc.data['Muscle_Group'],
+                               doc.data['Difficulty'],
+                               doc.data['Spotter_Recommended'],
+                               doc.data['Exercise_Type'],
+                               doc.data['Mechanics'],
+                               doc.data['Equipment_Needed'],
+                               doc.data['Description']);
       userSearchItems.add(entry);
 
       //textList.add(new Text("Added to Doc"));
@@ -69,6 +75,38 @@ class _exerciseSearchPage extends State<exerciseSearchPage> {
 
     return new ListView(
       children: userSearchItems,
+    );
+  }
+
+  ListView buildSearchResultsALT(List<DocumentSnapshot> docs) {
+    List<testCard> userSearchItems = [];
+
+    docs.forEach((DocumentSnapshot doc) {
+      var entry = new testCard(doc.data['Exercise_Name'],
+          doc.data['Muscle_Group'],
+          doc.data['Difficulty'],
+          doc.data['Spotter_Recommended'],
+          doc.data['Exercise_Type'],
+          doc.data['Mechanics'],
+          doc.data['Equipment_Needed'],
+          doc.data['Description']);
+
+      userSearchItems.add(entry);
+
+      //textList.add(new Text("Added to Doc"));
+
+      //User user = new User.fromDocument(doc);
+      //UserSearchItem searchItem = new UserSearchItem(user);
+      //userSearchItems.add(searchItem);
+    });
+
+    return new ListView(
+      children: userSearchItems.map((w) {
+        return Padding(
+          padding: EdgeInsets.only(top: 15, left: 15, right: 15,),
+          child: w,
+        );
+      }).toList(),
     );
   }
 
@@ -84,11 +122,6 @@ class _exerciseSearchPage extends State<exerciseSearchPage> {
 
     searchFuture = query.getDocuments();*/
 
-    List<String> searchWord;
-    for(var i = 0; i < searchValue.length; i++){
-      searchWord.add(searchValue[i]);
-    }
-
     Future<QuerySnapshot> searchFuture = Firestore.instance
         .collection("NewExerciseDB")
         .where('Exercise_Name',  isGreaterThanOrEqualTo: searchValue)
@@ -99,17 +132,19 @@ class _exerciseSearchPage extends State<exerciseSearchPage> {
     });
   }
 
+  @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
       appBar: Platform.isIOS ? buildSearchFieldIOS() : buildSearchField(),
       body: queryResults == null
-          ? new Text("Results are null")
+          ? new Text("")
           : new FutureBuilder<QuerySnapshot>(
           future: queryResults,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               new Text("Snapshot has data");
-              return buildSearchResults(snapshot.data.documents);
+              //return buildSearchResults(snapshot.data.documents);
+              return buildSearchResultsALT(snapshot.data.documents);
             } else {
               return new Container(
                   alignment: FractionalOffset.center,
@@ -120,26 +155,26 @@ class _exerciseSearchPage extends State<exerciseSearchPage> {
   }
 }
 
-class UserSearchItem extends StatelessWidget {
-
-  @override
-  Widget build(BuildContext context) {
-    TextStyle boldStyle = new TextStyle(
-      color: Colors.black,
-      fontWeight: FontWeight.bold,
-    );
-
-    /*return new GestureDetector(
-        child: new ListTile(
-          leading: new CircleAvatar(
-            backgroundImage: new NetworkImage(user.photoUrl),
-            backgroundColor: Colors.grey,
-          ),
-          title: new Text(user.username, style: boldStyle),
-          subtitle: new Text(user.displayName),
-        ),
-        onTap: () {
-          openProfile(context, user.id);
-        });*/
-  }
-}
+//class UserSearchItem extends StatelessWidget {
+//
+//  @override
+//  Widget build(BuildContext context) {
+//    TextStyle boldStyle = new TextStyle(
+//      color: Colors.black,
+//      fontWeight: FontWeight.bold,
+//    );
+//
+//    /*return new GestureDetector(
+//        child: new ListTile(
+//          leading: new CircleAvatar(
+//            backgroundImage: new NetworkImage(user.photoUrl),
+//            backgroundColor: Colors.grey,
+//          ),
+//          title: new Text(user.username, style: boldStyle),
+//          subtitle: new Text(user.displayName),
+//        ),
+//        onTap: () {
+//          openProfile(context, user.id);
+//        });*/
+//  }
+//}
