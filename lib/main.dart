@@ -183,6 +183,7 @@ class _HomePageState extends State<HomePage> {
   bool triedSilentLogin = false;
   bool setupNotifications = false;
   ScrollController feedScroll = new ScrollController();
+  String attendanceValue;
 
 
   Scaffold buildLoginPage() {
@@ -253,7 +254,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 new Container(
                   color: Colors.white,
-                  child: new AttendancePage()
+                  child: new AttendancePage(attendanceValue: attendanceValue),
                 ),
               ],
               controller: pageController,
