@@ -351,7 +351,9 @@ class _ProfilePage extends State<ProfilePage> {
                   style: const TextStyle(color: Colors.white),
                 ),
                 actions: <Widget>[
-                  IconButton(icon: Icon(Icons.settings), onPressed: null)
+                  IconButton(icon: Icon(Icons.settings),
+                      onPressed: null)
+
                 ],
                 backgroundColor: Colors.grey,
               ),
