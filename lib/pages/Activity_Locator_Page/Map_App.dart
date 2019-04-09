@@ -6,7 +6,6 @@ import 'move_camera.dart';
 import 'page.dart';
 import 'place_marker.dart';
 import 'scrolling_map.dart';
-import 'firemap.dart';
 
 final List<Page> _allPages = <Page>[
   MapUiPage(),
@@ -14,7 +13,6 @@ final List<Page> _allPages = <Page>[
   MoveCameraPage(),
   PlaceMarkerPage(),
   ScrollingMapPage(),
-  FireMapPage(),
 ];
 
 class MapApp extends StatelessWidget {
@@ -30,34 +28,31 @@ class MapApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Activity Locator'),
-        backgroundColor: Colors.green[700],
+          title: const Text('GoogleMaps examples'),
+          actions: <Widget>[
+            IconButton(
+            icon: Icon(Icons.playlist_play),
+            tooltip: 'Air it',
+          ),
+          IconButton(
+          icon: Icon(Icons.playlist_add),
+          tooltip: 'Restitch it',
+          ),
+          IconButton(
+          icon: Icon(Icons.playlist_add_check),
+          tooltip: 'Repair it',
+          ),
+          ],
       ),
       body: ListView.builder(
-              itemCount: _allPages.length,
-              itemBuilder: (_, int index) => ListTile(
-                leading: _allPages[index].leading,
-                title: Text(_allPages[index].title),
-                onTap: () => _pushPage(context, _allPages[index]),
-              ),
+        itemCount: _allPages.length,
+        itemBuilder: (_, int index) => ListTile(
+              leading: _allPages[index].leading,
+              title: Text(_allPages[index].title),
+              onTap: () => _pushPage(context, _allPages[index]),
             ),
+      ),
     );
   }
 }
-//  @override
-//  Widget build(BuildContext context) {
-//    return Scaffold(
-//      appBar: AppBar(
-//        title: const Text('Activity Locator'),
-//        backgroundColor: Colors.green[700],
-//      ),
-//      body: Center(
-//        child: SizedBox(
-//          width: 500.0,
-//          height: 400.0,
-//          child: googleMap,
-//        ),
-//      ),
-//    );
-//  }
-//}
+
