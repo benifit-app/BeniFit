@@ -15,6 +15,7 @@ import 'package:fitapp/personal_trainer/firestore_query_functions.dart';
 import 'package:fitapp/personal_trainer/customCard.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:fitapp/personal_trainer/expandCard.dart';
 
 //video for search bar:  https://www.youtube.com/watch?v=FPcl1tu0gDs
 
@@ -79,10 +80,10 @@ class _exerciseSearchPage extends State<exerciseSearchPage> {
   }
 
   ListView buildSearchResultsALT(List<DocumentSnapshot> docs) {
-    List<testCard> userSearchItems = [];
+    List<expandableCard> userSearchItems = [];
 
     docs.forEach((DocumentSnapshot doc) {
-      var entry = new testCard(doc.data['Exercise_Name'],
+      var entry = new expandableCard(doc.data['Exercise_Name'],
           doc.data['Muscle_Group'],
           doc.data['Difficulty'],
           doc.data['Spotter_Recommended'],
@@ -121,10 +122,12 @@ class _exerciseSearchPage extends State<exerciseSearchPage> {
     }
 
     searchFuture = query.getDocuments();*/
+    var fullLength = searchValue.length;
 
     Future<QuerySnapshot> searchFuture = Firestore.instance
         .collection("NewExerciseDB")
-        .where('Exercise_Name',  isGreaterThanOrEqualTo: searchValue)
+        .where('Exercise_Name',  isGreaterThanOrEqualTo: searchValue[0])
+        .where('Exercise_Name', isLessThanOrEqualTo: searchValue[fullLength-1])
         .getDocuments();
 
     setState(() {
