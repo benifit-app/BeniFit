@@ -35,8 +35,8 @@ class _ptMainPage extends State<ptMainPage>{
   buildListView(){
     return ListView(
       children: <Widget>[
-        new menuCard("Routine Builder", 250, "checklist.jpg", BoxFit.fill, Alignment.center, BorderRadius.circular(20)),
-        new menuCard("Exercise Search", 250, "search.png", BoxFit.fill, Alignment.center, BorderRadius.circular(20)),
+        new menuCard("Routine Builder", 250, "assets/images/checklist.jpg", BoxFit.cover, Alignment.center, BorderRadius.circular(20)),
+        new menuCard("Exercise Search", 250, "assets/images/search.png", BoxFit.cover, Alignment.center, BorderRadius.circular(20)),
       ],
     );
   }
