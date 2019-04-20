@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:fitapp/personal_trainer/menu_Card.dart';
 import 'package:fitapp/feed/image_post.dart';
 import 'dart:async';
 import 'package:async/async.dart';
@@ -16,8 +18,32 @@ class ptMainPage extends StatefulWidget{
 
 class _ptMainPage extends State<ptMainPage>{
 
+  buildNavigationBarIOS(){
+    return new CupertinoPageScaffold(
+      backgroundColor: Colors.white,
+      child: buildListView()
+    );
+  }
+
+  buildNavigationBarAndroid(){
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: buildListView(),
+    );
+  }
+
+  buildListView(){
+    return ListView(
+      children: <Widget>[
+        new menuCard("Routine Builder", 250, "checklist.jpg", BoxFit.fill, Alignment.center, BorderRadius.circular(20)),
+        new menuCard("Exercise Search", 250, "search.png", BoxFit.fill, Alignment.center, BorderRadius.circular(20)),
+      ],
+    );
+  }
+
   //builder for the page
   Widget build(BuildContext context){
+    return Platform.isIOS ? buildNavigationBarIOS() : buildNavigationBarAndroid();
 
   }
 }

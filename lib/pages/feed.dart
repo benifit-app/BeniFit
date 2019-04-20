@@ -14,6 +14,7 @@ import 'package:fitapp/pages/Activity_Locator_Page/Map_App.dart';
 //import 'package:fitapp/test.dart';
 import 'package:fitapp/personal_trainer/exercise_card.dart';
 import 'package:fitapp/personal_trainer/exercise_search.dart';
+import 'package:fitapp/personal_trainer/ptMain.dart';
 
 
 class Feed extends StatefulWidget {
@@ -120,7 +121,7 @@ class _Feed extends State<Feed> {
                 ),
                 //Personal Trainer Tab
                 //Icon(Icons.fitness_center)
-                new exerciseSearchPage(),
+                new ptMainPage(),
               ]
             )
 //      floatingActionButton: FancyFab(),
