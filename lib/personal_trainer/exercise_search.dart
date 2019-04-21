@@ -28,7 +28,6 @@ class _exerciseSearchPage extends State<exerciseSearchPage> {
   Future<QuerySnapshot> queryResults;
 
   buildSearchField() {
-    //NOTE TO FUTURE ALEX: MAKE LOOK CUPERTINO
     return new AppBar(
       backgroundColor: Colors.white,
       title: new Form(
@@ -38,21 +37,22 @@ class _exerciseSearchPage extends State<exerciseSearchPage> {
           onFieldSubmitted: submit,
         ),
       ),
-      leading: FlatButton.icon(onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.arrow_back), label: null),
+      leading: BackButton(color: Colors.black,),
+      //leading: FlatButton(onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.arrow_back),),
     );
   }
 
   buildSearchFieldIOS(){
-    return new AppBar(
-      backgroundColor: Colors.white,
-      title: new CupertinoTextField(
+    return new CupertinoNavigationBar(
+      leading: BackButton(color: Colors.black,),
+      middle: new CupertinoTextField(
         keyboardType: TextInputType.text,
         clearButtonMode: OverlayVisibilityMode.editing,
         placeholder: "Search for an exercise...",
         onSubmitted: submit,
       ),
-      leading: FlatButton.icon(onPressed: (){Navigator.pop(context);}, icon: Icon(CupertinoIcons.back), label: null),
     );
+
   }
 
   ListView buildSearchResults(List<DocumentSnapshot> docs) {
