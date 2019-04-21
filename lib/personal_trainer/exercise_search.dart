@@ -38,6 +38,7 @@ class _exerciseSearchPage extends State<exerciseSearchPage> {
           onFieldSubmitted: submit,
         ),
       ),
+      leading: FlatButton.icon(onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.arrow_back), label: null),
     );
   }
 
@@ -49,7 +50,8 @@ class _exerciseSearchPage extends State<exerciseSearchPage> {
         clearButtonMode: OverlayVisibilityMode.editing,
         placeholder: "Search for an exercise...",
         onSubmitted: submit,
-      )
+      ),
+      leading: FlatButton.icon(onPressed: (){Navigator.pop(context);}, icon: Icon(CupertinoIcons.back), label: null),
     );
   }
 
