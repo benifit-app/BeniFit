@@ -20,6 +20,55 @@ class routineBuilderPage extends StatefulWidget{
 
 class _routineBuilderPage extends State<routineBuilderPage>{
 
+  buildTopBarAndroid() {
+    return new AppBar(
+      backgroundColor: Colors.white,
+      title: new Form(
+        child: new TextFormField(
+          keyboardType: TextInputType.text,
+          decoration: new InputDecoration(labelText: 'Search for an exercise'),
+          onFieldSubmitted: submit,
+        ),
+      ),
+      leading: BackButton(color: Colors.black,),
+      //leading: FlatButton(onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.arrow_back),),
+    );
+  }
+
+  buildTopBarIOS(){
+    return new CupertinoNavigationBar(
+      leading: BackButton(color: Colors.black,),
+      middle: Text("Routine Builder"),
+    );
+  }
+
+  buildListView(){
+    return ListView(
+      children: <Widget>[
+        //wrap cards in gesture detector to make them clickable
+        new GestureDetector(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(builder: (BuildContext context) => new exerciseSearchPage())
+            );
+          },
+          child: new menuCard("New Routine", 250, "assets/images/checklist.jpg", BoxFit.cover, Alignment.center, BorderRadius.circular(20)),
+        ),
+
+        new GestureDetector(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(builder: (BuildContext context) => new exerciseSearchPage())
+            );
+          },
+          child: new menuCard("Exercise Search", 250, "assets/images/search.png", BoxFit.cover, Alignment.center, BorderRadius.circular(20)),
+        )
+      ],
+    );
+  }
+
   //builder for the page
   Widget build(BuildContext context){
 

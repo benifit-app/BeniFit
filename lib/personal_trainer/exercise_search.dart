@@ -56,10 +56,10 @@ class _exerciseSearchPage extends State<exerciseSearchPage> {
   }
 
   ListView buildSearchResults(List<DocumentSnapshot> docs) {
-    List<testCard> userSearchItems = [];
+    List<expandCard> userSearchItems = [];
 
     docs.forEach((DocumentSnapshot doc) {
-      var entry = new testCard(doc.data['Exercise_Name'],
+      var entry = new expandCard(doc.data['Exercise_Name'],
                                doc.data['Muscle_Group'],
                                doc.data['Difficulty'],
                                doc.data['Spotter_Recommended'],
@@ -128,8 +128,9 @@ class _exerciseSearchPage extends State<exerciseSearchPage> {
 
     Future<QuerySnapshot> searchFuture = Firestore.instance
         .collection("NewExerciseDB")
-        .where('Exercise_Name',  isGreaterThanOrEqualTo: searchValue[0])
-        .where('Exercise_Name', isLessThanOrEqualTo: searchValue[fullLength-1])
+        //.where('Exercise_Name',  isGreaterThanOrEqualTo: searchValue[0])
+        //.where('Exercise_Name', isLessThanOrEqualTo: searchValue[fullLength-1])
+        .where('Muscle_Group', isEqualTo: searchValue)
         .getDocuments();
 
     setState(() {

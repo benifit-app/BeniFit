@@ -32,14 +32,7 @@ class _ptMainPage extends State<ptMainPage>{
       body: buildListView(),
     );
   }
-  
-  transitionPageIOS(Animation<double> passRouteAnimation){
-    return CupertinoPageTransition(primaryRouteAnimation: passRouteAnimation, secondaryRouteAnimation: null, child: null, linearTransition: null);
-  }
 
-  transitionPageAndroid(){
-
-  }
 
   buildListView(){
     return ListView(

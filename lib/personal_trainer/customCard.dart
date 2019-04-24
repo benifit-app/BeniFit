@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:expandable/expandable.dart';
 
-class testCard extends StatelessWidget{
+class expandCard extends StatelessWidget{
   //declare final variables
   final String Exercise_Name;
   final String Muscle_Group;
@@ -13,7 +13,7 @@ class testCard extends StatelessWidget{
   final String Description;
 
   //class constructor
-  testCard(this.Exercise_Name, this.Muscle_Group, this.Difficulty, this.Spotter, this.Exercise_Type, this.Mechanic, this.Equipment_Needed, this.Description);
+  expandCard(this.Exercise_Name, this.Muscle_Group, this.Difficulty, this.Spotter, this.Exercise_Type, this.Mechanic, this.Equipment_Needed, this.Description);
 
   //actually building the card
   @override
