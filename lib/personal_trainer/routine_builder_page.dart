@@ -23,13 +23,7 @@ class _routineBuilderPage extends State<routineBuilderPage>{
   buildTopBarAndroid() {
     return new AppBar(
       backgroundColor: Colors.white,
-      title: new Form(
-        child: new TextFormField(
-          keyboardType: TextInputType.text,
-          decoration: new InputDecoration(labelText: 'Search for an exercise'),
-          onFieldSubmitted: submit,
-        ),
-      ),
+      title: Text("Routine Builder"),
       leading: BackButton(color: Colors.black,),
       //leading: FlatButton(onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.arrow_back),),
     );
@@ -53,7 +47,7 @@ class _routineBuilderPage extends State<routineBuilderPage>{
                 MaterialPageRoute(builder: (BuildContext context) => new exerciseSearchPage())
             );
           },
-          child: new menuCard("New Routine", 250, "assets/images/checklist.jpg", BoxFit.cover, Alignment.center, BorderRadius.circular(20)),
+          child: new menuCard("New Routine", 250, "assets/images/new.png", BoxFit.cover, Alignment.center, BorderRadius.circular(20)),
         ),
 
         new GestureDetector(
@@ -63,7 +57,17 @@ class _routineBuilderPage extends State<routineBuilderPage>{
                 MaterialPageRoute(builder: (BuildContext context) => new exerciseSearchPage())
             );
           },
-          child: new menuCard("Exercise Search", 250, "assets/images/search.png", BoxFit.cover, Alignment.center, BorderRadius.circular(20)),
+          child: new menuCard("My Routines", 250, "assets/images/checklist.jpg", BoxFit.cover, Alignment.center, BorderRadius.circular(20)),
+        ),
+
+        new GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) => new exerciseSearchPage())
+            );
+          },
+          child: new menuCard("Routine Search", 250, "assets/images/search.png", BoxFit.cover, Alignment.center, BorderRadius.circular(20)),
         )
       ],
     );
@@ -71,6 +75,9 @@ class _routineBuilderPage extends State<routineBuilderPage>{
 
   //builder for the page
   Widget build(BuildContext context){
-
+      return Scaffold(
+        appBar: Platform.isIOS ? buildTopBarIOS() : buildTopBarAndroid(),
+        body: buildListView(),
+      );
   }
 }

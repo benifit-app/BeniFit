@@ -11,7 +11,6 @@ import 'package:fitapp/feed/upload_text.dart';
 
 //import for the custom firestore query dart file
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fitapp/personal_trainer/firestore_query_functions.dart';
 import 'package:fitapp/personal_trainer/customCard.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/cupertino.dart';

@@ -12,7 +12,6 @@ import 'package:fitapp/feed/upload_text.dart';
 import 'package:fitapp/pages/Activity_Locator_Page/Map_App.dart';
 //for accessing functions in other pages
 //import 'package:fitapp/test.dart';
-import 'package:fitapp/personal_trainer/exercise_card.dart';
 import 'package:fitapp/personal_trainer/exercise_search.dart';
 import 'package:fitapp/personal_trainer/ptMain.dart';
 
