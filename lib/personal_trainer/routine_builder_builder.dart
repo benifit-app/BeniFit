@@ -32,8 +32,8 @@ class _routineBuilderBuilder extends State<routineBuilderBuilder>{
 
 
   //
-  questionRadioTile(passPrompt, passRadio, passRadioPrompt){
-    return RadioListTile(title: passRadioPrompt, value: -1, groupValue: null, onChanged: null)
+  questionRadioTile(passRadioPrompt, passGroupValue){
+    return RadioListTile(title: passRadioPrompt, value: -1, groupValue: passGroupValue, onChanged: null);
   }
 
   buildTopBarAndroid() {
@@ -52,12 +52,12 @@ class _routineBuilderBuilder extends State<routineBuilderBuilder>{
     );
   }
 
-  buildQuestionaire(){
+  QuestionOne(){
     return ListView(
       children: <Widget>[
 
       ],
-    )
+    );
   }
 
   //builder for the page
