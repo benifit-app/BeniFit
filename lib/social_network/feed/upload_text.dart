@@ -1,8 +1,9 @@
+import 'package:fitapp/social_network/main/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
 import 'package:fitapp/main.dart';
-import 'package:fitapp/uploader/location.dart';
+import 'package:fitapp/social_network/uploader/location.dart';
 import 'package:geocoder/geocoder.dart';
 
 class TextUpload extends StatefulWidget {

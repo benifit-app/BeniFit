@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:fitapp/feed/image_post.dart';
 import 'dart:async';
 import 'package:async/async.dart';
 import 'package:fitapp/main.dart';
 import 'dart:io';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:fitapp/feed/floating_action_bar.dart';
-import 'package:fitapp/pages/upload_page.dart';
-import 'package:fitapp/feed/upload_text.dart';
+
+
+//import for the custom firestore query dart file
+import 'package:fitapp/personal_trainer/firestore_query_functions.dart';
 
 
 class ptExerciseCard extends StatefulWidget {
@@ -17,6 +17,9 @@ class ptExerciseCard extends StatefulWidget {
 }
 
 class _ptExerciseCardState extends State<ptExerciseCard> {
+  //attrubutes from firestore query
+  var testString = getOneExercise();
+  
   int _activeMeterIndex;
   @override
   Widget build(BuildContext context) {
@@ -46,7 +49,7 @@ class _ptExerciseCardState extends State<ptExerciseCard> {
                                   padding: const EdgeInsets.only(
                                       left: 0.0, right: 20.0),
                                   alignment: Alignment.centerLeft,
-                                  child: Text('Exercise Name'),
+                                  child: Text(testString[4]),
 
                                 ),
                                 Column(

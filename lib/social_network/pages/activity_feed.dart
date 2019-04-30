@@ -1,9 +1,8 @@
+import 'package:fitapp/social_network/main/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fitapp/feed/image_post.dart'; //needed to open image when clicked
-import 'package:fitapp/pages/profile_page.dart'; // to open the profile page when username clicked
-import 'package:fitapp/main.dart'; //needed for currentuser id
-import 'package:nima/nima_actor.dart';
+import 'package:fitapp/social_network/feed/image_post.dart'; //needed to open image when clicked
+import 'package:fitapp/social_network/pages/profile_page.dart'; // to open the profile page when username clicked
 
 class ActivityFeedPage extends StatefulWidget {
   @override
@@ -61,8 +60,7 @@ class _ActivityFeedPageState extends State<ActivityFeedPage> {
 class ActivityFeedItem extends StatelessWidget {
   final String username;
   final String userId;
-  final String
-      type; // potetial types include liked photo, follow user, comment on photo
+  final String type; // potetial types include liked photo, follow user, comment on photo
   final String mediaUrl;
   final String mediaId;
   final String userProfileImg;

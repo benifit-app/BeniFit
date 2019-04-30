@@ -274,6 +274,48 @@
             }
         }
 
+        function addToFirebaseALT(){
+            //set necessary variables
+            var i = 0;
+
+            i = adder(i, 100);
+            i = adder(i, 200);
+            i = adder(i, 300);
+            i = adder(i, 400);
+            i = adder(i, 500);
+            i = adder(i, 600);
+            i = adder(i, 700);
+            i = adder(i, 800);
+            i = adder(i, 903);
+        }
+
+        function adder(start, end){
+            var i;
+
+            for(i = start; i < end; i++){
+                database.collection("NewExerciseDB").doc(fullArray[i][0].capitalize()).set({
+                    Exercise_Name: fullArray[i][0].capitalize(),
+                    Muscle_Group: fullArray[i][1].capitalize(),
+                    Exercise_Type : "NULL",
+                    Mechanics: "NULL",
+                    Equipment_Needed: "NULL",
+                    Spotter_Recommended: "NULL",
+                    Difficulty: "NULL",
+                    Description: "NULL",
+                })
+                .then(function() {
+                    // Data saved successfully!
+                    console.log("Exercise: " + fullArray[i][0] + " Muscle Group: " + fullArray[i][1] + " was saved!" + "\n");
+                })
+                .catch(function(error) {
+                    // The write failed...
+                    console.log("Error on: " + i + " iteration.\nFailed to write: " + fullArray[i][0] + " and muscle group: " + passMuscleGroup[i][1] + "\n")
+                });
+            }
+
+            return i;
+        }
+
         //function for managing everything
         function getEverything(){
             //set variables
@@ -349,6 +391,7 @@
             document.getElementById('every').innerHTML = "total length: " + totalLength;
 
             //add to the database TEST 1: Abdominals
+            /*
             addToFirebase(muscleGroupsArray[0], abdominalsArray);
             addToFirebase(muscleGroupsArray[1], adductorsArray);
             addToFirebase(muscleGroupsArray[2], quadricepsArray);
@@ -368,6 +411,9 @@
             addToFirebase(muscleGroupsArray[16], neckArray);
             addToFirebase(muscleGroupsArray[17], abductorArray);
             addToFirebase(muscleGroupsArray[18], treadmillArray);
+            */
+
+            addToFirebaseALT();
 
         }
 

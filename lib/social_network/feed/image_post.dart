@@ -1,11 +1,13 @@
+import 'package:fitapp/social_network/main/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fitapp/main.dart';
 import 'dart:async';
-import 'package:fitapp/pages/profile_page.dart';
+import 'package:fitapp/social_network/pages/profile_page.dart';
+import 'package:fitapp/social_network/feed/comment_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:fitapp/feed/comment_screen.dart';
+
 
 class ImagePost extends StatefulWidget {
   const ImagePost(
