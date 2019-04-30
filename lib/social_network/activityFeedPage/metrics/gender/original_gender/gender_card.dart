@@ -1,9 +1,9 @@
 import 'package:fitapp/social_network/activityFeedPage/metrics/card_tile.dart';
-import 'package:fitapp/social_network/activityFeedPage/metrics/gender/gender.dart';
-import 'package:fitapp/social_network/activityFeedPage/metrics/gender/gender_circle.dart';
-import 'package:fitapp/social_network/activityFeedPage/metrics/gender/gender_icon.dart';
-import 'package:fitapp/social_network/activityFeedPage/metrics/gender/gender_arrow.dart';
-import 'package:fitapp/social_network/activityFeedPage/metrics/gender/tap_handler.dart';
+import 'package:fitapp/social_network/activityFeedPage/metrics/gender/original_gender/gender.dart';
+import 'package:fitapp/social_network/activityFeedPage/metrics/gender/original_gender/gender_circle.dart';
+import 'package:fitapp/social_network/activityFeedPage/metrics/gender/original_gender/gender_icon.dart';
+import 'package:fitapp/social_network/activityFeedPage/metrics/gender/original_gender/gender_arrow.dart';
+import 'package:fitapp/social_network/activityFeedPage/metrics/gender/original_gender/tap_handler.dart';
 
 import 'package:flutter/material.dart';
 import 'dart:math' as math;

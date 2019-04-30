@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fitapp/pages/direct_message/direct_text.dart';
-import 'package:fitapp/feed/upload_text.dart';
-import 'package:fitapp/pages/upload_page.dart';
+import 'package:fitapp/social_network/pages/direct_message/direct_text.dart';
+import 'package:fitapp/social_network/feed/upload_text.dart';
+import 'package:fitapp/social_network/pages/upload_page.dart';
 
 class FancyFab extends StatefulWidget {
   final Function() onPressed;

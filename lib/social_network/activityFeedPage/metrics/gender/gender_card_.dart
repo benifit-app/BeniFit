@@ -1,8 +1,7 @@
 import 'dart:ui';
 import 'package:fitapp/social_network/activityFeedPage/metrics/screenAware.dart';
-import 'package:fitapp/social_network/activityFeedPage/metrics/gender/gender.dart';
+import 'package:fitapp/social_network/activityFeedPage/metrics/gender/original_gender/gender.dart';
 import 'package:fitapp/social_network/activityFeedPage/metrics/card_tile.dart';
-
 import 'package:flutter/material.dart';
 import 'package:nima/nima_actor.dart';
 
@@ -17,7 +16,7 @@ class GenderCard_ extends StatefulWidget {
 
 class _GenderCardState extends State<GenderCard_> {
 
-  Gender selectedGender;
+  Gender _selectedGender;
 
   @override
   Widget build(BuildContext context) {
@@ -49,8 +48,8 @@ class _GenderCardState extends State<GenderCard_> {
         children: <Widget>[
           Row(
             children: <Widget>[
-              _drawGenderCharacters("Female", Gender.female, true),
-              _drawGenderCharacters("  Male", Gender.male, true)
+              _drawGenderCharacters("Female", Gender.female),
+              _drawGenderCharacters("  Male", Gender.male)
             ],
           )
         ],
@@ -71,19 +70,27 @@ class _GenderCardState extends State<GenderCard_> {
     return Container(
       padding: EdgeInsets.only(left:10.0, right:10.0),
       height: 150,
-      child: new NimaActor(
-          _nimaLocation,
-          paused: true,
-          alignment:Alignment.center,
-          fit:BoxFit.contain,
-          animation:"Untitled"
-      ),
+      child: new RaisedButton(
+          onPressed: (){
+            if (gender != _selectedGender) {_setSelectedGender(gender);}
+          },
+          child: new Padding(
+            padding: EdgeInsets.only(
+                  top: 10.0,
+                  bottom: 10.0),
+            child: new NimaActor(
+                _nimaLocation,
+                paused: true,
+                alignment:Alignment.center,
+                fit:BoxFit.contain,
+                animation:"Untitled"
+            ),
+          )
+      )
     );
   }
 
-  Widget _drawGenderCharacters(String text, Gender gender, bool selected) {
-
-    bool Selected = selected;
+  Widget _drawGenderCharacters(String text, Gender gender) {
 
     return Expanded(
         flex: 5,
@@ -95,9 +102,6 @@ class _GenderCardState extends State<GenderCard_> {
                 Text(text),
               ],
             ),
-            (Selected) ?
-            Divider() :
-            _blurCharacter()
           ],
         )
     );
@@ -124,11 +128,12 @@ class _GenderCardState extends State<GenderCard_> {
 
   void _setSelectedGender(Gender gender) {
     setState(() {
-      selectedGender = gender;
+      _selectedGender = gender;
     });
+    print(_selectedGender);
   }
 
-  getGender () {
-    return selectedGender;
+  Gender getGender() {
+    return _selectedGender;
   }
 }
