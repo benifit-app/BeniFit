@@ -1,9 +1,7 @@
 import 'dart:ui';
-
-import 'package:fitapp/activityFeedPage/metrics/screenAware.dart';
-import 'package:fitapp/activityFeedPage/metrics/gender/gender.dart';
-import 'package:fitapp/activityFeedPage/metrics/card_tile.dart';
-import 'package:fitapp/activityFeedPage/metrics/gender/tap_handler.dart';
+import 'package:fitapp/social_network/activityFeedPage/metrics/screenAware.dart';
+import 'package:fitapp/social_network/activityFeedPage/metrics/gender/gender.dart';
+import 'package:fitapp/social_network/activityFeedPage/metrics/card_tile.dart';
 
 import 'package:flutter/material.dart';
 import 'package:nima/nima_actor.dart';

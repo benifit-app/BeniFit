@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fitapp/activityFeedPage/metrics/screenAware.dart' show screenAwareSize;
+import 'package:fitapp/social_network/activityFeedPage/metrics/screenAware.dart' show screenAwareSize;
 
 class GenderLine extends StatelessWidget {
   @override

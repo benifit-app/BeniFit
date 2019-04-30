@@ -5,9 +5,6 @@ import 'package:fitapp/main.dart';
 import 'dart:io';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:fitapp/feed/floating_action_bar.dart';
-import 'package:fitapp/pages/upload_page.dart';
-import 'package:fitapp/feed/upload_text.dart';
 
 //import for the custom firestore query dart file
 import 'package:cloud_firestore/cloud_firestore.dart';

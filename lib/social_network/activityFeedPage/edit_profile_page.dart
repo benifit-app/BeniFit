@@ -1,15 +1,16 @@
+import 'package:fitapp/social_network/main/home_page.dart';
 import "package:flutter/material.dart";
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitapp/main.dart'; //for currentuser
-import 'package:fitapp/pages/profile_page.dart'; //for the user class
+import 'package:fitapp/social_network/pages/profile_page.dart'; //for the user class
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:fitapp/main/create_account.dart';
-import 'package:fitapp/activityFeedPage/view_user_post.dart';
-import 'package:fitapp/activityFeedPage/metrics/metrics.dart';
-import 'package:fitapp/activityFeedPage/metrics/gender/gender_card.dart';
-import 'package:fitapp/activityFeedPage/metrics/gender/gender_card_.dart';
+import 'package:fitapp/social_network/main/create_account.dart';
+import 'package:fitapp/social_network/activityFeedPage/view_user_post.dart';
+import 'package:fitapp/social_network/activityFeedPage/metrics/metrics.dart';
+import 'package:fitapp/social_network/activityFeedPage/metrics/gender/gender_card.dart';
+import 'package:fitapp/social_network/activityFeedPage/metrics/gender/gender_card_.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn _googleSignIn = new GoogleSignIn();

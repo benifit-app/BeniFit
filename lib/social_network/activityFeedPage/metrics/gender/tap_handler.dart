@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fitapp/activityFeedPage/metrics/gender/gender.dart';
+import 'package:fitapp/social_network/activityFeedPage/metrics/gender/gender.dart';
 
 class TapHandler extends StatelessWidget {
   final Function(Gender) onGenderTapped;

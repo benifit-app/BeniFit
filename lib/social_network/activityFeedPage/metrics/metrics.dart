@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fitapp/activityFeedPage/metrics/gender/gender_card.dart';
-import 'package:fitapp/activityFeedPage/metrics/screenAware.dart';
+import 'package:fitapp/social_network/activityFeedPage/metrics/gender/gender_card.dart';
+import 'package:fitapp/social_network/activityFeedPage/metrics/screenAware.dart';
 
 class Metrics extends StatelessWidget {
   Widget build(BuildContext context) {

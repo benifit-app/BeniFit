@@ -1,3 +1,4 @@
+import 'package:fitapp/social_network/main/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -9,7 +10,7 @@ import 'dart:io';
 import 'package:image/image.dart' as Im;
 import 'package:path_provider/path_provider.dart';
 import 'dart:math' as Math;
-import 'package:fitapp/uploader/location.dart';
+import 'package:fitapp/social_network/uploader/location.dart';
 import 'package:geocoder/geocoder.dart';
 
 class Uploader extends StatefulWidget {

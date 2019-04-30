@@ -1,5 +1,6 @@
+import 'package:fitapp/social_network/main/home_page.dart';
 import 'package:flutter/material.dart';
-import 'package:fitapp/feed/image_post.dart';
+import 'package:fitapp/social_network/feed/image_post.dart';
 import 'dart:async';
 import 'package:async/async.dart';
 import 'package:fitapp/main.dart';
@@ -16,8 +17,9 @@ class Feed extends StatefulWidget {
 }
 
 class _Feed extends State<Feed> with SingleTickerProviderStateMixin{
-  final ScrollController scrollable;
   _Feed(this.scrollable);
+  final ScrollController scrollable;
+
 
   TextEditingController myController = new TextEditingController();
 
