@@ -63,6 +63,16 @@ class _routineBuilderPage extends State<routineBuilderPage>{
         new GestureDetector(
           onTap: () {
             Navigator.push(
+                context,
+                MaterialPageRoute(builder: (BuildContext context) => new exerciseSearchPage())
+            );
+          },
+          child: new menuCard("Random Routine", 250, "assets/images/question.png", BoxFit.cover, Alignment.center, BorderRadius.circular(20)),
+        ),
+
+        new GestureDetector(
+          onTap: () {
+            Navigator.push(
               context,
               MaterialPageRoute(builder: (BuildContext context) => new exerciseSearchPage())
             );
