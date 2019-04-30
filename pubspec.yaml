@@ -23,7 +23,7 @@ dependencies:
   flutter_map: any
   google_maps_flutter: ^0.4.0
   nima: ^1.0.0
-  geoflutterfire: ^2.0.2
+  geoflutterfire: ^2.0.3+2
   rxdart: ^0.20.0
   firebase_core: ^0.3.0
 

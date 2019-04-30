@@ -17,9 +17,17 @@ class FireMap extends StatefulWidget {
 
   @override
   State createState() => FireMapState();
+
 }
 
 class FireMapState extends State<FireMap> {
+
+  @override
+  void initState(){
+    super.initState();
+  }
+
+
 
   build(context) {
     return Stack(children:[
