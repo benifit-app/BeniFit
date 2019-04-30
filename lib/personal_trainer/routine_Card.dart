@@ -12,7 +12,7 @@ class routineCard extends StatelessWidget{
   //function for constructing all of the days and nested exercises
   constructDays(){
     int amountOfDays = passDoc["Days"];
-    List<Widget> listOfDays;
+    List<Widget> listOfDays = List();
 
     for(int i = 0; i < amountOfDays; i++){
       listOfDays.add(
@@ -21,11 +21,11 @@ class routineCard extends StatelessWidget{
             //container for establishing what day it is
             Container(
               alignment: Alignment.center,
-              child: Text("Day " + i.toString(), softWrap: true,)
+              child: Text("Day " + (i+1).toString(), softWrap: true,)
             ),
 
             //construct all exercises for the day
-            constructDayExercises(i),
+            constructDayExercises(i+1),
           ]
         )
       );
@@ -39,15 +39,19 @@ class routineCard extends StatelessWidget{
     String currentDay = "Day " + day.toString();
     Map dayExercises = passDoc[currentDay];
     var listOfExercises = [];
-    List<Widget> exerciseElement;
+    List<Widget> exerciseElement = List();
 
-    dayExercises.forEach((k,v) => listOfExercises.add('${v}'));
+    dayExercises.forEach((k,v) => listOfExercises.add(v));
 
     for(int i = 0; i < listOfExercises.length; i++){
-      String ExerciseName = listOfExercises[i][0];
-      String MuscleGroup = listOfExercises[i][1];
-      int Sets = listOfExercises[i][2];
-      int Reps = listOfExercises[i][3];
+      var nestedList = listOfExercises[i];
+
+      //print(nestedList);
+
+      String ExerciseName = nestedList[0];
+      String MuscleGroup = nestedList[1];
+      var Sets = nestedList[2];
+      var Reps = nestedList[3];
 
       exerciseElement.add(
         Container(
@@ -56,19 +60,19 @@ class routineCard extends StatelessWidget{
             children: <Widget>[
               //Container for the Exercise Name
               Container(
-                //padding: const EdgeInsets.only(left: 20.0, right: 5.0),
+                padding: const EdgeInsets.only(top: 7.0, bottom: 7.0, right: 5.0),
                 alignment: Alignment.center,
                 //color: Colors.indigo[100],
-                width: MediaQuery.of(context).size.width * .30,
-                child: AutoSizeText(ExerciseName, softWrap: true,),
+                width: 200.0,
+                child: AutoSizeText(ExerciseName, softWrap: true, textAlign: TextAlign.center,),
               ),
 
               //Container for the amount of Sets
               Container(
-                //padding: const EdgeInsets.only(left: 20.0, right: 5.0),
+                padding: const EdgeInsets.only(left: 5.0, right: 5.0),
                 alignment: Alignment.center,
                 //color: Colors.indigo[100],
-                width: MediaQuery.of(context).size.width * .30,
+                //width: MediaQuery.of(context).size.width * .30,
                 child: AutoSizeText("Sets: " + Sets.toString(), softWrap: true,),
               ),
 
@@ -77,7 +81,7 @@ class routineCard extends StatelessWidget{
                 //padding: const EdgeInsets.only(left: 20.0, right: 5.0),
                 alignment: Alignment.center,
                 //color: Colors.indigo[100],
-                width: MediaQuery.of(context).size.width * .298,
+                //width: MediaQuery.of(context).size.width * .298,
                 child: AutoSizeText("Reps: " + Reps.toString(), softWrap: true,),
               )
             ],
@@ -86,8 +90,7 @@ class routineCard extends StatelessWidget{
       );
     }
 
-    return exerciseElement;
-
+    return Column(children: exerciseElement);
   }
 
   //actually building the card
@@ -102,14 +105,14 @@ class routineCard extends StatelessWidget{
               children: <Widget>[
                 //Container for ROUTINE NAME
                 Container(
-                  alignment: Alignment.center,
+                  alignment: Alignment.centerLeft,
                   width: MediaQuery.of(context).size.width * .40,
                   child: Container(child: Text(passDoc["Routine Name"], softWrap: true,),),
                 ),
 
                 //Container for ROUTINE CREATOR
                 Container(
-                  alignment: Alignment.center,
+                  alignment: Alignment.centerRight,
                   child: Container(child: Text("By: " + passDoc["username"] ,softWrap: true,),)
                 ),
               ],
@@ -123,6 +126,7 @@ class routineCard extends StatelessWidget{
                 children: <Widget>[
                   //Description of the exercise
                   Container(
+                    padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                       alignment: Alignment.center,
                       child: Container(child: Text(passDoc["Routine Description"] ,softWrap: true,),)
                   ),
@@ -130,15 +134,15 @@ class routineCard extends StatelessWidget{
                   //Number of days for the routine
                   Container(
                       alignment: Alignment.center,
-                      child: Container(child: Text("Days: " + passDoc["Days"],softWrap: true,),)
+                      padding: const EdgeInsets.only(top: 5.0, bottom: 10.0),
+                      child: Container(child: Text("Days: " + passDoc["Days"].toString(),softWrap: true,),)
                   ),
 
                   //exercises in the days
                   Container(
                       alignment: Alignment.center,
-                      child: ListView(children: <Widget>[constructDays()],),
+                      child: ListView(children: constructDays(), shrinkWrap: true,),
                   ),
-
                 ],
               ),
             ],
