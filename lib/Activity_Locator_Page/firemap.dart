@@ -2,6 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'page.dart';
 
+import 'package:location/location.dart';
+
+import 'package:geoflutterfire/geoflutterfire.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:rxdart/rxdart.dart';
+import 'dart:async';
+
 
 class FireMapPage extends Page {
   FireMapPage() : super(const Icon(Icons.map), 'FireMap');
@@ -21,6 +28,21 @@ class FireMap extends StatefulWidget {
 }
 
 class FireMapState extends State<FireMap> {
+
+  GoogleMapController mapController;
+  Location location = new Location();
+
+  _animateToUser() async {
+    var pos = await location.getLocation();
+
+    mapController.animateCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: LatLng(pos['latitude'], pos['longitude']),
+          zoom: 17.0,
+        )
+    )
+    );
+  }
 
   @override
   void initState(){
@@ -69,3 +91,4 @@ _addMarker(){
 
   mapController.addMarker(marker);
 }
+

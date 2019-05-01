@@ -257,7 +257,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
   Scaffold buildLoginPage() {
     return new Scaffold(
-      extendBody: true,
+//      extendBody: true,
       body: new Center(
         child: new Padding(
           padding: const EdgeInsets.only(top: 240.0),
@@ -328,7 +328,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 new MapApp(),
                 //Effit Tab
                 new Scaffold(
-                  extendBody: true,
+//                  extendBody: true,
                   floatingActionButton: _buildFab(context),
                   floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
                   body: new PageView(
