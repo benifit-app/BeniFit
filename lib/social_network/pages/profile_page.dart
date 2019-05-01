@@ -1,9 +1,9 @@
+import 'package:fitapp/social_network/main/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fitapp/main.dart';
-import 'package:fitapp/feed/image_post.dart';
 import 'dart:async';
-import 'package:fitapp/activityFeedPage/edit_profile_page.dart';
+import 'package:fitapp/social_network/feed/image_post.dart';
+import 'package:fitapp/social_network/activityFeedPage/edit_profile_page.dart';
 import 'package:nima/nima_actor.dart';
 
 class ProfilePage extends StatefulWidget {

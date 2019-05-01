@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fitapp/pages/direct_message/direct_text.dart';
-import 'package:fitapp/feed/upload_text.dart';
-import 'package:fitapp/pages/upload_page.dart';
+import 'package:fitapp/social_network/pages/direct_message/direct_text.dart';
+import 'package:fitapp/social_network/feed/upload_text.dart';
+import 'package:fitapp/social_network/pages/upload_page.dart';
 
 class FancyFab extends StatefulWidget {
   final Function() onPressed;
@@ -14,8 +14,7 @@ class FancyFab extends StatefulWidget {
   _FancyFabState createState() => _FancyFabState();
 }
 
-class _FancyFabState extends State<FancyFab>
-    with SingleTickerProviderStateMixin {
+class _FancyFabState extends State<FancyFab> with SingleTickerProviderStateMixin {
   bool isOpened = false;
   AnimationController _animationController;
   Animation<Color> _buttonColor;
@@ -26,13 +25,11 @@ class _FancyFabState extends State<FancyFab>
 
   @override
   initState() {
-    _animationController =
-    AnimationController(vsync: this, duration: Duration(milliseconds: 500))
+    _animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 500))
       ..addListener(() {
         setState(() {});
       });
-    _animateIcon =
-        Tween<double>(begin: 0.0, end: 1.0).animate(_animationController);
+    _animateIcon = Tween<double>(begin: 0.0, end: 1.0).animate(_animationController);
     _buttonColor = ColorTween(
       begin: Colors.teal,
       end: Colors.red,
@@ -123,7 +120,6 @@ class _FancyFabState extends State<FancyFab>
 
   Widget toggle() {
     return Container(
-      padding: EdgeInsets.only(bottom: 10.0),
       child: FloatingActionButton(
         backgroundColor: _buttonColor.value,
         onPressed: animate,
@@ -139,7 +135,8 @@ class _FancyFabState extends State<FancyFab>
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Transform(
           transform: Matrix4.translationValues(
