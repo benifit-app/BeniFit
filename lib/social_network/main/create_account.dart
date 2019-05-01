@@ -18,8 +18,7 @@ class _CreateAccountState extends State<CreateAccount> {
 
   @override
   Widget build(BuildContext context2) {
-    return new Column(
-        children: [
+    return new Column(children: [
       new Padding(
         padding: const EdgeInsets.only(top: 25.0),
         child: new Center(
@@ -41,9 +40,7 @@ class _CreateAccountState extends State<CreateAccount> {
                 border: InputBorder.none,
                 contentPadding: const EdgeInsets.all(10.0),
                 labelText: "Username",
-                labelStyle: new TextStyle(fontSize: 15.0
-                )
-            ),
+                labelStyle: new TextStyle(fontSize: 15.0)),
           ),
         ),
       ),
@@ -54,6 +51,8 @@ class _CreateAccountState extends State<CreateAccount> {
           }
           Navigator.pop(context, name.text);
         },
+
+
           child: new Container(
         width: 350.0,
         height: 50.0,
@@ -61,17 +60,11 @@ class _CreateAccountState extends State<CreateAccount> {
             child: new Text(
           "Next",
           style: new TextStyle(
-              color: Colors.white,
-              fontSize: 15.0,
-              fontWeight: FontWeight.bold
-          ),
-        )
-        ),
+              color: Colors.white, fontSize: 15.0, fontWeight: FontWeight.bold),
+        )),
         decoration: new BoxDecoration(
-            color: Colors.blue, borderRadius: new BorderRadius.circular(7.0)
-        ),
-      )
-      )
+            color: Colors.blue, borderRadius: new BorderRadius.circular(7.0)),
+      ))
     ]);
   }
 }

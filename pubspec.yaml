@@ -23,12 +23,13 @@ dependencies:
   flutter_map: any
   google_maps_flutter: ^0.4.0
   nima: ^1.0.0
-  expandable: ^2.0.0
   flutter_svg: ^0.12.3
   geoflutterfire: ^2.0.2
   rxdart: ^0.20.0
   firebase_core: ^0.3.0
   unicorndial: "^1.1.5"
+  expandable: ^2.1.0+3
+  auto_size_text: ^1.1.2
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -68,7 +69,10 @@ flutter:
     - assets/flexin.nma
     - assets/flexin.png
     - assets/images/man_drinking_water.svg
-    - assets/images/weight_arrow.svg
+    - assets/images/checklist.jpg
+    - assets/images/search.png
+    - assets/images/new.png
+    - assets/images/question.png
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
