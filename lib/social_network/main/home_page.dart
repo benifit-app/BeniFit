@@ -1,3 +1,4 @@
+import 'package:fitapp/personal_trainer/ptMain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:async';
@@ -16,7 +17,6 @@ import 'package:fitapp/social_network/pages/search_page.dart';
 import 'package:fitapp/social_network/pages/activity_feed.dart';
 import 'package:fitapp/social_network/main/create_account.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:fitapp/personal_trainer/exercise_search.dart';
 import 'package:fitapp/Activity_Locator_Page/Map_App.dart';
 
 import 'dart:io' show Platform;
@@ -370,7 +370,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                   ),
                 ),
                 //Personal Trainer Tab
-                new exerciseSearchPage()
+                new ptMainPage()
               ],
 //              controller: _tabController,
             )

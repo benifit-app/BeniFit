@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:fitapp/social_network/activityFeedPage/metrics/gender/gender.dart';
+import 'package:fitapp/social_network/activityFeedPage/metrics/gender/original_gender/gender.dart';
 import 'package:fitapp/social_network/activityFeedPage/metrics/screenAware.dart' show screenAwareSize;
 import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:math' as math;
 
-import 'package:fitapp/social_network/activityFeedPage/metrics/gender/gender_line.dart';
+import 'package:fitapp/social_network/activityFeedPage/metrics/gender/original_gender/gender_line.dart';
 
 double _circleSize(BuildContext context) => screenAwareSize(80.0, context);
 const double _defaultGenderAngle = math.pi / 4;

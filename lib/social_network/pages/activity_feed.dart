@@ -60,7 +60,8 @@ class _ActivityFeedPageState extends State<ActivityFeedPage> {
 class ActivityFeedItem extends StatelessWidget {
   final String username;
   final String userId;
-  final String type; // potetial types include liked photo, follow user, comment on photo
+  final String
+      type; // potetial types include liked photo, follow user, comment on photo
   final String mediaUrl;
   final String mediaId;
   final String userProfileImg;
