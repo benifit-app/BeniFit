@@ -7,8 +7,9 @@ import 'package:nima/nima_actor.dart';
 
 class GenderCard_ extends StatefulWidget {
   final Gender initialGender;
+  final ValueChanged<Gender> onChanged;
 
-  const GenderCard_({Key key, this.initialGender}) : super(key: key);
+  const GenderCard_({Key key, this.initialGender, this.onChanged}) : super(key: key);
 
   @override
   _GenderCardState createState() => _GenderCardState();
@@ -17,6 +18,7 @@ class GenderCard_ extends StatefulWidget {
 class _GenderCardState extends State<GenderCard_> {
 
   Gender _selectedGender;
+  bool animate = true;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +59,7 @@ class _GenderCardState extends State<GenderCard_> {
     );
   }
 
-  Widget _drawNimaCharacter(Gender gender, String nimaLocation) {
+  Widget _drawNimaCharacter(Gender gender, String nimaLocation, bool animate) {
     String _nimaLocation;
 
     if (gender == Gender.male){
@@ -72,7 +74,9 @@ class _GenderCardState extends State<GenderCard_> {
       height: 150,
       child: new RaisedButton(
           onPressed: (){
-            if (gender != _selectedGender) {_setSelectedGender(gender);}
+            if (gender != _selectedGender) {
+              _setSelectedGender(gender);
+            }
           },
           child: new Padding(
             padding: EdgeInsets.only(
@@ -80,7 +84,7 @@ class _GenderCardState extends State<GenderCard_> {
                   bottom: 10.0),
             child: new NimaActor(
                 _nimaLocation,
-                paused: true,
+                paused: animate,
                 alignment:Alignment.center,
                 fit:BoxFit.contain,
                 animation:"Untitled"
@@ -98,7 +102,7 @@ class _GenderCardState extends State<GenderCard_> {
           children: <Widget>[
             Column(
               children: <Widget>[
-                _drawNimaCharacter(gender, null),
+                _drawNimaCharacter(gender, null, true),
                 Text(text),
               ],
             ),
@@ -127,13 +131,15 @@ class _GenderCardState extends State<GenderCard_> {
   }
 
   void _setSelectedGender(Gender gender) {
+    _selectedGender = gender;
+    widget.onChanged(gender);
     setState(() {
-      _selectedGender = gender;
+      if (gender != _selectedGender) {
+        animate = false;
+      }
+      else {
+        animate = true;
+      }
     });
-    print(_selectedGender);
-  }
-
-  Gender getGender() {
-    return _selectedGender;
   }
 }

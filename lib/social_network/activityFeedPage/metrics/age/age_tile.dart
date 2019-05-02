@@ -1,13 +1,13 @@
+import 'package:fitapp/social_network/activityFeedPage/metrics/age/age_slider.dart';
 import 'package:fitapp/social_network/activityFeedPage/metrics/card_tile.dart';
 import 'package:fitapp/social_network/activityFeedPage/metrics/screenAware.dart' show screenAwareSize;
 import 'package:flutter/material.dart';
-import 'package:fitapp/social_network/activityFeedPage/metrics/weight/weight_background.dart';
-import 'package:fitapp/social_network/activityFeedPage/metrics/weight/weight_slider.dart';
+import 'package:fitapp/social_network/activityFeedPage/metrics/age/age_background.dart';
 
-class WeightCard extends StatelessWidget {
-  final int initialWeight;
+class AgeCard extends StatelessWidget {
+  final int age;
   final ValueChanged<int> onChanged;
-  const WeightCard({Key key, this.initialWeight = 100, this.onChanged}) : super(key: key);
+  const AgeCard({Key key, this.age = 25, this.onChanged}) : super(key: key);
 
 
   @override
@@ -18,7 +18,7 @@ class WeightCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            CardTitle("WEIGHT", subtitle: "(Lbs)"),
+            CardTitle("AGE"),
             Expanded(
               child: Center(
                 child: Padding(
@@ -34,15 +34,15 @@ class WeightCard extends StatelessWidget {
   }
 
   Widget _drawSlider() {
-    return WeightBackground(
+    return AgeBackground(
       child: LayoutBuilder(
         builder: (context, constraints) {
           return constraints.isTight
               ? Container()
-              : WeightSlider(
-            minValue: 30,
-            maxValue: 300,
-            value: initialWeight,
+              : AgeSlider(
+            minValue: 1,
+            maxValue: 100,
+            value: age,
             onChanged: (val) => onChanged(val),
             width: constraints.maxWidth,
           );
