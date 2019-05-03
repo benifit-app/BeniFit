@@ -16,7 +16,7 @@ class SliderLabel extends StatelessWidget {
         bottom: screenAwareSize(2.0, context),
       ),
       child: Text(
-        "$height",
+        "$height" + "  (" + cmToFeetAndInches(height) + ")",
         style: TextStyle(
           fontSize: selectedLabelFontSize,
           color: Theme.of(context).primaryColor,
@@ -24,5 +24,12 @@ class SliderLabel extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String cmToFeetAndInches (int cm){
+    int inches = (cm / 2.54).round();
+    double number = inches / 12;
+    int remain = inches % 12;
+    return number.round().toString()+"'"+remain.round().toString()+'"';
   }
 }
