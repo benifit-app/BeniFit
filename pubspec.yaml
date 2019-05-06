@@ -24,7 +24,7 @@ dependencies:
   google_maps_flutter: ^0.4.0
   nima: ^1.0.0
   flutter_svg: ^0.12.3
-  geoflutterfire: ^2.0.2
+  geoflutterfire: ^2.0.3+1
   rxdart: ^0.20.0
   firebase_core: ^0.3.0
   unicorndial: "^1.1.5"
