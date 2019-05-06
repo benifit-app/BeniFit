@@ -1,4 +1,4 @@
-import 'package:fitapp/social_network/activityFeedPage/metrics/height/height_tile.dart';
+import 'package:fitapp/social_network/activityFeedPage/metrics/metrics.dart';
 import 'package:fitapp/social_network/main/home_page.dart';
 import "package:flutter/material.dart";
 import 'dart:async';
@@ -7,10 +7,6 @@ import 'package:fitapp/social_network/pages/profile_page.dart'; //for the user c
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:fitapp/social_network/activityFeedPage/view_user_post.dart';
-import 'package:fitapp/social_network/activityFeedPage/metrics/gender/gender_card_.dart';
-import 'package:fitapp/social_network/activityFeedPage/metrics/gender/original_gender/gender.dart';
-import 'package:fitapp/social_network/activityFeedPage/metrics/gender/overall_bar.dart';
-import 'package:fitapp/social_network/activityFeedPage/metrics/weight/weight_tile.dart';
 
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -44,10 +40,6 @@ class EditProfilePage extends StatelessWidget {
   TextEditingController bodyFatController = new TextEditingController();
   TextEditingController prBenchController = new TextEditingController();
   TextEditingController prSquatController = new TextEditingController();
-
-  Gender gender = Gender.other;
-  int height = 170;
-  int weight = 70;
 
   changeProfilePhoto(BuildContext Context) {
     return showDialog(
@@ -86,7 +78,7 @@ class EditProfilePage extends StatelessWidget {
   }
 
 
-  Widget buildTextField({String name, TextEditingController controller}) {
+  Widget buildTextField({String name, TextEditingController controller, TextInputType keyboard}) {
     return new Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -98,6 +90,7 @@ class EditProfilePage extends StatelessWidget {
           ),
         ),
         new TextField(
+          keyboardType: keyboard,
           controller: controller,
           decoration: new InputDecoration(
             hintText: name,
@@ -151,46 +144,13 @@ class EditProfilePage extends StatelessWidget {
                   children: <Widget>[
                     buildTextField(name: "Name", controller: nameController),
                     buildTextField(name: "Bio", controller: bioController),
-                    new Column(
-                      children: <Widget>[
-                        InputSummaryCard(
-                          gender: gender,
-                          weight: weight,
-                          height: height,
-                        ),
-                        new Row(
-                          children: <Widget>[
-                            new Expanded(
-                                child: new Container(
-                                  child: GenderCard_(),
-                                  height: 250,
-                            ))
-                          ],
-                        ),
-                        new Row(
-                          children: <Widget>[
-                            new Expanded(
-                                child: new Container(
-                                  child: WeightCard(),
-                                  height: 250,
-                                ))
-                          ],
-                        ),
-                        new Row(
-                          children: <Widget>[
-                            new Expanded(
-                                child: new Container(
-                                  child: HeightCard(),
-                                  height: 250,
-                                ))
-                          ],
-                        ),
-                      ],
+                    buildTextField(name: "PR Bench", controller: prBenchController, keyboard: TextInputType.numberWithOptions()),
+                    buildTextField(name: "PR Squat", controller: prSquatController, keyboard: TextInputType.numberWithOptions()),
+                    new Container(
+                      child: new InputPage(),
                     )
 //                    buildTextField(name: "Height", controller: heightController),
-//                    buildTextField(name: "Weight", controller: weightController),
-//                    buildTextField(name: "PR Bench", controller: prBenchController),
-//                    buildTextField(name: "PR Squat", controller: prSquatController),
+//                    buildTextField(name: "Weight", controller: weightController),,
 //                    buildTextField(name: "BMI", controller: bmiController),
 //                    buildTextField(name: "Body Fat", controller: bodyFatController),
                   ],

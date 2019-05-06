@@ -17,8 +17,8 @@ class HeightPicker extends StatefulWidget {
         this.height,
         this.widgetHeight,
         this.onChange,
-        this.maxHeight = 190,
-        this.minHeight = 145})
+        this.maxHeight = 225,
+        this.minHeight = 125})
       : super(key: key);
 
   int get totalUnits => maxHeight - minHeight;
@@ -107,7 +107,7 @@ class _HeightPickerState extends State<HeightPicker> {
     return Align(
       alignment: Alignment.bottomCenter,
       child: SvgPicture.asset(
-        "assets/images/man_drinking_water.svg",
+        "assets/images/guyo.svg",
         height: personImageHeight,
         width: personImageHeight / 3,
       ),
