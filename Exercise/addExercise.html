@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+    <head>
+        <script src="https://www.gstatic.com/firebasejs/5.8.3/firebase.js"></script>
+        <script>
+          // Initialize Firebase
+          var config = {
+            apiKey: "AIzaSyCBU5OflMm1BDP2rBsIdoc5xDbz5yWMpRU",
+            authDomain: "effit-51aa5.firebaseapp.com",
+            databaseURL: "https://effit-51aa5.firebaseio.com",
+            projectId: "effit-51aa5",
+            storageBucket: "effit-51aa5.appspot.com",
+            messagingSenderId: "512038169526"
+          };
+          firebase.initializeApp(config);
+        </script>
+    </head>
+
+    <body>
+        <h1>Converter:</h1><br>
+        <form name="myform">
+            Exercise Name: <input type="text" id='name' placeholder="Exercise Name..."><br>
+            Muscle Group: <input type="text" id='musclegroup' placeholder="Muscle Group...">
+        </form><br><br>
+
+        <button id='addToFirebase' onclick="addToFirebase()">Add Exercise to Firebase</button><br><br>
+
+        <p>Muscle Groups: Abdominals<br>Adductors<br>Quadriceps<br>Biceps<br>Shoulders<br>Chest<br>Hamstrings<br>Middle Back<br>Calves<br>Glutes<br>Lower Back<br>Lats<br>Triceps<br>Traps<br>Stationary<br>Forearms<br>Neck<br>Abductors<br>Treadmill<br>Biceps</p><br>
+    </body>
+    
+
+    <script>
+        //Get a reference to the firebase database
+        //FIX THIS ASAP******************
+        var database = firebase.firestore();
+
+        String.prototype.capitalize = function(){
+            return this.replace(/(?:^|\s)\S/g, function(a) {return a.toUpperCase();});
+        }
+
+        //function for adding into firebase
+        function addToFirebase(){
+            //Create local variables
+            var exercise_Name = document.getElementById('name').value.capitalize();
+            var muscle_Group = document.getElementById('musclegroup').value.capitalize();
+            
+            database.collection("NewExerciseDB").doc(exercise_Name).set({
+                    Exercise_Name: exercise_Name,
+                    Muscle_Group: muscle_Group,
+                    Exercise_Type : "NULL",
+                    Mechanics: "NULL",
+                    Equipment_Needed: "NULL",
+                    Spotter_Recommended: "NULL",
+                    Difficulty: "NULL",
+                    Description: "NULL",
+                })
+                .then(function() {
+                    // Data saved successfully!
+                    console.log("Exercise: " + exercise_Name + " Muscle Group: " + muscle_Group + " was saved!" + "\n");
+                })
+                .catch(function(error) {
+                    // The write failed...
+                    console.log("\nFailed to write: " + exercise_Name + " and muscle group: " + passMumuscle_Group + "\n")
+                });
+        }
+
+        function test(){
+            //Create local variables
+            var exercise_Name = document.getElementById('name').value.capitalize();
+            var muscle_Group = document.getElementById('musclegroup').value.capitalize();
+            alert("exercise name = " + exercise_Name + "\nmuscle group = " + muscle_Group);
+        }
+
+    </script>
+</html>
