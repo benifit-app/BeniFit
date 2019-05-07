@@ -27,6 +27,7 @@ final auth = FirebaseAuth.instance;
 final googleSignIn = new GoogleSignIn();
 final ref = Firestore.instance.collection('insta_users');
 final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+String currentUsername;
 
 User currentUserModel;
 
@@ -132,11 +133,10 @@ tryCreateUserRecord(BuildContext context) async {
         "photoUrl": user.photoUrl,
         "email": user.email,
         "displayName": user.displayName,
-        "age": 5,
         "gender": "",
-        "height": 170,
-        "weight": 100,
-        "bmi": 0,
+        "height": "",
+        "weight": "",
+        "bmi": "",
         "bodyFat": "",
         "prBench": "",
         "prSquat": "",
@@ -271,11 +271,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                     fontFamily: "Bangers",
                     color: Colors.black),
               ),
-              new Padding(
-                  padding: const EdgeInsets.only(bottom: 100.0)
-              ),
+              new Padding(padding: const EdgeInsets.only(bottom: 100.0)),
               new GestureDetector(
-                key: Key('googleLogin'),
                 onTap: login,
                 child: new Image.asset(
                   "assets/images/google_signin_button.png",
@@ -375,7 +372,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                   ),
                 ),
                 //Personal Trainer Tab
-                new ptMainPage()
+                new ptMainPage(currentDisplayName: currentUsername)
               ],
 //              controller: _tabController,
             )

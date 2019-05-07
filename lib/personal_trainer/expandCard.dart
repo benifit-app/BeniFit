@@ -33,7 +33,6 @@ class expandableCard extends StatelessWidget{
                     //padding: const EdgeInsets.only(left: 0.0, right: 20.0, top: 0.0, bottom: 10.0),
                     alignment: Alignment.center,
                     width: MediaQuery.of(context).size.width * .40,
-                    color: Colors.amber,
                     //constraints: ,
                     child: Container(child: Text(Exercise_Name, textAlign: TextAlign.center, softWrap: true,)),
                   ),
@@ -43,19 +42,18 @@ class expandableCard extends StatelessWidget{
                     children: <Widget>[
                       Container(
                         //padding: const EdgeInsets.only(left: 15.0, bottom: 5.0),
-                        alignment: Alignment.centerLeft,
-                        width: MediaQuery.of(context).size.width * .25,
-                        color: Colors.brown[100],
+                        alignment: Alignment.topLeft,
+                        //width: MediaQuery.of(context).size.width,
                         //child: Text(Muscle_Group, softWrap: true,),
                         child: Container(child: Text(Muscle_Group, textAlign: TextAlign.center, softWrap: true,)),
                       ),
-                      Row(
+                      /*Row(
                         //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
                           Container(
                             padding: const EdgeInsets.only(left: 5.0, right: 5.0),
                             alignment: Alignment.centerLeft,
-                            width: MediaQuery.of(context).size.width * .50,
+                            width: MediaQuery.of(context).size.width,
                             color: Colors.lightBlueAccent,
                             child: AutoSizeText(Difficulty, maxLines: 1,),
                           ),
@@ -66,7 +64,7 @@ class expandableCard extends StatelessWidget{
                             child: Text(Spotter, softWrap: true,),
                           ),
                         ],
-                      )
+                      )*/
                     ]
                   ),
                 ],
@@ -80,30 +78,26 @@ class expandableCard extends StatelessWidget{
                         Container(
                           //padding: const EdgeInsets.only(left: 20.0, right: 5.0),
                           alignment: Alignment.center,
-                          color: Colors.indigo[100],
                           width: MediaQuery.of(context).size.width * .30,
                           child: Text(Exercise_Type, softWrap: true,),
                         ),
                         Container(
                           //padding: const EdgeInsets.only(left: 15.0, right: 10.0),
                           alignment: Alignment.center,
-                          color: Colors.tealAccent,
                           width: MediaQuery.of(context).size.width * .30,
                           child: Text(Mechanic, softWrap: true,),
                         ),
                         Container(
                           //padding: const EdgeInsets.only(left: 15.0, right: 5.0),
                           alignment: Alignment.center,
-                          color: Colors.lime,
                           width: MediaQuery.of(context).size.width * .298,
                           child: Text(Equipment_Needed, softWrap: true,),
                         )
                       ]
                     ),
                     Container(
-                      //padding: const EdgeInsets.only(top: 5.0, left: 10.0, bottom: 10),
+                      padding: const EdgeInsets.only(top: 5.0, left: 10.0, bottom: 10, right: 5.0),
                       alignment: Alignment.centerLeft,
-                      color: Colors.deepPurpleAccent[100],
                       child: Text(Description, softWrap: true,)
                     )
                   ]

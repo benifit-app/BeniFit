@@ -2,8 +2,6 @@ import 'package:fitapp/social_network/main/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fitapp/social_network/feed/image_post.dart';
 import 'dart:async';
-import 'package:async/async.dart';
-import 'package:fitapp/main.dart';
 import 'dart:io';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -137,7 +135,6 @@ class _Feed extends State<Feed> with SingleTickerProviderStateMixin{
       result =
           'Failed invoking the getFeed function. Exception: $exception';
     }
-//    print(result);
 
     setState(() {
       feedData = listOfPosts;

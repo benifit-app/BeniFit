@@ -6,7 +6,6 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:fitapp/social_network/activityFeedPage/metrics/height/slider_label.dart';
-import 'package:fitapp/social_network/main/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -420,5 +419,4 @@ void main() {
     String feet = heightChecker.cmToFeetAndInches(170);
     expect(feet, "5" + "'" + "7" + '"');
   });
-
 }

@@ -34,7 +34,6 @@ class _exerciseSearchPage extends State<exerciseSearchPage> {
         ),
       ),
       leading: BackButton(color: Colors.black,),
-      //leading: FlatButton(onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.arrow_back),),
     );
   }
 
@@ -124,9 +123,9 @@ class _exerciseSearchPage extends State<exerciseSearchPage> {
 
     Future<QuerySnapshot> searchFuture = Firestore.instance
         .collection("NewExerciseDB")
-        //.where('Exercise_Name',  isGreaterThanOrEqualTo: searchValue[0])
+        .where('Exercise_Name',  isGreaterThanOrEqualTo: searchValue[0])
         //.where('Exercise_Name', isLessThanOrEqualTo: searchValue[fullLength-1])
-        .where('Muscle_Group', isEqualTo: searchValue)
+        //.where('Muscle_Group', isEqualTo: searchValue)
         .getDocuments();
 
     setState(() {
