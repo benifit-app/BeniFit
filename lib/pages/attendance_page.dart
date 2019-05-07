@@ -32,7 +32,7 @@ class AttendancePageState extends State<AttendancePage> {
               style: TextStyle(fontSize: 20),
             ),
             Text(
-              'The ${doc.data['quorum']}',
+              'The current quorum is ${doc.data['quorum']}',
               style: TextStyle(fontSize: 20),
             ),
             SizedBox(height: 12),
