@@ -5,7 +5,7 @@ import 'dart:async';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fitapp/social_network/pages/direct_message/direct_text.dart';
+import 'package:fitapp/social_network/pages/feed/direct_text.dart';
 import 'package:fitapp/social_network/pages/feed.dart';
 import 'package:fitapp/social_network/pages/upload_page.dart';
 import 'package:fitapp/social_network/feed/bottom_app_bar.dart';
@@ -132,10 +132,11 @@ tryCreateUserRecord(BuildContext context) async {
         "photoUrl": user.photoUrl,
         "email": user.email,
         "displayName": user.displayName,
+        "age": 5,
         "gender": "",
-        "height": "",
-        "weight": "",
-        "bmi": "",
+        "height": 170,
+        "weight": 100,
+        "bmi": 0,
         "bodyFat": "",
         "prBench": "",
         "prSquat": "",
@@ -329,7 +330,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 //Effit Tab
                 new Scaffold(
                   extendBody: true,
-                  floatingActionButton: _buildFab(context),
+                  floatingActionButton:  _tabController.index != 1 ?
+                  null : _buildFab(context),
                   floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
                   body: new PageView(
                     children: [

@@ -1,9 +1,10 @@
+import 'package:fitapp/social_network/activityFeedPage/metrics/gender/original_gender/gender.dart';
 import 'package:fitapp/social_network/main/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
 import 'package:fitapp/social_network/feed/image_post.dart';
-import 'package:fitapp/social_network/activityFeedPage/edit_profile_page.dart';
+import 'package:fitapp/social_network/pages/profile/edit_profile_page.dart';
 import 'package:nima/nima_actor.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -14,6 +15,8 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePage extends State<ProfilePage> {
   final String profileId;
+  _ProfilePage(this.profileId);
+
   String currentUserId = googleSignIn.currentUser.id;
   String view = "feed"; // default view
   bool isFollowing = false;
@@ -21,7 +24,7 @@ class _ProfilePage extends State<ProfilePage> {
   int postCount = 0;
   int followerCount = 0;
   int followingCount = 0;
-  _ProfilePage(this.profileId);
+
 
   editProfile() {
     EditProfilePage editPage = new EditProfilePage();
@@ -300,14 +303,15 @@ class _ProfilePage extends State<ProfilePage> {
           if (!snapshot.hasData)
             return new Container(
                 alignment: FractionalOffset.center,
-                padding: const EdgeInsets.only(top: 0.0),
-                child: new CircularProgressIndicator());
+                padding: const EdgeInsets.only(bottom: 10.0),
+                child: new CircularProgressIndicator()
+            );
           else if (view == "grid") {
             // build the grid
             return new GridView.count(
                 crossAxisCount: 3,
                 childAspectRatio: 1.0,
-//                    padding: const EdgeInsets.all(0.5),
+                padding: const EdgeInsets.only(bottom: 10.0),
                 mainAxisSpacing: 1.5,
                 crossAxisSpacing: 1.5,
                 shrinkWrap: true,
@@ -316,10 +320,14 @@ class _ProfilePage extends State<ProfilePage> {
                   return new GridTile(child: new ImageTile(imagePost));
                 }).toList());
           } else if (view == "feed") {
-            return new Column(
-                children: snapshot.data.map((ImagePost imagePost) {
-              return imagePost;
-            }).toList());
+            return new Container(
+              padding: EdgeInsets.only(bottom: 20.0),
+              child:  new Column(
+                  children: snapshot.data.map((ImagePost imagePost) {
+                    return imagePost;
+                  }).toList()
+              ),
+            );
           }
         },
       ));
@@ -348,12 +356,12 @@ class _ProfilePage extends State<ProfilePage> {
               appBar: new AppBar(
                 title: new Text(
                   user.username,
-                  style: const TextStyle(color: Colors.black),
+                  style: const TextStyle(color: Colors.white),
                 ),
                 actions: <Widget>[
-                  IconButton(icon: Icon(Icons.settings), onPressed: null)
+                  IconButton(icon: Icon(Icons.settings, color: Colors.white,), onPressed: null)
                 ],
-                backgroundColor: Colors.white,
+                backgroundColor: Colors.black,
               ),
               body: new ListView(
                 children: <Widget>[
@@ -544,16 +552,24 @@ class User {
       this.displayName,
       this.bio,
       this.followers,
-      this.following});
+      this.following,
+      this.height,
+      this.weight,
+      this.age,
+      });
 
-  final String email;
+  final String username;
   final String id;
   final String photoUrl;
-  final String username;
+  final String email;
   final String displayName;
   final String bio;
   final Map followers;
   final Map following;
+  final int height;
+  final int weight;
+  final int age;
+
 
   factory User.fromDocument(DocumentSnapshot document) {
     return new User(
@@ -565,8 +581,13 @@ class User {
       bio: document['bio'],
       followers: document['followers'],
       following: document['following'],
+      height: document['height'],
+      weight: document['weight'],
+      age: document['age'],
     );
   }
+
+
 }
 
 void openProfile(BuildContext context, String userId) {

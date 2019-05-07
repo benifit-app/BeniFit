@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fitapp/social_network/pages/direct_message/direct_text.dart';
+import 'package:fitapp/social_network/pages/feed/direct_text.dart';
 import 'package:fitapp/social_network/feed/upload_text.dart';
 import 'package:fitapp/social_network/pages/upload_page.dart';
 

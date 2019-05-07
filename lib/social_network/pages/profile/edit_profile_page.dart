@@ -1,3 +1,4 @@
+import 'package:fitapp/social_network/activityFeedPage/metrics/gender/original_gender/gender.dart';
 import 'package:fitapp/social_network/activityFeedPage/metrics/metrics.dart';
 import 'package:fitapp/social_network/main/home_page.dart';
 import "package:flutter/material.dart";
@@ -40,6 +41,17 @@ class EditProfilePage extends StatelessWidget {
   TextEditingController bodyFatController = new TextEditingController();
   TextEditingController prBenchController = new TextEditingController();
   TextEditingController prSquatController = new TextEditingController();
+  Gender gender;
+  int height;
+  int weight;
+  int age;
+
+  void onMultiSelectStarted(int inputHeight, int inputWeight, int inputAge, Gender inputGender) {
+     height = inputHeight;
+     weight = inputWeight;
+     age = inputAge;
+     gender = inputGender;
+  }
 
   changeProfilePhoto(BuildContext Context) {
     return showDialog(
@@ -66,14 +78,15 @@ class EditProfilePage extends StatelessWidget {
         .collection('insta_users')
         .document(currentUserModel.id)
         .updateData({
+      "height": height,
+      "weight": weight,
       "displayName": nameController.text,
       "bio": bioController.text,
-      "height": heightController.text,
-      "weight": weightController.text,
       "bmi": bmiController.text,
       "bodyFat": bodyFatController.text,
       "prBench": prBenchController.text,
       "prSquat": prSquatController.text,
+      "age": age,
     });
   }
 
@@ -111,12 +124,17 @@ class EditProfilePage extends StatelessWidget {
           if (!snapshot.hasData)
             return new Container(
                 alignment: FractionalOffset.center,
-                child: new CircularProgressIndicator());
+                child: new CircularProgressIndicator()
+            );
 
           User user = new User.fromDocument(snapshot.data);
 
           nameController.text = user.displayName;
           bioController.text = user.bio;
+          height = user.height;
+          weight = user.weight;
+          age = user.age;
+
 
           return new Column(
             children: <Widget>[
@@ -147,7 +165,13 @@ class EditProfilePage extends StatelessWidget {
                     buildTextField(name: "PR Bench", controller: prBenchController, keyboard: TextInputType.numberWithOptions()),
                     buildTextField(name: "PR Squat", controller: prSquatController, keyboard: TextInputType.numberWithOptions()),
                     new Container(
-                      child: new InputPage(),
+                      child: new InputPage(
+                        multiSeleceted: onMultiSelectStarted,
+                        height: height,
+                        weight: weight,
+                        age: age,
+                        gender: gender,
+                      ),
                     )
 //                    buildTextField(name: "Height", controller: heightController),
 //                    buildTextField(name: "Weight", controller: weightController),,

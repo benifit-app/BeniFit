@@ -7,7 +7,7 @@ import 'package:fitapp/social_network/activityFeedPage/metrics/weight/weight_sli
 class WeightCard extends StatelessWidget {
   final int initialWeight;
   final ValueChanged<int> onChanged;
-  const WeightCard({Key key, this.initialWeight = 100, this.onChanged}) : super(key: key);
+  const WeightCard({Key key, this.initialWeight, this.onChanged}) : super(key: key);
 
 
   @override

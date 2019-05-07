@@ -43,12 +43,12 @@ class _Feed extends State<Feed> with SingleTickerProviderStateMixin{
           children: <Widget>[
             new Flexible(
                 child: new ListView(
-                  padding: EdgeInsets.all(0.0),
+                  padding: EdgeInsets.only(bottom: 50.0),
                   children: feedData,
                   controller: _scrollController,
                   scrollDirection: Axis.vertical,
-                )
-            )
+                ),
+            ),
           ],
         )
       );
@@ -137,7 +137,7 @@ class _Feed extends State<Feed> with SingleTickerProviderStateMixin{
       result =
           'Failed invoking the getFeed function. Exception: $exception';
     }
-    print(result);
+//    print(result);
 
     setState(() {
       feedData = listOfPosts;

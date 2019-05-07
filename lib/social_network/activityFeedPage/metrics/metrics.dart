@@ -7,16 +7,40 @@ import 'package:fitapp/social_network/activityFeedPage/metrics/weight/weight_til
 import 'package:flutter/material.dart';
 
 class InputPage extends StatefulWidget {
-  @override
-  InputPageState createState() => new InputPageState();
+  final Gender gender;
+  final int height;
+  final int weight;
+  final int age;
+  final Function multiSeleceted;
 
+  InputPage({Key key, this.multiSeleceted, this.gender, this.height, this.weight, this.age})
+      : super(key: key);
+
+  @override
+  InputPageState createState() => new InputPageState(this.weight, this.height, this.age, this.gender);
 }
 
 class InputPageState extends State<InputPage> {
+  final int inputAge;
+  final int inputHeight;
+  final Gender inputGender;
+  final int inputWeight;
+
+  InputPageState(this.inputWeight, this.inputHeight, this.inputAge, this.inputGender);
+
   Gender gender = Gender.other;
   int height = 170;
   int weight = 70;
-  int age = 25;
+  int age = 99;
+
+  @override
+  void initState() {
+    super.initState();
+    this.gender = inputGender;
+    this.age = inputAge;
+    this.height = inputHeight;
+    this.weight = inputWeight;
+  }
 
   Widget build(BuildContext context) {
     return Column(
@@ -42,7 +66,10 @@ class InputPageState extends State<InputPage> {
                 child: new Container(
                   child: GenderCard_(
                     initialGender: gender,
-                    onChanged: (val) => setState(() => gender = val),
+                    onChanged: (val) => setState(() {
+                      widget.multiSeleceted(this.height, this.weight, this.age, this.gender);
+                      return gender = val;
+                    }),
                   ),
                   height: 250,
                 ))
@@ -54,7 +81,10 @@ class InputPageState extends State<InputPage> {
                 child: new Container(
                   child: WeightCard(
                     initialWeight: weight,
-                    onChanged: (val) => setState(() => weight = val),
+                    onChanged: (val) => setState(() {
+                      widget.multiSeleceted(this.height, this.weight, this.age, this.gender);
+                      return weight = val;
+                    }),
                   ),
                   height: 200,
                 )
@@ -63,7 +93,10 @@ class InputPageState extends State<InputPage> {
                 child: new Container(
                   child: AgeCard(
                     age: age,
-                    onChanged: (val) => setState(() => age = val),
+                    onChanged: (val) => setState(() {
+                      widget.multiSeleceted(this.height, this.weight, this.age, this.gender);
+                      return age = val;
+                    }),
                   ),
                   height: 200,
                 )
@@ -76,7 +109,10 @@ class InputPageState extends State<InputPage> {
                 child: new Container(
                   child: HeightCard(
                     height: height,
-                    onChanged: (val) => setState(() => height = val),
+                    onChanged: (val) => setState(() {
+                      widget.multiSeleceted(this.height, this.weight, this.age, this.gender);
+                      return height = val;
+                    }),
                   ),
                   height: 500,
                 ))
