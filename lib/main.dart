@@ -254,7 +254,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 new Container(
                   color: Colors.white,
-                  child: new AttendancePage(attendanceValue: attendanceValue),
+                  child: new AttendancePage(/*attendanceValue: attendanceValue*/),
                 ),
               ],
               controller: pageController,
