@@ -26,6 +26,8 @@ class _routineBuilderBuilder extends State<routineBuilderBuilder>{
   validDifficulty _selectDifficulty;
   validRoutine _selectRoutine;
 
+  //global variables
+  String routineName;
 
   //
   questionRadioTile(passRadioPrompt, passGroupValue){
@@ -48,7 +50,7 @@ class _routineBuilderBuilder extends State<routineBuilderBuilder>{
     );
   }
 
-  QuestionOne(){
+  Question(){
     return ListView(
       children: <Widget>[
 
@@ -56,8 +58,61 @@ class _routineBuilderBuilder extends State<routineBuilderBuilder>{
     );
   }
 
+  buildSearchField() {
+    return new TextFormField(
+          keyboardType: TextInputType.text,
+          decoration: new InputDecoration(labelText: 'Name Your Routine...'),
+          onFieldSubmitted: submit,
+        );
+  }
+
+  buildSearchFieldIOS(){
+    return new CupertinoTextField(
+        keyboardType: TextInputType.text,
+        clearButtonMode: OverlayVisibilityMode.editing,
+        placeholder: "Name your routine...",
+        onSubmitted: submit,
+      );
+  }
+
+  void submit(String passRoutineName) async {
+    //Set routine name = whatever was in the text field
+    routineName = passRoutineName;
+  }
+
   //builder for the page
   Widget build(BuildContext context){
+      return Scaffold(
+        appBar: Platform.isIOS ? buildTopBarIOS() : buildTopBarAndroid(),
+        body: Column(
+          children: <Widget>[
+            Container(
+                child: Text("How Many Days would you like the Routine to be?")
+            ),
 
+            //Questions with the radio buttons
+            Question(),
+
+            //Container for the Routine
+            Container(
+              child: Platform.isIOS ? buildSearchFieldIOS() : buildSearchField(),
+            ),
+
+            //Container for the Submit Button
+            Container(
+              // https://medium.com/flutter-community/flutter-push-pop-push-1bb718b13c31
+              child: new GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (BuildContext context) => new exerciseSearchPage())
+                  );
+                },
+                child: button,
+              ),
+            ),
+          ],
+        )
+      );
   }
 }

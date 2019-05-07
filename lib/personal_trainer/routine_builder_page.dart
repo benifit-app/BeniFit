@@ -8,6 +8,11 @@ import 'dart:io';
 
 
 class routineBuilderPage extends StatefulWidget{
+  final String currentDisplayName;
+
+  routineBuilderPage({Key key, @required this.currentDisplayName}) : super(key: key);
+
+  @override
   _routineBuilderPage createState() => new _routineBuilderPage();
 }
 
@@ -33,16 +38,7 @@ class _routineBuilderPage extends State<routineBuilderPage>{
     return ListView(
       children: <Widget>[
         //wrap cards in gesture detector to make them clickable
-        new GestureDetector(
-          onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(builder: (BuildContext context) => new exerciseSearchPage())
-            );
-          },
-          child: new menuCard("New Routine", 250, "assets/images/new.png", BoxFit.cover, Alignment.center, BorderRadius.circular(20)),
-        ),
-
+        //Card for showing the user's routines
         new GestureDetector(
           onTap: () {
             Navigator.push(
