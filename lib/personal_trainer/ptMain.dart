@@ -17,22 +17,22 @@ class ptMainPage extends StatefulWidget{
 
 class _ptMainPage extends State<ptMainPage>{
 
-  buildNavigationBarIOS(passDisplayName){
+  buildNavigationBarIOS(){
     return new CupertinoPageScaffold(
       backgroundColor: Colors.white,
-      child: buildListView(passDisplayName)
+      child: buildListView()
     );
   }
 
-  buildNavigationBarAndroid(passDisplayName){
+  buildNavigationBarAndroid(){
     return Scaffold(
       backgroundColor: Colors.white,
-      body: buildListView(passDisplayName),
+      body: buildListView(),
     );
   }
 
 
-  buildListView(passDisplayName){
+  buildListView(){
     return ListView(
       children: <Widget>[
         //wrap cards in gesture detector to make them clickable
@@ -40,7 +40,7 @@ class _ptMainPage extends State<ptMainPage>{
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (BuildContext context) => new routineBuilderPage(passDisplayName))
+              MaterialPageRoute(builder: (BuildContext context) => new routineBuilderPage(currentDisplayName: widget.currentDisplayName,))
             );
           },
           child: new menuCard("Routine Builder", 250,  "assets/images/checklist.jpg", BoxFit.cover, Alignment.center, BorderRadius.circular(20)),
@@ -61,6 +61,6 @@ class _ptMainPage extends State<ptMainPage>{
 
   //builder for the page
   Widget build(BuildContext context){
-    return Platform.isIOS ? buildNavigationBarIOS(widget.currentDisplayName) : buildNavigationBarAndroid(widget.currentDisplayName);
+    return Platform.isIOS ? buildNavigationBarIOS() : buildNavigationBarAndroid();
   }
 }

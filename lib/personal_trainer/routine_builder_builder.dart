@@ -16,6 +16,11 @@ enum validDifficulty {beginner, intermediate, advanced}
 enum validRoutine{pushpull, pushpulllegs, brosplit}
 
 class routineBuilderBuilder extends StatefulWidget{
+  final String currentDisplayName;
+
+  routineBuilderBuilder({Key key, @required this.currentDisplayName}) : super(key: key);
+
+  @override
   _routineBuilderBuilder createState() => new _routineBuilderBuilder();
 }
 
@@ -28,6 +33,7 @@ class _routineBuilderBuilder extends State<routineBuilderBuilder>{
 
   //global variables
   String routineName;
+  int totalDays;
 
   //
   questionRadioTile(passRadioPrompt, passGroupValue){
@@ -108,7 +114,7 @@ class _routineBuilderBuilder extends State<routineBuilderBuilder>{
                       MaterialPageRoute(builder: (BuildContext context) => new exerciseSearchPage())
                   );
                 },
-                child: button,
+                //child: button,
               ),
             ),
           ],

@@ -368,7 +368,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                   ),
                 ),
                 //Personal Trainer Tab
-                new ptMainPage(currentUserModel.displayName)
+                new ptMainPage(currentDisplayName: currentUserModel.displayName)
               ],
 //              controller: _tabController,
             )

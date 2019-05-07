@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:fitapp/personal_trainer/menu_Card.dart';
 import 'package:fitapp/personal_trainer/exercise_search.dart';
 import 'package:fitapp/personal_trainer/routine_builder_search.dart';
+import 'package:fitapp/personal_trainer/routine_builder_results.dart';
 import 'dart:async';
 import 'dart:io';
 
@@ -43,7 +44,7 @@ class _routineBuilderPage extends State<routineBuilderPage>{
           onTap: () {
             Navigator.push(
                 context,
-                MaterialPageRoute(builder: (BuildContext context) => new exerciseSearchPage())
+                MaterialPageRoute(builder: (BuildContext context) => new routineResultsPage(parameter: widget.currentDisplayName, searchType: 1,))
             );
           },
           child: new menuCard("My Routines", 250, "assets/images/checklist.jpg", BoxFit.cover, Alignment.center, BorderRadius.circular(20)),
@@ -63,7 +64,7 @@ class _routineBuilderPage extends State<routineBuilderPage>{
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (BuildContext context) => new routineSearchPage())
+              MaterialPageRoute(builder: (BuildContext context) => new routineResultsPage(parameter: widget.currentDisplayName, searchType: 0,))
             );
           },
           child: new menuCard("Routine Search", 250, "assets/images/search.png", BoxFit.cover, Alignment.center, BorderRadius.circular(20)),
