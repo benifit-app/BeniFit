@@ -14,7 +14,7 @@ class AttendancePageState extends State<AttendancePage> {
   final db = Firestore.instance;
   final _formKey = GlobalKey<FormState>();
   String name;
-  int attendance;
+  //int attendance;
 
   Card buildItem(DocumentSnapshot doc) {
     return Card(
@@ -24,11 +24,15 @@ class AttendancePageState extends State<AttendancePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              'name: ${doc.data['name']}',
+              '${doc.data['Name']}',
               style: TextStyle(fontSize: 24),
             ),
             Text(
-              'todo: ${doc.data['todo']}',
+              'Hi there ${doc.data['Hi there']}',
+              style: TextStyle(fontSize: 20),
+            ),
+            Text(
+              'The ${doc.data['quorum']}',
               style: TextStyle(fontSize: 20),
             ),
             SizedBox(height: 12),
@@ -37,7 +41,7 @@ class AttendancePageState extends State<AttendancePage> {
               children: <Widget>[
                 FlatButton(
                   onPressed: () => updateData(doc),
-                  child: Text('Update todo', style: TextStyle(color: Colors.white)),
+                  child: Text('New greet', style: TextStyle(color: Colors.white)),
                   color: Colors.green,
                 ),
                 SizedBox(width: 8),
@@ -57,7 +61,7 @@ class AttendancePageState extends State<AttendancePage> {
     return TextFormField(
       decoration: InputDecoration(
         border: InputBorder.none,
-        hintText: 'name',
+        hintText: 'Name',
         fillColor: Colors.grey[300],
         filled: true,
       ),  //InputDecoration
@@ -117,7 +121,7 @@ class AttendancePageState extends State<AttendancePage> {
   void createData() async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      DocumentReference ref = await db.collection('AttendancePage').add({'name': '$name', 'todo': randomTodo()});
+      DocumentReference ref = await db.collection('AttendancePage').add({'Name': '$name', 'Hi there': randomTodo(), 'quorum': '1'});
       setState(() => id = ref.documentID);
       print(ref.documentID);
     }
@@ -125,11 +129,11 @@ class AttendancePageState extends State<AttendancePage> {
 
   void readData() async {
     DocumentSnapshot snapshot = await db.collection('AttendancePage').document(id).get();
-    print(snapshot.data['name']);
+    print(snapshot.data['Name']);
   }
 
   void updateData(DocumentSnapshot doc) async {
-    await db.collection('AttendancePage').document(doc.documentID).updateData({'todo': 'please'});
+    await db.collection('AttendancePage').document(doc.documentID).updateData({'Hi there': randomTodo()});
   }
 
   void deleteData(DocumentSnapshot doc) async {
@@ -137,34 +141,26 @@ class AttendancePageState extends State<AttendancePage> {
     setState(() => id = null);
   }
 
+  /*
   void addAttendance(DocumentSnapshot doc) async {
     await db.collection('AttendancePage').document("attendanceValue").updateData(["currAttendance": FieldValue.increment(1)]);
-  }
-}
-
-  void _incrementCounter() async {
-    await db.collection('AttendancePage').document((doc.documentID).updateData({))
-    int counter = (prefs.getInt('_AttendanceValue') ?? 0) + 1;
-    value = "$counter";
-    print('Pressed $counter times.');
-    await prefs.setInt('counter', counter);
-  }
+  }*/
 
   String randomTodo() {
     final randomNumber = Random().nextInt(4);
     String todo;
     switch (randomNumber) {
       case 1:
-        todo = 'Yea. Keep coming each day!';
+        todo = 'keep coming each day! Yeah!';
         break;
       case 2:
-        todo = 'Welcome to the club!';
+        todo = 'welcome to the club!';
         break;
       case 3:
-        todo = 'Invite someone with you next time!';
+        todo = 'invite someone with you next time!';
         break;
       default:
-        todo = 'We\'re glad you are here!';
+        todo = 'we\'re glad you are here!';
         break;
     }
     return todo;
