@@ -1,3 +1,4 @@
+import 'package:fitapp/Themes.dart';
 import 'package:fitapp/personal_trainer/ptMain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -140,6 +141,7 @@ tryCreateUserRecord(BuildContext context) async {
         "prBench": "",
         "prSquat": "",
         "bio": "",
+        "theme": "",
         "followers": {},
         "following": {},
       });
@@ -297,6 +299,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     return googleSignIn.currentUser == null
         ? buildLoginPage() :
     new MaterialApp(
+      theme: currentTheme,
+
       home: DefaultTabController(
         length: 3,
         initialIndex: 1,
@@ -355,7 +359,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                   bottomNavigationBar: _tabController.index != 1 ?
                   new BottomAppBar() :
                   new FABBottomAppBar(
-                    color: Colors.grey,
+                    color: Theme.of(context).buttonColor,
                     selectedColor: Colors.black,
                     notchedShape: CircularNotchedRectangle(),
                     onTabSelected: _selectedTab,
