@@ -141,7 +141,7 @@ class routineCard extends StatelessWidget{
                   //exercises in the days
                   Container(
                       alignment: Alignment.center,
-                      child: ListView(children: constructDays(), shrinkWrap: true,),
+                      child: ListView(children: constructDays(), shrinkWrap: true, physics: const NeverScrollableScrollPhysics(),),
                   ),
                 ],
               ),

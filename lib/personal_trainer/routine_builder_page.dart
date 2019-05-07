@@ -64,7 +64,7 @@ class _routineBuilderPage extends State<routineBuilderPage>{
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (BuildContext context) => new routineResultsPage(parameter: widget.currentDisplayName, searchType: 0,))
+              MaterialPageRoute(builder: (BuildContext context) => new routineSearchPage())
             );
           },
           child: new menuCard("Routine Search", 250, "assets/images/search.png", BoxFit.cover, Alignment.center, BorderRadius.circular(20)),

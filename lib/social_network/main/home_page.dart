@@ -27,6 +27,7 @@ final auth = FirebaseAuth.instance;
 final googleSignIn = new GoogleSignIn();
 final ref = Firestore.instance.collection('insta_users');
 final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+String currentUsername;
 
 User currentUserModel;
 
@@ -88,6 +89,9 @@ Future<Null> _silentLogin(BuildContext context) async {
     await googleSignIn.currentUser.authentication;
     await auth.signInWithGoogle(
         idToken: credentials.idToken, accessToken: credentials.accessToken);
+    currentUsername = await Firestore.instance
+          .collection("insta_users")
+          .document(currentUserModel.id).get().then((doc){return doc.data['username'].toString();});
   }
 }
 
@@ -368,7 +372,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                   ),
                 ),
                 //Personal Trainer Tab
-                new ptMainPage(currentDisplayName: currentUserModel.displayName)
+                new ptMainPage(currentDisplayName: currentUsername)
               ],
 //              controller: _tabController,
             )
