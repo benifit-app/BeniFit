@@ -189,14 +189,14 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         context,
         MaterialPageRoute(builder: (context) => TextUpload()),
       );
-    };
-    if(_lastSelected == 'FAB: 1'){
+    }
+    else if(_lastSelected == 'FAB: 1'){
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => Uploader()),
       );
-    };
-    if(_lastSelected == 'FAB: 2'){
+    }
+    else if (_lastSelected == 'FAB: 2'){
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => ChatScreen()),
@@ -401,4 +401,3 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   }
 
 }
-
