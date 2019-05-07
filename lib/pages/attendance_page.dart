@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:math';
 
+class NameFieldValidator {
+  static String validate(String value) {
+    return value.isEmpty ? 'Please enter your name' : null;
+  }
+}
+
 class AttendancePage extends StatefulWidget {
   @override
   AttendancePageState createState(){
@@ -65,11 +71,7 @@ class AttendancePageState extends State<AttendancePage> {
         fillColor: Colors.grey[300],
         filled: true,
       ),  //InputDecoration
-      validator: (value) {
-        if (value.isEmpty) {
-          return 'Please enter some text';
-        }
-      },
+      validator: NameFieldValidator.validate,
       onSaved: (value) => name = value,
     );  //TextFormField
   }
