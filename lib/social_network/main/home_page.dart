@@ -271,8 +271,11 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                     fontFamily: "Bangers",
                     color: Colors.black),
               ),
-              new Padding(padding: const EdgeInsets.only(bottom: 100.0)),
+              new Padding(
+                  padding: const EdgeInsets.only(bottom: 100.0)
+              ),
               new GestureDetector(
+                key: Key('googleLogin'),
                 onTap: login,
                 child: new Image.asset(
                   "assets/images/google_signin_button.png",

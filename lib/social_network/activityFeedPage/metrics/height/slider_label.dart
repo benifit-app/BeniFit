@@ -27,9 +27,9 @@ class SliderLabel extends StatelessWidget {
   }
 
   String cmToFeetAndInches (int cm){
-    int inches = (cm / 2.54).round();
+    double inches = (cm / 2.54);
     double number = inches / 12;
-    int remain = inches % 12;
-    return number.round().toString()+"'"+remain.round().toString()+'"';
+    int remain = (inches % 12).round();
+    return number.toInt().toString()+"'"+remain.round().toString()+'"';
   }
 }
