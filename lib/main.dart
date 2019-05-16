@@ -392,7 +392,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                         title: new Container(height:  0.0),
                         backgroundColor: Colors.white),
                       new BottomNavigationBarItem(
-                        icon: new Icon(Icons.group_add, color: (_page == 6) ? Colors.black : Colors.grey),
+                        icon: new Icon(Icons.event_available, color: (_page == 6) ? Colors.black : Colors.grey),
                         backgroundColor: Colors.white),
                     ],
                     onTap: navigationTapped,
