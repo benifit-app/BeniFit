@@ -350,8 +350,12 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                       ),
                       new Container(
                         color: Colors.white,
+                        child: new Pedometer()
+                      ),
+                      new Container(
+                        color: Colors.white,
                         child: new AttendancePage()
-                      )
+                      ),
                     ],
                     controller: pageController,
                     physics: new NeverScrollableScrollPhysics(),
