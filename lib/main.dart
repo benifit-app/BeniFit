@@ -15,6 +15,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:fitapp/personal_trainer/exercise_search.dart';
 import 'package:fitapp/pages/Activity_Locator_Page/Map_App.dart';
 import 'package:fitapp/pages/pedometer_tool.dart';
+import 'package:fitapp/pages/attendance_page.dart';
 import 'dart:io' show Platform;
 
 //for accessing functions in other .dart files
