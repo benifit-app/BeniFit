@@ -75,6 +75,22 @@ class _FancyFabState extends State<FancyFab>
     isOpened = !isOpened;
   }
 
+  Widget pedometer() {
+    return Container(
+      child: FloatingActionButton(
+        heroTag: 3,
+        onPressed: (){
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Pedometer()),
+          );
+        },
+        tooltip: 'Pedometer',
+        child: Icon(Icons.directions_walk),
+      ),
+    );
+  }
+
   Widget add() {
     return Container(
       child: FloatingActionButton(
