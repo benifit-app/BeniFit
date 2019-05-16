@@ -348,6 +348,10 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                           color: Colors.white,
                           child: new ProfilePage(userId: googleSignIn.currentUser.id,)
                       ),
+                      new Container(
+                        color: Colors.white,
+                        child: new AttendancePage()
+                      )
                     ],
                     controller: pageController,
                     physics: new NeverScrollableScrollPhysics(),
