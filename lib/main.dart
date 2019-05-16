@@ -14,8 +14,6 @@ import 'package:fitapp/main/create_account.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:fitapp/personal_trainer/exercise_search.dart';
 import 'package:fitapp/pages/Activity_Locator_Page/Map_App.dart';
-import 'package:fitapp/pages/pedometer_tool.dart';
-import 'package:fitapp/pages/attendance_page.dart';
 import 'dart:io' show Platform;
 
 //for accessing functions in other .dart files
@@ -348,14 +346,6 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                           color: Colors.white,
                           child: new ProfilePage(userId: googleSignIn.currentUser.id,)
                       ),
-                      new Container(
-                        color: Colors.white,
-                        child: new Pedometer()
-                      ),
-                      new Container(
-                        color: Colors.white,
-                        child: new AttendancePage()
-                      ),
                     ],
                     controller: pageController,
                     physics: new NeverScrollableScrollPhysics(),
@@ -387,13 +377,6 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                           icon: new Icon(Icons.person, color: (_page == 4) ? Colors.black : Colors.grey),
                           title: new Container(height: 0.0),
                           backgroundColor: Colors.white),
-                      new BottomNavigationBarItem(
-                        icon: new Icon(Icons.directions_walk, color: (_page == 5) ? Colors.black : Colors.grey),
-                        title: new Container(height:  0.0),
-                        backgroundColor: Colors.white),
-                      new BottomNavigationBarItem(
-                        icon: new Icon(Icons.event_available, color: (_page == 6) ? Colors.black : Colors.grey),
-                        backgroundColor: Colors.white),
                     ],
                     onTap: navigationTapped,
                     currentIndex: _page,
