@@ -75,6 +75,22 @@ class _FancyFabState extends State<FancyFab>
     isOpened = !isOpened;
   }
 
+  Widget attendance() {
+    return Container(
+      child: FloatingActionButton(
+        heroTag: 4,
+        onPressed: (){
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AttendancePage()),
+          );
+        },
+        tooltip: 'Attendance',
+        child: Icon(Icons.group_add),
+      ),
+    );
+  }
+
   Widget pedometer() {
     return Container(
       child: FloatingActionButton(
