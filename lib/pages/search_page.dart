@@ -16,6 +16,7 @@ class _SearchPage extends State<SearchPage> {
       backgroundColor: Colors.white,
       title: new Form(
         child: new TextFormField(
+          keyboardType: TextInputType.text,
           decoration: new InputDecoration(labelText: 'Search for a user...'),
           onFieldSubmitted: submit,
         ),
