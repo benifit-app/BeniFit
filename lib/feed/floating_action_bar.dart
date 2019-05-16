@@ -178,6 +178,14 @@ class _FancyFabState extends State<FancyFab>
         Transform(
           transform: Matrix4.translationValues(
             0.0,
+            _translateButton.value * 5.0,
+            0.0,
+          ),
+          child: attendance(),
+        ),
+        Transform(
+          transform: Matrix4.translationValues(
+            0.0,
             _translateButton.value * 4.0,
             0.0,
           ),
