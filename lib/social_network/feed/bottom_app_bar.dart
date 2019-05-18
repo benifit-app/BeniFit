@@ -66,7 +66,7 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: items,
       ),
-      color: Theme.of(context).primaryColor,
+      color: Colors.red,
     );
   }
 

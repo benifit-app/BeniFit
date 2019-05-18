@@ -20,7 +20,7 @@ class fitapp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         '/home': (_) => new HomePage(), // Home Page
       },
-      theme: currentTheme,
+      theme: redTheme,
 
       home: new HomePage(title: 'EFfit'),
     );
