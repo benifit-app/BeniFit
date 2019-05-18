@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+    <head>
+        <script src="https://www.gstatic.com/firebasejs/5.8.3/firebase.js"></script>
+        <script>
+          // Initialize Firebase
+          var config = {
+            apiKey: "AIzaSyCBU5OflMm1BDP2rBsIdoc5xDbz5yWMpRU",
+            authDomain: "effit-51aa5.firebaseapp.com",
+            databaseURL: "https://effit-51aa5.firebaseio.com",
+            projectId: "effit-51aa5",
+            storageBucket: "effit-51aa5.appspot.com",
+            messagingSenderId: "512038169526"
+          };
+          firebase.initializeApp(config);
+        </script>
+    </head>
+
+    <body>
+        <h1>Add Routine:</h1><br>
+        <form name="myform">
+            Routine Name: <input type="text" id='name' placeholder="Routine Name..."><br>
+            Name Of New Routine: <input type="text" id='newName' placeholder="New Name..."><br>
+        </form><br><br>
+
+        <button id='updateFirebase' onclick="updateFirebase()">Clone</button><br><br>
+
+        <p>Muscle Groups: Abdominals<br>Adductors<br>Quadriceps<br>Biceps<br>Shoulders<br>Chest<br>Hamstrings<br>Middle Back<br>Calves<br>Glutes<br>Lower Back<br>Lats<br>Triceps<br>Traps<br>Stationary<br>Forearms<br>Neck<br>Abductors<br>Treadmill<br>Biceps</p><br>
+    </body>
+    
+
+    <script>
+        //Get a reference to the firebase database
+        var database = firebase.firestore();
+
+        String.prototype.capitalize = function(){
+            return this.replace(/(?:^|\s)\S/g, function(a) {return a.toUpperCase();});
+        }
+
+        //function for adding into firebase
+        function updateFirebase(){
+            //Create local variables
+            var oldRoutineName = document.getElementById("name").value;
+            var newRoutineName = document.getElementById("newName").value;
+                       
+            database.collection("Routines").doc(oldRoutineName).get().then(function (doc) {
+                if (doc && doc.exists) {
+                    var data = doc.data();
+                    // saves the data to 'name'
+                    database.collection("Routines").doc(newRoutineName).set(data).then({
+                        // deletes the old document
+                        database:collection("Routines").doc(oldRoutineName).delete()
+                    });
+                }
+            });
+        }
+    </script>
+</html>

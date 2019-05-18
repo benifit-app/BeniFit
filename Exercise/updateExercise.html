@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+    <head>
+        <script src="https://www.gstatic.com/firebasejs/5.8.3/firebase.js"></script>
+        <script>
+          // Initialize Firebase
+          var config = {
+            apiKey: "AIzaSyCBU5OflMm1BDP2rBsIdoc5xDbz5yWMpRU",
+            authDomain: "effit-51aa5.firebaseapp.com",
+            databaseURL: "https://effit-51aa5.firebaseio.com",
+            projectId: "effit-51aa5",
+            storageBucket: "effit-51aa5.appspot.com",
+            messagingSenderId: "512038169526"
+          };
+          firebase.initializeApp(config);
+        </script>
+    </head>
+
+    <body>
+        <a href='addExercise.html'>To Add Exercise</a><br>
+        <a href='addRoutine.html'>To Add Routine</a><br><br>
+        <h1>Update Exercise:</h1><br>
+        <form name="myform">
+            Exercise Name: <input type="text" id='name' placeholder="Exercise Name..."><br>
+            <!--Muscle Group: <input type="text" id='musclegroup' placeholder="Muscle Group..."><br>-->
+            Exercise Type: <input type="text" id='exerciseType' placeholder="Exercise Type..."><br>
+            Mechanics: <input type="text" id='mechanics' placeholder="Mechanics..."><br>
+            Equipment Needed: <input type="text" id='equipmentNeeded' placeholder="Equipment Needed..."><br>
+            Difficulty: <input type="text" id='difficulty' placeholder="Difficulty..."><br>
+            Spotter Recommended: <input type="text" id='spotterRecommended' placeholder="Spotter Recommended..."><br>
+            Description: <textarea rows="4" cols="50" id="description" placeholder="Enter Description here..."></textarea>
+        </form><br><br>
+
+        <button id='updateFirebase' onclick="updateFirebase()">Update Exercise in Firebase</button><br><br>
+
+        <p>Muscle Groups: Abdominals<br>Adductors<br>Quadriceps<br>Biceps<br>Shoulders<br>Chest<br>Hamstrings<br>Middle Back<br>Calves<br>Glutes<br>Lower Back<br>Lats<br>Triceps<br>Traps<br>Stationary<br>Forearms<br>Neck<br>Abductors<br>Treadmill<br>Biceps</p><br>
+    </body>
+    
+
+    <script>
+        //Get a reference to the firebase database
+        var database = firebase.firestore();
+
+        String.prototype.capitalize = function(){
+            return this.replace(/(?:^|\s)\S/g, function(a) {return a.toUpperCase();});
+        }
+
+        //function for adding into firebase
+        function updateFirebase(){
+            //Create local variables
+            var exercise_Name = document.getElementById('name').value.capitalize();
+            //var muscle_Group = document.getElementById('musclegroup').value.capitalize();
+            var exerciseType = document.getElementById('exerciseType').value;
+            var mechanics = document.getElementById('mechanics').value;
+            var equipment_Needed = document.getElementById('equipmentNeeded').value;
+            var difficulty = document.getElementById('difficulty').value;
+            var spotter_Recommended = document.getElementById('spotterRecommended').value;
+            var description = document.getElementById('description').value;
+            
+            database.collection("NewExerciseDB").doc(exercise_Name).update({
+                    //Exercise_Name: exercise_Name,
+                    //Muscle_Group: muscle_Group,
+                    Exercise_Type : exerciseType,
+                    Mechanics: mechanics,
+                    Equipment_Needed: equipment_Needed,
+                    Spotter_Recommended: spotter_Recommended,
+                    Difficulty: difficulty,
+                    Description: description,
+                })
+                .then(function() {
+                    // Data saved successfully!
+                    console.log("Exercise: " + exercise_Name + " was Updated!" + "\n");
+                })
+                .catch(function(error) {
+                    // The write failed...
+                    console.log("\nFailed to Update: " + exercise_Name + "\n")
+                });
+        }
+    </script>
+</html>
