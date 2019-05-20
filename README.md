@@ -1,1 +1,1 @@
-# fitapp
+# EFFit
