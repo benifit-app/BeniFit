@@ -6,7 +6,7 @@ import 'dart:async';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fitapp/social_network/pages/direct_message/direct_text.dart';
+import 'package:fitapp/social_network/pages/feed/direct_text.dart';
 import 'package:fitapp/social_network/pages/feed.dart';
 import 'package:fitapp/social_network/pages/upload_page.dart';
 import 'package:fitapp/social_network/feed/bottom_app_bar.dart';
@@ -28,6 +28,7 @@ final auth = FirebaseAuth.instance;
 final googleSignIn = new GoogleSignIn();
 final ref = Firestore.instance.collection('insta_users');
 final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+String currentUsername;
 
 User currentUserModel;
 
@@ -259,6 +260,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
   Scaffold buildLoginPage() {
     return new Scaffold(
+      extendBody: true,
       body: new Center(
         child: new Padding(
           padding: const EdgeInsets.only(top: 240.0),
@@ -331,7 +333,9 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 new MapApp(),
                 //Effit Tab
                 new Scaffold(
-                  floatingActionButton: _buildFab(context),
+                  extendBody: true,
+                  floatingActionButton:  _tabController.index != 1 ?
+                  null : _buildFab(context),
                   floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
                   body: new PageView(
                     children: [
@@ -372,7 +376,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                   ),
                 ),
                 //Personal Trainer Tab
-                new ptMainPage(currentUserModel.displayName)
+                new ptMainPage(currentDisplayName: currentUsername)
               ],
 //              controller: _tabController,
             )
@@ -405,3 +409,4 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   }
 
 }
+

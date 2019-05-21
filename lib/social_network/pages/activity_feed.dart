@@ -35,7 +35,10 @@ class _ActivityFeedPageState extends State<ActivityFeedPage> {
                   padding: const EdgeInsets.only(top: 10.0),
                   child: new CircularProgressIndicator());
             else {
-              return new ListView(children: snapshot.data);
+              return new ListView(
+                padding: EdgeInsets.only(top: 10.0),
+                  children: snapshot.data
+              );
             }
           }),
     );

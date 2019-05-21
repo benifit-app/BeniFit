@@ -25,13 +25,14 @@ class _routineResultsPage extends State<routineResultsPage> {
     return new AppBar(
       backgroundColor: Colors.white,
       leading: BackButton(color: Colors.black,),
-      //leading: FlatButton(onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.arrow_back),),
+      title: Text("My Routines"),
     );
   }
 
   buildAppBarIOS(){
     return new CupertinoNavigationBar(
       leading: BackButton(color: Colors.black,),
+      middle: Text("My Routines"),
     );
   }
 

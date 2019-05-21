@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:fitapp/personal_trainer/menu_Card.dart';
 import 'package:fitapp/personal_trainer/exercise_search.dart';
 import 'package:fitapp/personal_trainer/routine_builder_search.dart';
+import 'package:fitapp/personal_trainer/routine_builder_results.dart';
+import 'package:fitapp/personal_trainer/routine_builder_builder.dart';
 import 'dart:async';
 import 'dart:io';
 
@@ -43,21 +45,21 @@ class _routineBuilderPage extends State<routineBuilderPage>{
           onTap: () {
             Navigator.push(
                 context,
-                MaterialPageRoute(builder: (BuildContext context) => new exerciseSearchPage())
+                MaterialPageRoute(builder: (BuildContext context) => new routineResultsPage(parameter: widget.currentDisplayName, searchType: 1,))
             );
           },
           child: new menuCard("My Routines", 250, "assets/images/checklist.jpg", BoxFit.cover, Alignment.center, BorderRadius.circular(20)),
         ),
 
-        new GestureDetector(
+        /*new GestureDetector(
           onTap: () {
             Navigator.push(
                 context,
-                MaterialPageRoute(builder: (BuildContext context) => new exerciseSearchPage())
+                MaterialPageRoute(builder: (BuildContext context) => new routineBuilderBuilder(currentDisplayName: widget.currentDisplayName))
             );
           },
           child: new menuCard("Random Routine", 250, "assets/images/question.png", BoxFit.cover, Alignment.center, BorderRadius.circular(20)),
-        ),
+        ),*/
 
         new GestureDetector(
           onTap: () {

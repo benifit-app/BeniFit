@@ -7,7 +7,7 @@ import 'package:fitapp/social_network/activityFeedPage/metrics/age/age_backgroun
 class AgeCard extends StatelessWidget {
   final int age;
   final ValueChanged<int> onChanged;
-  const AgeCard({Key key, this.age = 25, this.onChanged}) : super(key: key);
+  const AgeCard({Key key, this.age, this.onChanged}) : super(key: key);
 
 
   @override

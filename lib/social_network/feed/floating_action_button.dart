@@ -70,7 +70,7 @@ class FabWithIconsState extends State<FabWithIcons> with TickerProviderStateMixi
         }
       },
       tooltip: 'Increment',
-      child: Icon(Icons.add),
+      child: Icon(Icons.dehaze),
       elevation: 2.0,
     );
   }

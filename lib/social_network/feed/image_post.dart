@@ -140,8 +140,9 @@ class _ImagePost extends State<ImagePost> {
         mediaUrl.toString().startsWith("https://")
         ?  new ClipRRect(
             borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(0.0),
-                bottomRight: Radius.circular(0.0)),
+                topLeft: Radius.circular(10.0),
+                topRight: Radius.circular(10.0),
+            ),
             child: new CachedNetworkImage(
               imageUrl: mediaUrl,
               fit: BoxFit.fill,
@@ -151,6 +152,10 @@ class _ImagePost extends State<ImagePost> {
           ) :
         new Container(
           decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10.0),
+              topRight: Radius.circular(10.0),
+            ),
             gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
@@ -224,8 +229,8 @@ class _ImagePost extends State<ImagePost> {
                 color: Colors.transparent,
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(0.0),
-                    topRight: Radius.circular(0.0)),
-
+                    topRight: Radius.circular(0.0)
+                ),
               ),
               child: new Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -261,6 +266,10 @@ class _ImagePost extends State<ImagePost> {
           return Container(
               //margin: new EdgeInsets.only(bottom: 5.0),
               decoration: new BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(0.0),
+                  bottomLeft: Radius.circular(0.0),
+                ),
                 gradient:  LinearGradient(
                   begin: Alignment.topRight,
                   end: Alignment.bottomLeft,
@@ -268,10 +277,10 @@ class _ImagePost extends State<ImagePost> {
                   stops: [0.1, 0.5, 0.7, 0.9],
                   colors: [
                     // Colors are easy thanks to Flutter's Colors class.
-                    Colors.black87,
-                    Colors.black87,
-                    Colors.black87,
-                    Colors.black87,
+                    Colors.white,
+                    Colors.white,
+                    Colors.white,
+                    Colors.white,
                   ],
                 ),
 //                borderRadius: BorderRadius.only(
@@ -284,13 +293,13 @@ class _ImagePost extends State<ImagePost> {
                 backgroundColor: Colors.grey,
               ),
               title: new GestureDetector(
-                child: new Text(username, style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                child: new Text(username, style: new TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
                 onTap: () {
                   openProfile(context, ownerId);
                 },
               ),
               subtitle: new Text(this.location, style: new TextStyle(color: Colors.grey),),
-              trailing: const Icon(Icons.more_vert, color: Colors.white,),
+              trailing: const Icon(Icons.more_vert, color: Colors.black,),
             )
           );
         });
@@ -305,61 +314,80 @@ class _ImagePost extends State<ImagePost> {
   Widget build(BuildContext context) {
     liked = (likes[googleSignIn.currentUser.id.toString()] == true);
 
-    return new Container (
+    return new Container(
+      padding: EdgeInsets.only(
+        left: 10.0,
+        right: 10.0,
+      ),
       margin: EdgeInsets.only(top: 20.0),
       decoration: new BoxDecoration(
        // borderRadius: BorderRadius.all(Radius.circular(10.0)),
-        color: Colors.white,
+        color: Colors.transparent,
       ),
         child: new Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            buildPostHeader(ownerId: ownerId),
             buildLikeableImage(),
-            new Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                new Padding(padding: const EdgeInsets.only(left: 20.0, top: 40.0)),
-                buildLikeIcon(),
-                new Padding(padding: const EdgeInsets.only(right: 20.0)),
-                new GestureDetector(
-                    child: const Icon(
-                      FontAwesomeIcons.comment,
-                      size: 25.0,
-                    ),
-                    onTap: () {
-                      goToComments(
-                          context: context,
-                          postId: postId,
-                          ownerId: ownerId,
-                          mediaUrl: mediaUrl);
-                    }),
-              ],
+            buildPostHeader(ownerId: ownerId),
+            new Container(
+              color: Colors.white,
+              child: new Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  new Padding(padding: const EdgeInsets.only(left: 20.0, top: 40.0)),
+                  buildLikeIcon(),
+                  new Padding(padding: const EdgeInsets.only(right: 20.0)),
+                  new GestureDetector(
+                      child: const Icon(
+                        FontAwesomeIcons.comment,
+                        size: 25.0,
+                      ),
+                      onTap: () {
+                        goToComments(
+                            context: context,
+                            postId: postId,
+                            ownerId: ownerId,
+                            mediaUrl: mediaUrl);
+                      }),
+                ],
+              ),
             ),
-            new Row(
-              children: <Widget>[
-                new Container(
-                  margin: const EdgeInsets.only(left: 20.0),
-                  child: new Text(
-                    "$likeCount likes",
-                    style: boldStyle,
-                  ),
-                )
-              ],
-            ),
-            new Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                new Container(
-                    margin: const EdgeInsets.only(left: 20.0, bottom: 20.0),
+            new Container(
+              color: Colors.white,
+              child: new Row(
+                children: <Widget>[
+                  new Container(
+                    margin: const EdgeInsets.only(left: 20.0),
                     child: new Text(
-                      "$username ",
+                      "$likeCount likes",
                       style: boldStyle,
-                    )
-                ),
-                new Expanded(child: new Text(description)),
-              ],
-            )
+                    ),
+                  )
+                ],
+              ),
+            ),
+            new Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(10.0),
+                  bottomRight: Radius.circular(10.0),
+                )
+              ),
+              child:  new Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  new Container(
+                      margin: const EdgeInsets.only(left: 20.0, bottom: 20.0),
+                      child: new Text(
+                        "$username ",
+                        style: boldStyle,
+                      )
+                  ),
+                  new Expanded(child: new Text(description)),
+                ],
+              ),
+            ),
           ],
         )
     );
@@ -451,7 +479,7 @@ class ImagePostFromId extends StatelessWidget {
           if (!snapshot.hasData)
             return new Container(
                 alignment: FractionalOffset.center,
-                padding: const EdgeInsets.only(top: 10.0),
+                padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
                 child: new CircularProgressIndicator());
           return snapshot.data;
         });
