@@ -34,7 +34,7 @@ class _CommentScreenState extends State<CommentScreen> {
           "Comments",
           style: new TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.grey,
       ),
       body: buildPage(),
     );

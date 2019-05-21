@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fitapp/main.dart';
 
 class FABBottomAppBarItem {
   FABBottomAppBarItem({this.iconData, this.text});
@@ -65,7 +66,7 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: items,
       ),
-      color: widget.backgroundColor,
+      color: Colors.red,
     );
   }
 

@@ -16,9 +16,9 @@ class _ActivityFeedPageState extends State<ActivityFeedPage> {
       appBar: new AppBar(
         title: new Text(
           "Activity Feed",
-          style: new TextStyle(color: Colors.black),
+          style: new TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.grey,
       ),
      body: buildActivityFeed(),
     );

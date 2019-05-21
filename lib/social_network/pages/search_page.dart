@@ -12,11 +12,16 @@ class _SearchPage extends State<SearchPage> {
 
   buildSearchField() {
     return new AppBar(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey,
       title: new Form(
         child: new TextFormField(
+          decoration: new InputDecoration(
+              labelText: 'Search for a user...',
+              labelStyle: new TextStyle (
+                color: Colors.white,
+              ),
+          ),
           keyboardType: TextInputType.text,
-          decoration: new InputDecoration(labelText: 'Search for a user...'),
           onFieldSubmitted: submit,
         ),
       ),

@@ -6,6 +6,8 @@ import 'dart:async';
 import 'package:fitapp/social_network/feed/image_post.dart';
 import 'package:fitapp/social_network/pages/profile/edit_profile_page.dart';
 import 'package:nima/nima_actor.dart';
+import 'package:fitapp/settings.dart';
+import 'package:fitapp/main.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({this.userId});
@@ -359,9 +361,12 @@ class _ProfilePage extends State<ProfilePage> {
                   style: const TextStyle(color: Colors.white),
                 ),
                 actions: <Widget>[
-                  IconButton(icon: Icon(Icons.settings, color: Colors.white,), onPressed: null)
+                  IconButton(icon: Icon(Icons.settings),
+                      onPressed: () => Navigator.push(context,
+                        MaterialPageRoute(
+                        builder: (BuildContext context) => Settings() ) ) ),
                 ],
-                backgroundColor: Colors.black,
+                backgroundColor: Theme.of(context).primaryColor,
               ),
               body: new ListView(
                 children: <Widget>[
@@ -551,6 +556,7 @@ class User {
       this.email,
       this.displayName,
       this.bio,
+      this.theme,
       this.followers,
       this.following,
       this.height,
@@ -564,6 +570,7 @@ class User {
   final String email;
   final String displayName;
   final String bio;
+  final num theme;
   final Map followers;
   final Map following;
   final int height;
