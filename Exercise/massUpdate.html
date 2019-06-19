@@ -18,20 +18,14 @@
     <body>
         <a href='addExercise.html'>To Add Exercise</a><br>
         <a href='addRoutine.html'>To Add Routine</a><br><br>
-        <a href='massUpdate.html'>To Mass Update</a><br><br>
+        <a href='updateExercise.html'>To Update Exercise</a><br><br>
         <h1>Update Exercise:</h1><br>
         <form name="myform">
-            Exercise Name: <input type="text" id='name' placeholder="Exercise Name..."><br>
-            <!--Muscle Group: <input type="text" id='musclegroup' placeholder="Muscle Group..."><br>-->
-            Exercise Type: <input type="text" id='exerciseType' placeholder="Exercise Type..."><br>
-            Mechanics: <input type="text" id='mechanics' placeholder="Mechanics..."><br>
-            Equipment Needed: <input type="text" id='equipmentNeeded' placeholder="Equipment Needed..."><br>
-            Difficulty: <input type="text" id='difficulty' placeholder="Difficulty..."><br>
-            Spotter Recommended: <input type="text" id='spotterRecommended' placeholder="Spotter Recommended..."><br>
-            Description: <textarea rows="4" cols="50" id="description" placeholder="Enter Description here..."></textarea>
+            Keyword: <input type="text" id='keyword' placeholder="Barbell/Dumbbell/..."><br>
         </form><br><br>
 
-        <button id='updateFirebase' onclick="updateFirebase()">Update Exercise in Firebase</button><br><br>
+        <button id='updateFBKeyword' onclick="">Update Equipment with Keyword</button><br><br>
+        <button id='updateFirebase' onclick="updateFirebase()">Update Firebase: Add Array</button>
 
         <p>Muscle Groups: Abdominals<br>Adductors<br>Quadriceps<br>Biceps<br>Shoulders<br>Chest<br>Hamstrings<br>Middle Back<br>Calves<br>Glutes<br>Lower Back<br>Lats<br>Triceps<br>Traps<br>Stationary<br>Forearms<br>Neck<br>Abductors<br>Treadmill<br>Biceps</p><br>
     </body>
@@ -45,8 +39,9 @@
             return this.replace(/(?:^|\s)\S/g, function(a) {return a.toUpperCase();});
         }
 
+        /*
         //function for adding into firebase
-        function updateFirebase(){
+        function updateFBKeyword(){
             //Create local variables
             var exercise_Name = document.getElementById('name').value.capitalize();
             //var muscle_Group = document.getElementById('musclegroup').value.capitalize();
@@ -57,15 +52,15 @@
             var spotter_Recommended = document.getElementById('spotterRecommended').value;
             var description = document.getElementById('description').value;
             
-            database.collection("NewExerciseDB").doc(exercise_Name).update({
+            database.collection("NewExerciseDB").update({
                     //Exercise_Name: exercise_Name,
                     //Muscle_Group: muscle_Group,
-                    Exercise_Type : exerciseType,
-                    Mechanics: mechanics,
-                    Equipment_Needed: equipment_Needed,
-                    Spotter_Recommended: spotter_Recommended,
-                    Difficulty: difficulty,
-                    Description: description,
+                    //Exercise_Type : exerciseType,
+                    //Mechanics: mechanics,
+                    //Equipment_Needed: equipment_Needed,
+                    //Spotter_Recommended: spotter_Recommended,
+                    //Difficulty: difficulty,
+                    //Description: description,
                 })
                 .then(function() {
                     // Data saved successfully!
@@ -75,6 +70,33 @@
                     // The write failed...
                     console.log("\nFailed to Update: " + exercise_Name + "\n")
                 });
+        }*/
+        
+
+        function updateFirebase(){
+            database.collection("TestExerciseDB")
+            .get()
+            .then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                    let data = doc.data();
+                    let name = data["Exercise_Name"].split(" ");
+                    console.log(name);
+                    doc(keywords).set({
+                        keywords: name
+                    }, {merge: true});
+                });
+            })
+            .catch(function(error) {
+                console.log("Error getting documents: ", error);
+            });
+        }
+
+        function createArray(sentence){
+            var output;
+
+            sentence.split(" ");
+
+            return output;
         }
     </script>
 </html>
