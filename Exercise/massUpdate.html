@@ -13,13 +13,14 @@
           };
           firebase.initializeApp(config);
         </script>
+
     </head>
 
     <body>
         <a href='addExercise.html'>To Add Exercise</a><br>
         <a href='addRoutine.html'>To Add Routine</a><br><br>
         <a href='updateExercise.html'>To Update Exercise</a><br><br>
-        <h1>Update Exercise:</h1><br>
+        <h1>Mass Update Exercise:</h1><br>
         <form name="myform">
             Keyword: <input type="text" id='keyword' placeholder="Barbell/Dumbbell/..."><br>
         </form><br><br>
@@ -74,29 +75,33 @@
         
 
         function updateFirebase(){
-            database.collection("TestExerciseDB")
+
+            var reference = database.collection("NewExerciseDB");
+            reference
             .get()
             .then(function(querySnapshot) {
-                querySnapshot.forEach(function(doc) {
-                    let data = doc.data();
+                querySnapshot.forEach(function(snapDoc) {
+                    let data = snapDoc.data();
+                    let exName = data["Exercise_Name"];
                     let name = data["Exercise_Name"].split(" ");
                     console.log(name);
-                    doc(keywords).set({
+                    
+                    reference.doc(exName).set({
                         keywords: name
                     }, {merge: true});
+                    /*var tempRef = doc;
+                    var merge = tempRef.update({
+                        keywords: name
+                    }, {merge: true});
+                    doc.update({
+                        keywords: name
+                    }, {merge: true});*/
+                    console.log(name + " has been set!");
                 });
             })
             .catch(function(error) {
                 console.log("Error getting documents: ", error);
             });
-        }
-
-        function createArray(sentence){
-            var output;
-
-            sentence.split(" ");
-
-            return output;
         }
     </script>
 </html>
